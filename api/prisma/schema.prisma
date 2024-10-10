@@ -1,0 +1,82 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id       Int        @id @default(autoincrement())
+  nome     String
+  email    String     @unique
+  telefone String?
+  password String
+  role     String     @default("USER")
+  cpf      String     @unique
+  imagem   String? // Imagem única opcional para o usuário
+  endereco Endereco?
+  carrinho Carrinho[]
+  pedidos  Pedido[]
+}
+
+model Endereco {
+  id          Int     @id @default(autoincrement())
+  cep         String
+  cidade      String
+  bairro      String
+  logradouro  String
+  complemento String?
+  numero      String
+  userId      Int     @unique
+  user        User    @relation(fields: [userId], references: [id])
+}
+
+model Produto {
+  id          Int             @id @default(autoincrement())
+  nome        String          @unique // Adiciona a restrição de unicidade
+  preco       Float
+  estoque     Int
+  descricao   String?
+  carrinho    Carrinho[]
+  imagens     ImagemProduto[] // Relacionamento com a tabela de imagens
+  pedidoItens PedidoItem[] // Relacionamento com os itens de pedido
+}
+
+model ImagemProduto {
+  id        Int     @id @default(autoincrement())
+  url       String // URL da imagem
+  produtoId Int
+  produto   Produto @relation(fields: [produtoId], references: [id])
+}
+
+model Carrinho {
+  id         Int     @id @default(autoincrement())
+  userId     Int
+  produtoId  Int
+  quantidade Int
+  user       User    @relation(fields: [userId], references: [id])
+  produto    Produto @relation(fields: [produtoId], references: [id])
+}
+
+model Pedido {
+  id              Int          @id @default(autoincrement())
+  userId          Int
+  user            User         @relation(fields: [userId], references: [id])
+  total           Float
+  metodoPagamento String
+  enderecoEntrega String
+  data            DateTime     @default(now())
+  itens           PedidoItem[]
+}
+
+model PedidoItem {
+  id         Int     @id @default(autoincrement())
+  produtoId  Int
+  produto    Produto @relation(fields: [produtoId], references: [id])
+  quantidade Int
+  preco      Float
+  pedidoId   Int
+  pedido     Pedido  @relation(fields: [pedidoId], references: [id])
+}
