@@ -8,6 +8,8 @@ import carrinhoRoutes from "./routes/carrinhoRoutes.js";
 import pedidoRoutes from "./routes/pedidoRoutes.js";
 import produtoRoutes from "./routes/produtoRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
+import corRoutes from "./routes/corRoutes.js";
+import categoriaRoutes from "./routes/categoriaRoutes.js";
 
 // Carrega as variáveis de ambiente a partir do arquivo .env
 dotenv.config();
@@ -31,6 +33,8 @@ app.use(authRoutes);
 app.use(carrinhoRoutes);
 app.use(pedidoRoutes);
 app.use(produtoRoutes);
+app.use(categoriaRoutes);
+app.use(corRoutes);
 app.use(userRoutes);
 
 // Rota raiz para verificar se o servidor está rodando

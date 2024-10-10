@@ -1,12 +1,3 @@
-datasource db {
-  provider = "sqlite"
-  url      = "file:./dev.db"
-}
-
-generator client {
-  provider = "prisma-client-js"
-}
-
 model User {
   id       Int        @id @default(autoincrement())
   nome     String
@@ -15,7 +6,7 @@ model User {
   password String
   role     String     @default("USER")
   cpf      String     @unique
-  imagem   String? // Imagem única opcional para o usuário
+  imagem   String?    // Imagem única opcional para o usuário
   endereco Endereco?
   carrinho Carrinho[]
   pedidos  Pedido[]
@@ -33,15 +24,47 @@ model Endereco {
   user        User    @relation(fields: [userId], references: [id])
 }
 
-model Produto {
+model Categoria {
   id          Int             @id @default(autoincrement())
-  nome        String          @unique // Adiciona a restrição de unicidade
-  preco       Float
-  estoque     Int
-  descricao   String?
-  carrinho    Carrinho[]
-  imagens     ImagemProduto[] // Relacionamento com a tabela de imagens
-  pedidoItens PedidoItem[] // Relacionamento com os itens de pedido
+  nome        String          @unique
+  produtos    ProdutoCategoria[] // Relacionamento com produtos
+}
+
+model Produto {
+  id              Int             @id @default(autoincrement())
+  nome            String          @unique
+  preco           Float
+  estoque         Int
+  descricao       String
+  tituloInformacao String
+  informacao      String
+  cores           ProdutoCor[]    // Relacionamento com cores
+  categorias      ProdutoCategoria[] // Relacionamento com categorias
+  imagens         ImagemProduto[] 
+  carrinho        Carrinho[]      
+  pedidoItens     PedidoItem[]    
+}
+
+model ProdutoCor {
+  id        Int     @id @default(autoincrement())
+  corId     Int
+  produtoId Int
+  cor       Cor     @relation(fields: [corId], references: [id])
+  produto   Produto @relation(fields: [produtoId], references: [id])
+}
+
+model Cor {
+  id        Int         @id @default(autoincrement())
+  nome      String
+  produtos  ProdutoCor[] // Relacionamento com produtos
+}
+
+model ProdutoCategoria {
+  id          Int     @id @default(autoincrement())
+  categoriaId Int
+  produtoId   Int
+  categoria   Categoria @relation(fields: [categoriaId], references: [id])
+  produto     Produto   @relation(fields: [produtoId], references: [id])
 }
 
 model ImagemProduto {
