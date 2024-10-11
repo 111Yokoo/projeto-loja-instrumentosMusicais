@@ -11,6 +11,8 @@ import Produtos from "./pages/Produtos";
 import Vendas from "./pages/Vendas";
 import Usuarios from "./pages/Usuarios";
 import DetalhesVenda from "./pages/DetalhesVendas";
+import Contato from "./pages/Contato";
+import Sobrenos from "./pages/Sobrenos";
 
 export default function AppRoutes() {
   return (
@@ -18,6 +20,8 @@ export default function AppRoutes() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/contato" element={<Contato />} />
+        <Route path="/sobrenos" element={<Sobrenos />} />
         <Route path="/registro" element={<Registro />} />
         <Route path="/produto/:id" element={<DetalhesProduto />} />
         <Route path="/carrinho" element={<Carrinho />} />
