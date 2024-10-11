@@ -1,0 +1,28 @@
+footer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 20px;
+    height: 100px;
+}
+.containerLink{
+    display: flex;
+    align-items: end;
+}
+.linksExternos{
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    gap: 20px;
+}
+.linksExternos li{
+    font-size: 30px;
+}
+.containerMeio{
+    display: flex;
+    align-items: center;
+}
+.containerFim{
+    display: flex;
+    align-items: end;
+}
