@@ -38,113 +38,113 @@
     transition: height 0.3s, background-color 0.5s;
 }
 /* Animation */
-span:nth-child(120).animate { background: #ff414d; animation: anim 0.7s infinite; }
+span:nth-child(120).animate { background: #F0C94F; animation: anim 0.7s infinite; }
 span:nth-child(119).animate,
-span:nth-child(121).animate { background: #821752; animation: anim 0.8s infinite; }
+span:nth-child(121).animate { background: #D3A925; animation: anim 0.8s infinite; }
 span:nth-child(118).animate,
 span:nth-child(117).animate { background: #f0a500; animation: anim 0.9s infinite; }
 span:nth-child(116).animate,
-span:nth-child(115).animate { background: #07689f; animation: anim 1s infinite; }
+span:nth-child(115).animate { background: #B1910F; animation: anim 1s infinite; }
 span:nth-child(114).animate,
-span:nth-child(113).animate { background: #00b7c2; animation: anim 1.1s infinite; }
+span:nth-child(113).animate { background: #ECA42E; animation: anim 1.1s infinite; }
 span:nth-child(112).animate,
-span:nth-child(111).animate { background: #ff414d; animation: anim 1.2s infinite; }
+span:nth-child(111).animate { background: #F0C94F; animation: anim 1.2s infinite; }
 span:nth-child(110).animate,
-span:nth-child(109).animate { background: #821752; animation: anim 1.3s infinite; }
+span:nth-child(109).animate { background: #D3A925; animation: anim 1.3s infinite; }
 span:nth-child(108).animate,
 span:nth-child(107).animate { background: #f0a500; animation: anim 1.4s infinite; }
 span:nth-child(106).animate,
-span:nth-child(105).animate { background: #07689f; animation: anim 1.5s infinite; }
+span:nth-child(105).animate { background: #B1910F; animation: anim 1.5s infinite; }
 span:nth-child(104).animate,
-span:nth-child(103).animate { background: #00b7c2; animation: anim 1.6s infinite; }
+span:nth-child(103).animate { background: #ECA42E; animation: anim 1.6s infinite; }
 span:nth-child(102).animate,
-span:nth-child(101).animate { background: #ff414d; animation: anim 1.7s infinite; }
+span:nth-child(101).animate { background: #F0C94F; animation: anim 1.7s infinite; }
 span:nth-child(100).animate,
-span:nth-child(99).animate { background: #821752; animation: anim 1.8s infinite; }
+span:nth-child(99).animate { background: #D3A925; animation: anim 1.8s infinite; }
 span:nth-child(98).animate,
 span:nth-child(97).animate { background: #f0a500; animation: anim 1.9s infinite; }
 span:nth-child(96).animate,
-span:nth-child(95).animate { background: #07689f; animation: anim 2s infinite; }
+span:nth-child(95).animate { background: #B1910F; animation: anim 2s infinite; }
 span:nth-child(94).animate,
-span:nth-child(93).animate { background: #00b7c2; animation: anim 2.1s infinite; }
+span:nth-child(93).animate { background: #ECA42E; animation: anim 2.1s infinite; }
 span:nth-child(92).animate,
-span:nth-child(91).animate { background: #ff414d; animation: anim 2.2s infinite; }
+span:nth-child(91).animate { background: #F0C94F; animation: anim 2.2s infinite; }
 span:nth-child(90).animate,
-span:nth-child(89).animate { background: #821752; animation: anim 2.3s infinite; }
+span:nth-child(89).animate { background: #D3A925; animation: anim 2.3s infinite; }
 span:nth-child(88).animate,
 span:nth-child(87).animate { background: #f0a500; animation: anim 2.4s infinite; }
 span:nth-child(86).animate,
-span:nth-child(85).animate { background: #07689f; animation: anim 2.5s infinite; }
+span:nth-child(85).animate { background: #B1910F; animation: anim 2.5s infinite; }
 span:nth-child(84).animate,
-span:nth-child(83).animate { background: #00b7c2; animation: anim 2.6s infinite; }
+span:nth-child(83).animate { background: #ECA42E; animation: anim 2.6s infinite; }
 span:nth-child(82).animate,
-span:nth-child(81).animate { background: #ff414d; animation: anim 2.7s infinite; }
+span:nth-child(81).animate { background: #F0C94F; animation: anim 2.7s infinite; }
 span:nth-child(80).animate,
-span:nth-child(79).animate { background: #821752; animation: anim 2.8s infinite; }
+span:nth-child(79).animate { background: #D3A925; animation: anim 2.8s infinite; }
 span:nth-child(78).animate,
 span:nth-child(77).animate { background: #f0a500; animation: anim 2.9s infinite; }
 span:nth-child(76).animate,
-span:nth-child(75).animate { background: #07689f; animation: anim 3s infinite; }
+span:nth-child(75).animate { background: #B1910F; animation: anim 3s infinite; }
 span:nth-child(74).animate,
-span:nth-child(73).animate { background: #00b7c2; animation: anim 3.1s infinite; }
+span:nth-child(73).animate { background: #ECA42E; animation: anim 3.1s infinite; }
 span:nth-child(72).animate,
-span:nth-child(71).animate { background: #ff414d; animation: anim 3.2s infinite; }
+span:nth-child(71).animate { background: #F0C94F; animation: anim 3.2s infinite; }
 span:nth-child(70).animate,
-span:nth-child(69).animate { background: #821752; animation: anim 3.3s infinite; }
+span:nth-child(69).animate { background: #D3A925; animation: anim 3.3s infinite; }
 span:nth-child(68).animate,
 span:nth-child(67).animate { background: #f0a500; animation: anim 3.4s infinite; }
 span:nth-child(66).animate,
-span:nth-child(65).animate { background: #07689f; animation: anim 3.5s infinite; }
+span:nth-child(65).animate { background: #B1910F; animation: anim 3.5s infinite; }
 span:nth-child(64).animate,
-span:nth-child(63).animate { background: #00b7c2; animation: anim 3.6s infinite; }
+span:nth-child(63).animate { background: #ECA42E; animation: anim 3.6s infinite; }
 span:nth-child(62).animate,
-span:nth-child(61).animate { background: #ff414d; animation: anim 3.7s infinite; }
-span:nth-child(60).animate { background: #ff414d; animation: anim 0.7s infinite; }
+span:nth-child(61).animate { background: #F0C94F; animation: anim 3.7s infinite; }
+span:nth-child(60).animate { background: #F0C94F; animation: anim 0.7s infinite; }
 span:nth-child(59).animate,
-span:nth-child(61).animate { background: #821752; animation: anim 0.8s infinite; }
+span:nth-child(61).animate { background: #D3A925; animation: anim 0.8s infinite; }
 span:nth-child(58).animate,
 span:nth-child(57).animate { background: #f0a500; animation: anim 0.9s infinite; }
 span:nth-child(56).animate,
-span:nth-child(55).animate { background: #07689f; animation: anim 1s infinite; }
+span:nth-child(55).animate { background: #B1910F; animation: anim 1s infinite; }
 span:nth-child(54).animate,
-span:nth-child(53).animate { background: #00b7c2; animation: anim 1.1s infinite; }
+span:nth-child(53).animate { background: #ECA42E; animation: anim 1.1s infinite; }
 span:nth-child(52).animate,
-span:nth-child(51).animate { background: #ff414d; animation: anim 1.2s infinite; }
+span:nth-child(51).animate { background: #F0C94F; animation: anim 1.2s infinite; }
 span:nth-child(50).animate,
-span:nth-child(49).animate { background: #821752; animation: anim 1.3s infinite; }
+span:nth-child(49).animate { background: #D3A925; animation: anim 1.3s infinite; }
 span:nth-child(48).animate,
 span:nth-child(47).animate { background: #f0a500; animation: anim 1.4s infinite; }
 span:nth-child(46).animate,
-span:nth-child(45).animate { background: #07689f; animation: anim 1.5s infinite; }
+span:nth-child(45).animate { background: #B1910F; animation: anim 1.5s infinite; }
 span:nth-child(44).animate,
-span:nth-child(43).animate { background: #00b7c2; animation: anim 1.6s infinite; }
+span:nth-child(43).animate { background: #ECA42E; animation: anim 1.6s infinite; }
 span:nth-child(42).animate,
-span:nth-child(41).animate { background: #ff414d; animation: anim 1.7s infinite; }
+span:nth-child(41).animate { background: #F0C94F; animation: anim 1.7s infinite; }
 span:nth-child(40).animate,
-span:nth-child(39).animate { background: #821752; animation: anim 1.8s infinite; }
+span:nth-child(39).animate { background: #D3A925; animation: anim 1.8s infinite; }
 span:nth-child(38).animate,
 span:nth-child(37).animate { background: #f0a500; animation: anim 1.9s infinite; }
 span:nth-child(36).animate,
-span:nth-child(35).animate { background: #07689f; animation: anim 2s infinite; }
+span:nth-child(35).animate { background: #B1910F; animation: anim 2s infinite; }
 span:nth-child(34).animate,
-span:nth-child(33).animate { background: #00b7c2; animation: anim 2.1s infinite; }
+span:nth-child(33).animate { background: #ECA42E; animation: anim 2.1s infinite; }
 span:nth-child(32).animate,
-span:nth-child(31).animate { background: #ff414d; animation: anim 2.2s infinite; }
+span:nth-child(31).animate { background: #F0C94F; animation: anim 2.2s infinite; }
 span:nth-child(30).animate,
-span:nth-child(29).animate { background: #821752; animation: anim 2.3s infinite; }
+span:nth-child(29).animate { background: #D3A925; animation: anim 2.3s infinite; }
 span:nth-child(28).animate,
 span:nth-child(27).animate { background: #f0a500; animation: anim 2.4s infinite; }
 span:nth-child(26).animate,
-span:nth-child(25).animate { background: #07689f; animation: anim 2.5s infinite; }
+span:nth-child(25).animate { background: #B1910F; animation: anim 2.5s infinite; }
 span:nth-child(24).animate,
-span:nth-child(23).animate { background: #00b7c2; animation: anim 2.6s infinite; }
+span:nth-child(23).animate { background: #ECA42E; animation: anim 2.6s infinite; }
 span:nth-child(21).animate {
-    background: #ff414d;
+    background: #F0C94F;
     animation: anim 0.7s infinite;
 }
 span:nth-child(20).animate,
 span:nth-child(22).animate {
-    background: #821752;
+    background: #D3A925;
     animation: anim 0.8s infinite;
 }
 span:nth-child(19).animate,
@@ -154,31 +154,31 @@ span:nth-child(18).animate {
 }
 span:nth-child(17).animate,
 span:nth-child(16).animate {
-    background: #07689f;
+    background: #B1910F;
     animation: anim 1s infinite;
 }
 span:nth-child(15).animate,
 span:nth-child(14).animate {
-    background: #00b7c2;
+    background: #ECA42E;
     animation: anim 1.1s infinite;
 }
 span:nth-child(13).animate,
 span:nth-child(12).animate {
-    background: #ff414d;
+    background: #F0C94F;
     animation: anim 1.2s infinite;
 }
 span:nth-child(11).animate,
 span:nth-child(10).animate {
-    background: #821752;
+    background: #D3A925;
     animation: anim 1.3s infinite;
 }
 span:nth-child(5).animate {
-    background: #ff414d;
+    background: #F0C94F;
     animation: anim 0.7s infinite;
 }
 span:nth-child(4).animate,
 span:nth-child(6).animate {
-    background: #821752;
+    background: #D3A925;
     animation: anim 0.8s infinite;
 }
 span:nth-child(3).animate,
@@ -188,88 +188,124 @@ span:nth-child(7).animate {
 }
 span:nth-child(2).animate,
 span:nth-child(8).animate {
-    background: #07689f;
+    background: #B1910F;
     animation: anim 1s infinite;
 }
 span:nth-child(1).animate,
 span:nth-child(9).animate {
-    background: #00b7c2;
+    background: #ECA42E;
     animation: anim 1.1s infinite;
 }
 
 /* Estilo estático */
-span:nth-child(120).static { background: #ff414d; }
+span:nth-child(120).static { background: #F0C94F; }
 span:nth-child(119).static,
-span:nth-child(121).static { background: #821752; }
+span:nth-child(121).static { background: #D3A925; }
 span:nth-child(118).static,
 span:nth-child(117).static { background: #f0a500; }
 span:nth-child(116).static,
-span:nth-child(115).static { background: #07689f; }
+span:nth-child(115).static { background: #B1910F; }
 span:nth-child(114).static,
-span:nth-child(113).static { background: #00b7c2; }
+span:nth-child(113).static { background: #ECA42E; }
 span:nth-child(112).static,
-span:nth-child(111).static { background: #ff414d; }
+span:nth-child(111).static { background: #F0C94F; }
 span:nth-child(110).static,
-span:nth-child(109).static { background: #821752; }
+span:nth-child(109).static { background: #D3A925; }
 span:nth-child(108).static,
 span:nth-child(107).static { background: #f0a500; }
 span:nth-child(106).static,
-span:nth-child(105).static { background: #07689f; }
+span:nth-child(105).static { background: #B1910F; }
 span:nth-child(104).static,
-span:nth-child(103).static { background: #00b7c2; }
+span:nth-child(103).static { background: #ECA42E; }
 span:nth-child(102).static,
-span:nth-child(101).static { background: #ff414d; }
+span:nth-child(101).static { background: #F0C94F; }
 span:nth-child(100).static,
-span:nth-child(99).static { background: #821752; }
+span:nth-child(99).static { background: #D3A925; }
 span:nth-child(98).static,
 span:nth-child(97).static { background: #f0a500; }
 span:nth-child(96).static,
-span:nth-child(95).static { background: #07689f; }
+span:nth-child(95).static { background: #B1910F; }
 span:nth-child(94).static,
-span:nth-child(93).static { background: #00b7c2; }
+span:nth-child(93).static { background: #ECA42E; }
 span:nth-child(92).static,
-span:nth-child(91).static { background: #ff414d; }
+span:nth-child(91).static { background: #F0C94F; }
 span:nth-child(90).static,
-span:nth-child(89).static { background: #821752; }
-span:nth-child(60).static { background: #ff414d; }
+span:nth-child(89).static { background: #D3A925; }
+span:nth-child(88).static { background: #F0C94F; }
+span:nth-child(87).static,
+span:nth-child(86).static { background: #F0C94F; }
+span:nth-child(85).static,
+span:nth-child(84).static { background: #F0C94F; }
+span:nth-child(83).static,
+span:nth-child(82).static { background: #F0C94F; }
+span:nth-child(81).static,
+span:nth-child(80).static { background: #F0C94F; }
+span:nth-child(79).static,
+span:nth-child(78).static { background: #F0C94F; }
+span:nth-child(77).static,
+span:nth-child(76).static { background: #F0C94F; }
+span:nth-child(75).static,
+span:nth-child(74).static { background: #F0C94F; }
+span:nth-child(73).static,
+span:nth-child(72).static { background: #F0C94F; }
+span:nth-child(71).static,
+span:nth-child(70).static { background: #F0C94F; }
+span:nth-child(69).static,
+span:nth-child(68).static { background: #F0C94F; }
+span:nth-child(67).static,
+span:nth-child(66).static { background: #F0C94F; }
+span:nth-child(65).static,
+span:nth-child(64).static { background: #F0C94F; }
+span:nth-child(63).static,
+span:nth-child(62).static { background: #F0C94F; }
+span:nth-child(61).static,
+span:nth-child(60).static { background: #F0C94F; }
 span:nth-child(59).static,
-span:nth-child(61).static { background: #821752; }
+span:nth-child(61).static { background: #D3A925; }
 span:nth-child(58).static,
 span:nth-child(57).static { background: #f0a500; }
 span:nth-child(56).static,
-span:nth-child(55).static { background: #07689f; }
+span:nth-child(55).static { background: #B1910F; }
 span:nth-child(54).static,
-span:nth-child(53).static { background: #00b7c2; }
+span:nth-child(53).static { background: #ECA42E; }
 span:nth-child(52).static,
-span:nth-child(51).static { background: #ff414d; }
+span:nth-child(51).static { background: #F0C94F; }
 span:nth-child(50).static,
-span:nth-child(49).static { background: #821752; }
+span:nth-child(49).static { background: #D3A925; }
 span:nth-child(48).static,
 span:nth-child(47).static { background: #f0a500; }
 span:nth-child(46).static,
-span:nth-child(45).static { background: #07689f; }
+span:nth-child(45).static { background: #B1910F; }
 span:nth-child(44).static,
-span:nth-child(43).static { background: #00b7c2; }
+span:nth-child(43).static { background: #ECA42E; }
 span:nth-child(42).static,
-span:nth-child(41).static { background: #ff414d; }
+span:nth-child(41).static { background: #F0C94F; }
 span:nth-child(40).static,
-span:nth-child(39).static { background: #821752; }
+span:nth-child(39).static { background: #D3A925; }
 span:nth-child(38).static,
 span:nth-child(37).static { background: #f0a500; }
 span:nth-child(36).static,
-span:nth-child(35).static { background: #07689f; }
+span:nth-child(35).static { background: #B1910F; }
 span:nth-child(34).static,
-span:nth-child(33).static { background: #00b7c2; }
+span:nth-child(33).static { background: #ECA42E; }
 span:nth-child(32).static,
-span:nth-child(31).static { background: #ff414d; }
+span:nth-child(31).static { background: #F0C94F; }
 span:nth-child(30).static,
-span:nth-child(29).static { background: #821752; }
+span:nth-child(29).static { background: #D3A925; }
+span:nth-child(28).static,
+span:nth-child(27).static { background: #D3A925; }
+span:nth-child(26).static,
+span:nth-child(25).static { background: #D3A925; }
+span:nth-child(24).static,
+span:nth-child(23).static { background: #D3A925; }
+span:nth-child(22).static,
+
 span:nth-child(21).static {
-    background: #ff414d;
+    background: #F0C94F;
 }
 span:nth-child(20).static,
 span:nth-child(22).static {
-    background: #821752;
+    background: #D3A925;
 }
 span:nth-child(19).static,
 span:nth-child(18).static {
@@ -277,26 +313,26 @@ span:nth-child(18).static {
 }
 span:nth-child(17).static,
 span:nth-child(16).static {
-    background: #07689f;
+    background: #B1910F;
 }
 span:nth-child(15).static,
 span:nth-child(14).static {
-    background: #00b7c2;
+    background: #ECA42E;
 }
 span:nth-child(13).static,
 span:nth-child(12).static {
-    background: #ff414d;
+    background: #F0C94F;
 }
 span:nth-child(11).static,
 span:nth-child(10).static {
-    background: #821752;
+    background: #D3A925;
 }
 span:nth-child(5).static {
-    background: #ff414d;
+    background: #F0C94F;
 }
 span:nth-child(4).static,
 span:nth-child(6).static {
-    background: #821752;
+    background: #D3A925;
 }
 span:nth-child(3).static,
 span:nth-child(7).static {
@@ -304,11 +340,11 @@ span:nth-child(7).static {
 }
 span:nth-child(2).static,
 span:nth-child(8).static {
-    background: #07689f;
+    background: #B1910F;
 }
 span:nth-child(1).static,
 span:nth-child(9).static {
-    background: #00b7c2;
+    background: #ECA42E;
 }
 
 /* Animação */
