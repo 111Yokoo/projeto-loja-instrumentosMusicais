@@ -1,1 +1,17 @@
 /* estilização da tela home */
+.conteudoPrincipal{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.primeiraSessao{
+    width: 100%;
+}
+.titulo{
+    text-align: start;
+    padding-left: 100px;
+    font-size: 32px;
+}
+.home main{
+    padding: 50px;
+}

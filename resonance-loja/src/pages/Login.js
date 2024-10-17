@@ -20,7 +20,7 @@ export default function Login() {
     <div style={{backgroundImage: `url(${Fundo})`,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
-    height: '100vh'}} className="fundo">
+    height: '100vh'}} className="fundo login">
       <Header/>
         <main>
             <form action="" method="">
