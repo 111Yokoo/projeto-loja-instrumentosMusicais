@@ -11,22 +11,10 @@ main{
     display: flex;
     justify-content: center;
 }
-section.main{
-    border-radius: 15px;
-    padding: 40px 10px 10px 10px;
-    background-color: #fff;
-    width: 400px;
-    height: 500px;
+.formRegistro{
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-}
-.form{
-    display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;    
-    gap: 40px;
 }
 .formImput{
     display: flex;
@@ -49,6 +37,15 @@ section.main{
     flex-direction: column;
     gap: 5px;
 }
+.registrar input[type="text"], .registrar input[type="password"]{
+    padding: 10px;
+    width: 85%;
+    border: none;
+    border-radius: 5px;
+    background-color: transparent;
+    color: #fff;
+    font-size: 18px;
+}
 input[type="submit"]{
     padding: 15px;
     width: 300px;
@@ -60,6 +57,53 @@ input[type="submit"]{
     font-weight: 700;
     font-size: 18px;
 }
-.registrar{
-    font-size:12px ;
+.registrar .infosOne{
+    background-color: #00000078;
+    color: #fff;
+    height: 520px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    border-radius: 10px 0px 0px 10px;
+} 
+.tituloRegistrar{
+    font-weight: 700;
+    font-size: 18px;
+    width: 80%;
+}  
+.infosTwo{
+    font-size: 18px;
+    background-color: #6f5f40ca;
+    height: 520px;
+    color: #fff;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    border-radius: 0px 10px 10px 0px;
+}
+.inputGroup{
+    display: flex;
+    flex-direction: column;
+    width: 85%;
+    gap: 20px;
+    font-size: 18px;
+}
+.formInputRegistro{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    font-size: 22px;
+}
+.buttonSenha{
+    background-color: transparent;
+    border: none;
+    font-size: 18px;
+    color: #fff;
+    cursor: pointer;
 }

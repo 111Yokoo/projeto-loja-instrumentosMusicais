@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "../styles/login.css";
 import "../styles/global.css";
 import Header from "../components/Header";
@@ -7,8 +7,15 @@ import Logo from "../assets/images/Logo.png"
 import Fundo from "../assets/images/Fundo-Login-Signup.png"
 import { IoIosMail } from "react-icons/io";
 import { MdOutlinePassword } from "react-icons/md";
+import { FaEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa";
 
 export default function Login() {
+  const [showPassword, setShowPassword] = useState(false);
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+};
+
   return (
     <div style={{backgroundImage: `url(${Fundo})`,
     backgroundSize: 'cover',
@@ -35,7 +42,10 @@ export default function Login() {
                     <aside className="input">
                       <span>
                         <MdOutlinePassword />
-                      </span><input id="senha" name="senha" type="text" placeholder="Digite sua senha"/>
+                      </span><input name="senha" id="senha" type={showPassword ? "text" : "password"} placeholder="Digite seu senha"/>
+                      <button type="button" className="buttonSenhaLogin" onClick={togglePasswordVisibility}>
+                          {showPassword ? <FaEye /> : <FaEyeSlash />}
+                      </button>
                     </aside>
                   </article>
                   <article className="submit">

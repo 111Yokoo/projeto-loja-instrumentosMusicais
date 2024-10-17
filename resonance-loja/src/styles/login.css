@@ -71,3 +71,10 @@ input[type="submit"]{
 .registrar{
     font-size:12px ;
 }
+.buttonSenhaLogin{
+    background-color: transparent;
+    border: none;
+    font-size: 18px;
+    color: #000;
+    cursor: pointer;
+}
