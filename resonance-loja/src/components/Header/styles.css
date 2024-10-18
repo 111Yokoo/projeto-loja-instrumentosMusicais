@@ -12,7 +12,7 @@ header a{
     text-decoration: none;
 }
 .scrolled {
-    background-color: #000;
+    background-color: #121212;
 }
 ul{
     list-style: none;
@@ -173,7 +173,7 @@ ul{
 .dropdown-menu {
     display: none; /* Inicialmente escondido */
     position: absolute;
-    background-color: #000;
+    background-color: #121212;
     width: 120px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     list-style-type: none;

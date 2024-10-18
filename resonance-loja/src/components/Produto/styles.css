@@ -3,6 +3,7 @@
     border: 1px solid #6f5f40;
     width: 250px;
     height: 500px;
+    cursor: pointer;
 }
 .imagem{
     width: 250px;
@@ -34,4 +35,7 @@
     height: 30px;
     border-radius: 50%;
     border: 1px solid #6f5f40;
+}
+.nomeProduto:hover{
+    text-decoration: underline;
 }

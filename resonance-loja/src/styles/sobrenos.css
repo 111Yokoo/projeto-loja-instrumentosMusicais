@@ -1,0 +1,27 @@
+.sobrenos main{
+    margin-top: -5px;
+    padding-bottom: 60px;
+}
+.sessaoHistory{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+.sessaoHistory article{
+    padding: 60px;
+    text-align: justify;
+    font-size: 20px;
+}
+.fraseFinal{
+   display: flex;
+   justify-content: center;
+}
+.fraseFinal h3{
+    text-align: center;
+    padding: 15px;
+    font-size: 22px;
+    font-weight: 700;
+    max-width: 700px;
+}

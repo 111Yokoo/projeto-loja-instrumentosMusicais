@@ -24,7 +24,7 @@ export default function Home() {
           </article>
         </section>
       </main>
-      <Footer corTexto="#fff" corBackground="#000" corSecundaria="#6f5f40"/>
+      <Footer corTexto="#fff" corBackground="#121212" corSecundaria="#6f5f40"/>
     </div>
   );
 }

@@ -5,7 +5,7 @@
     justify-content: space-between;
     height: 100vh;
 }
-.registrar main{
+main.registrar{
     margin-top: 100px;
     margin-bottom: 70px;
     display: flex;
@@ -14,7 +14,8 @@
 .formRegistro{
     display: flex;
     flex-direction: row;
-    align-items: center;    
+    align-items: center;   
+    justify-content: center; 
 }
 .formImput{
     display: flex;
