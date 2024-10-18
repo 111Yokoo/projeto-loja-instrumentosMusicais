@@ -13,6 +13,7 @@ import Usuarios from "./pages/Usuarios";
 import DetalhesVenda from "./pages/DetalhesVendas";
 import Contato from "./pages/Contato";
 import Sobrenos from "./pages/Sobrenos";
+import ListagemProdutos from "./pages/ListagemProdutos";
 
 export default function AppRoutes() {
   return (
@@ -23,6 +24,7 @@ export default function AppRoutes() {
         <Route path="/contato" element={<Contato />} />
         <Route path="/sobrenos" element={<Sobrenos />} />
         <Route path="/registro" element={<Registro />} />
+        <Route path="/produtos" element={<ListagemProdutos />} />
         <Route path="/produto/:id" element={<DetalhesProduto />} />
         <Route path="/carrinho" element={<Carrinho />} />
         <Route path="/historico-compras" element={<HistoricoCompras />} />

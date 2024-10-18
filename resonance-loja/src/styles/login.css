@@ -57,7 +57,7 @@ section.main{
     flex-direction: column;
     gap: 5px;
 }
-input[type="submit"]{
+.submit input[type="submit"]{
     padding: 15px;
     width: 300px;
     border: none;

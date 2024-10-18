@@ -17,3 +17,7 @@
 ::-webkit-scrollbar-thumb:hover {
     background-color: #4e3c2b; 
 }
+input:focus {
+    outline: none; 
+    box-shadow: none;
+}

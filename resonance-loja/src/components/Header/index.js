@@ -6,7 +6,7 @@ import { TbMinusVertical } from "react-icons/tb";
 import Logo from "../../assets/images/Logo.png";
 import "./styles.css";
 
-const Header = () => {
+const Header = ({cor}) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -45,7 +45,7 @@ const Header = () => {
   }, []);
 
   return (
-    <header className={`header ${isScrolled ? "scrolled" : ""}`}>
+    <header  style={cor ? { backgroundColor: cor } : {}} className={`header ${isScrolled ? "scrolled" : ""}`}>
       <nav className="navbar">
         <div className="navbar-metadeOne">
           <div className="navbar-brand">

@@ -1,0 +1,80 @@
+.listagemProdutos main{
+    padding: 90px 30px;
+}
+.container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 25px;
+}
+.searchContainer{
+    display: flex;
+    justify-content: center;
+    padding: 25px;
+}
+.searchContainer .inputGroup{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #6f5f40;
+    border-radius: 10px;
+    width: 400px;
+    padding: 10px;
+    font-size: 20px;
+}
+.inputGroup input{
+    border: none;
+    width: 380px;
+    padding: 5px;
+    font-size: 20px;
+}
+.filter{
+    min-width: 230px;
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    gap: 15px;
+}
+.titleFilter{
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    gap: 10px;
+    font-size: 20px;
+}
+.precoFiltro{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.formCheckbox{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.formCheckbox input{
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+.formCheckbox div{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+.colorFilter{
+    width: 20px;
+    height: 20px;
+    border: 1px solid black;
+    border-radius: 50%;
+}
+.produtosListagem{
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    gap: 35px;
+    flex-wrap: wrap;
+}
