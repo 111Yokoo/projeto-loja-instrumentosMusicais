@@ -5,15 +5,12 @@ import Registro from "./pages/Registro";
 import Home from "./pages/Home";
 import DetalhesProduto from "./pages/DetalhesProduto";
 import Carrinho from "./pages/Carrinho";
-import HistoricoCompras from "./pages/HistoricoCompras";
 import Perfil from "./pages/Perfil";
-import Produtos from "./pages/Produtos";
-import Vendas from "./pages/Vendas";
 import Usuarios from "./pages/Usuarios";
-import DetalhesVenda from "./pages/DetalhesVendas";
 import Contato from "./pages/Contato";
 import Sobrenos from "./pages/Sobrenos";
 import ListagemProdutos from "./pages/ListagemProdutos";
+import ListagemVendas from "./pages/ListagemVendas";
 
 export default function AppRoutes() {
   return (
@@ -25,14 +22,11 @@ export default function AppRoutes() {
         <Route path="/sobrenos" element={<Sobrenos />} />
         <Route path="/registro" element={<Registro />} />
         <Route path="/produtos" element={<ListagemProdutos />} />
-        <Route path="/produto/:id" element={<DetalhesProduto />} />
         <Route path="/carrinho" element={<Carrinho />} />
-        <Route path="/historico-compras" element={<HistoricoCompras />} />
         <Route path="/perfil" element={<Perfil />} />
-        <Route path="/admin/produtos" element={<Produtos />} />
-        <Route path="/admin/vendas" element={<Vendas />} />
-        <Route path="/admin/vendas/:id" element={<DetalhesVenda />} />
+        <Route path="/admin/listagemVendas" element={<ListagemVendas />} />
         <Route path="/admin/usuarios" element={<Usuarios />} />
+        <Route path="/produto/:id" element={<DetalhesProduto />} />
       </Routes>
     </Router>
   );
