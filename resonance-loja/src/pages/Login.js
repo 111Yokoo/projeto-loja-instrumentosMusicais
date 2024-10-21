@@ -26,7 +26,7 @@ export default function Login() {
             <form action="" method="">
               <section className="main">
                 <section>
-                  <img src={Logo} />
+                  <img src={Logo} alt="Logo Resonance"/>
                 </section>
                 <section className="form">
                   <article className="formImput">

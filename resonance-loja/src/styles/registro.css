@@ -59,7 +59,7 @@ input[type="submit"]{
     font-size: 18px;
 }
 .registrar .infosOne{
-    background-color: #00000078;
+    background-color: #121212be;
     color: #fff;
     height: 520px;
     padding: 20px;
@@ -74,7 +74,7 @@ input[type="submit"]{
     font-size: 18px;
     width: 80%;
 }  
-.infosTwo{
+.registrar .infosTwo{
     font-size: 18px;
     background-color: #6f5f40ca;
     height: 520px;

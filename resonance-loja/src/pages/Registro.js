@@ -36,7 +36,7 @@ export default function Registro() {
         <main className="registrar">
             <form className="formRegistro" action="" method="">
               <section className="infosOne">
-                <img src={Logo} width="250px"/>
+                <img src={Logo} width="250px" alt="Logo Resonance"/>
                 <p className="tituloRegistrar">Seja bem vindo! Conclua seu cadastro para acessar nossa loja.</p>
                 <article className="inputGroup">
                   <aside>
@@ -57,7 +57,7 @@ export default function Registro() {
                   </aside>
                   <aside>
                     <label for="senha"><p>Senha:</p></label>
-                    <div class="formInputRegistro"><MdOutlinePassword /><input name="senha" id="senha" type={showPassword ? "text" : "password"} placeholder="Digite seu senha"/>
+                    <div class="formInputRegistro"><MdOutlinePassword /><input name="senha" id="senha" type={showPassword ? "text" : "password"} placeholder="Digite sua senha"/>
                       <button type="button" className="buttonSenha" onClick={togglePasswordVisibility}>
                           {showPassword ? <FaEye /> : <FaEyeSlash />}
                       </button>
@@ -72,7 +72,7 @@ export default function Registro() {
                   </aside>
                   <aside>
                     <label for="cidade"><p>Cidade:</p></label>
-                    <div class="formInputRegistro"><FaCity /><input name="cidade" id="cidade" type="text" placeholder="Digite seu cidade"/></div>
+                    <div class="formInputRegistro"><FaCity /><input name="cidade" id="cidade" type="text" placeholder="Digite sua cidade"/></div>
                   </aside>
                   <aside>
                     <label for="bairro"><p>Bairro:</p></label>

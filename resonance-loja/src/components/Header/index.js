@@ -50,7 +50,7 @@ const Header = ({cor}) => {
         <div className="navbar-metadeOne">
           <div className="navbar-brand">
             <Link to="/">
-              <img src={Logo} />
+              <img src={Logo} alt="Logo Resonance"/>
             </Link>
           </div>
           <ul className="navbar-menu">

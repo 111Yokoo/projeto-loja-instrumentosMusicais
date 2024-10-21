@@ -1,0 +1,53 @@
+.productCarrinho{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    height: 200px;
+    width: 700px;
+}
+.quantidadeSection{
+    border: 1px solid black;
+    width: 250px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center ;
+}
+.quantity{
+    font-size: 20px;
+}
+.quantidade{
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+.buttonQuantity{
+    width: 40px;
+    height: 40px;
+    background-color: #6f5f40;
+    color: #fff;
+    border: none;
+}
+.buttonRemove{
+    height: 40px;
+    width: 150px;
+    background-color: transparent;
+    border: 1px solid #6f5f40;
+    color: #6f5f40;
+}
+.buttonRemove:hover{
+    background-color: #6f5f40;
+    border: 1px solid #fff;
+    color: #fff;
+    transition: .4s;
+}
+.infosCarrinho{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.precoInfos{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}

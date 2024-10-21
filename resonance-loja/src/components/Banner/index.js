@@ -5,7 +5,7 @@ import "./styles.css";
 const Banner = () => {
     return (
     <section className="banner">
-      <img src={BannerImage} width="100%"/>
+      <img src={BannerImage} width="100%" alt="Banner 1"/>
     </section>
   );
 };

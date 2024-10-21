@@ -79,7 +79,7 @@ const Music = () => {
                     {isMuted ? <FaVolumeMute /> : <FaVolumeUp />}
                 </button>
             </div>
-            {[...Array(100)].map((_, index) => (
+            {[...Array(120)].map((_, index) => (
                 <span key={index} className={play ? 'animate' : 'static'}></span>
             ))}
         </div>
