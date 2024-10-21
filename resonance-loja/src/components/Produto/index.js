@@ -12,7 +12,7 @@ const Produto = ({ Foto, Nome, Preco, Cor }) => {
   };
 
   return (
-    <section onClick={() => navigate('/contato')} className="produto">
+    <section onClick={() => navigate('/produto/:id')} className="produto">
       <article style={{ backgroundImage: `url(${Foto})`, backgroundSize: 'cover' }} className="imagem">
         <span>
           <p style={{ background: `${Cor}` }} className="cor"></p>

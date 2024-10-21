@@ -18,3 +18,21 @@
     flex-direction: row;
     justify-content: space-around;
 }
+.infosPagamento{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.buttonNavigatePerfil{
+    height: 40px;
+    width: 150px;
+    background-color: transparent;
+    border: 1px solid #6f5f40;
+    color: #6f5f40;
+}
+.buttonNavigatePerfil:hover{
+    background-color: #6f5f40;
+    border: 1px solid #fff;
+    color: #fff;
+    transition: .4s;
+}
