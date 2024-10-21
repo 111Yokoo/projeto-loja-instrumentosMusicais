@@ -1,7 +1,7 @@
-.listagemVendas main{
+.usuarios main{
     padding: 90px 30px;
 }
-.listagemVendas main .titleHistoricoVendas{
+.usuarios main .titleUsuarios{
     text-align: center;
 }
 .container{
@@ -32,7 +32,7 @@
     padding: 5px;
     font-size: 20px;
 }
-.vendasListagem{
+.usuariosListagem{
     width: 80%;
     display: flex;
     flex-direction: row;
