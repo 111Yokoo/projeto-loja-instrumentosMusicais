@@ -7,7 +7,6 @@ import DetalhesProduto from "./pages/DetalhesProduto";
 import Carrinho from "./pages/Carrinho";
 import Perfil from "./pages/Perfil";
 import Usuarios from "./pages/Usuarios";
-import Contato from "./pages/Contato";
 import Sobrenos from "./pages/Sobrenos";
 import ListagemProdutos from "./pages/ListagemProdutos";
 import ListagemVendas from "./pages/ListagemVendas";
@@ -18,7 +17,6 @@ export default function AppRoutes() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/contato" element={<Contato />} />
         <Route path="/sobrenos" element={<Sobrenos />} />
         <Route path="/registro" element={<Registro />} />
         <Route path="/produtos" element={<ListagemProdutos />} />

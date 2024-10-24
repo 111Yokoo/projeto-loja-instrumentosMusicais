@@ -6,7 +6,7 @@
     height: 100vh;
 }
 .login main{
-    margin-top: 100px;
+    padding-top: 100px;
     margin-bottom: 70px;
     display: flex;
     justify-content: center;
@@ -78,3 +78,21 @@ section.main{
     color: #000;
     cursor: pointer;
 }
+@media (max-width: 960px) {
+    .login main{
+        padding-top: 150px;
+        margin-bottom: 50px;
+    }
+  }
+  @media (max-width: 660px) {
+    .login main{
+        padding-top: 200px;
+        margin-bottom: 5px;
+    }
+  }
+  @media (max-width: 480px) {
+    section.main{
+        width: 350px;
+        height: 450px;
+    }
+  }

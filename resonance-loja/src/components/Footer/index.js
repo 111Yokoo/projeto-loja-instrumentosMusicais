@@ -7,7 +7,7 @@ import "./styles.css";
 
 const Footer = ({corTexto, corBackground, corSecundaria}) => {
     return (
-    <footer style={{backgroundColor: corBackground}}>
+    <footer id="contato" style={{backgroundColor: corBackground}}>
         <section className="containerLink">
             <ul className="linksExternos">
                 <a href="www.instagram.com/">

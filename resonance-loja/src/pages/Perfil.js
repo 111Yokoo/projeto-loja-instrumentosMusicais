@@ -6,6 +6,7 @@ import Footer from "../components/Footer";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import Compra from "../components/Compra";
 import ModalCompra from "../components/ModalCompra"; 
+import { IoExit } from "react-icons/io5";
 
 export default function Perfil() {
   const navigate = useNavigate();
@@ -33,7 +34,7 @@ export default function Perfil() {
       <main>
         <section className="titlePerfil">
           <h2>Minha conta</h2>
-          <button>Deslogar</button>
+          <button className="buttonExit"><IoExit /></button>
         </section>
         <section className="infoConta">
           <h2>Informações da conta</h2>

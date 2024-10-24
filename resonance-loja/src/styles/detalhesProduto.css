@@ -1,0 +1,38 @@
+.detalhesProduto main{
+    padding: 90px 30px;
+}
+.produtoDetalhes{
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+}
+.fotosDetalhes{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.fotos{
+    display: flex;
+    flex-direction: row;
+    gap: 60px;
+    width: 70%;
+}
+.descricao{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 30%;
+}
+.descricao aside{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 30%;
+}
+.descricao button{
+    background-color: #6f5f40;
+    color: #fff;
+    font-size: 16px;
+    padding: 10px;
+    border: none;
+}

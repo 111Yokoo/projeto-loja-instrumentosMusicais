@@ -23,3 +23,13 @@
     border: none;
     border-bottom: 1px solid black;
 }
+.buttonGroup{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+.buttonUsers{
+    background-color: transparent;
+    border: none;
+    font-size: 20px;
+}

@@ -4,7 +4,9 @@ import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import ProdutoCarrinho from "../components/ProdutoCarrinho";
-
+import { FaPix } from "react-icons/fa6";
+import { CiMoneyCheck1 } from "react-icons/ci";
+import { CiCreditCard1 } from "react-icons/ci";
 
 export default function Carrinho() {
   const navigate = useNavigate();
@@ -30,9 +32,12 @@ export default function Carrinho() {
               <section>
                 <h2>Forma de Pagamento</h2>
                 <div className="botoesPagamento">
-                  <button className="buttonPix">Pix</button>
-                  <button className="buttonCheque">Cheque</button>
-                  <button className="buttonCartao">Cartão</button>
+                  <select className="selectPagamento">
+                    <option value="">Escolher método de pagamento</option>
+                    <option value="pix">Pagamento via Pix</option>
+                    <option value="cheque">Pagamento via Cheque</option>
+                    <option value="cartao">Pagamento via Cartão</option>
+                  </select>
                 </div>
               </section>
               <section>

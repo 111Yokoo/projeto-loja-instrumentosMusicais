@@ -198,3 +198,66 @@ ul{
     display: block;
     text-align: center;
 }
+.navbarItens{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+@media (max-width: 960px) {
+    header{
+        height: 130px;
+    }
+    .navbar{
+        width: 100%;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .navbarItens{
+        justify-content: space-around;
+    }
+    .dropdown-menu {
+        top: 130px;
+    }
+  }
+  @media (max-width: 660px) {
+    header{
+        height: 180px;
+    }
+    .navbar{
+        width: 100%;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .navbarItens{
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+    }
+  }
+  @media (max-width: 480px) {
+    .navbar-menu .navbar-item button {
+        font-size: 16px;
+    }
+    .dropdown-link{
+        font-size: 16px;
+    }
+    header a{
+        font-size: 16px;
+    }
+    .linkCad{
+        font-size: 16px;
+    }
+    .navbar-menu {
+        gap: 5px;
+    }
+    .navbar-menu .navbar-item a.link, .navbar-menu .navbar-item button {
+        width: 100px;
+    }
+    .navbar{
+        padding: 0px;
+    }
+  }
+  

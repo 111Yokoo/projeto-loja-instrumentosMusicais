@@ -53,66 +53,68 @@ const Header = ({cor}) => {
               <img src={Logo} alt="Logo Resonance"/>
             </Link>
           </div>
-          <ul className="navbar-menu">
-            <li className="navbar-item" ref={dropdownRef}>
-              <button className="dropdown-button link" onClick={toggleDropdown}>
-                Categorias
-              </button>
-              {isDropdownOpen && (
-                <ul className="dropdown-menu">
-                  <li className="dropdown-item">
-                    <a href="/acustico" className="dropdown-link">Acústico</a>
-                  </li>
-                  <li className="dropdown-item">
-                    <a href="/semiacustico" className="dropdown-link">Semiacústico</a>
-                  </li>
-                  <li className="dropdown-item">
-                    <a href="/eletrico" className="dropdown-link">Elétrico</a>
-                  </li>
-                </ul>
-              )}
-            </li>
-            <li className="navbar-item">
-              <a className="link" href="/contato">Contato</a>
-            </li>
-            <li className="navbar-item">
-              <a className="link" href="/sobrenos">Sobre Nós</a>
-            </li>
-          </ul>
         </div>
-        <ul className="navbar-options">
-          {logado ?
-            <>
-              <li>
-                <Link to="/carrinho">
-                  <FaCartArrowDown />
-                </Link>
+        <section className="navbarItens">
+          <ul className="navbar-menu">
+              <li className="navbar-item" ref={dropdownRef}>
+                <button className="dropdown-button link" onClick={toggleDropdown}>
+                  Categorias
+                </button>
+                {isDropdownOpen && (
+                  <ul className="dropdown-menu">
+                    <li className="dropdown-item">
+                      <a href="/acustico" className="dropdown-link">Acústico</a>
+                    </li>
+                    <li className="dropdown-item">
+                      <a href="/semiacustico" className="dropdown-link">Semiacústico</a>
+                    </li>
+                    <li className="dropdown-item">
+                      <a href="/eletrico" className="dropdown-link">Elétrico</a>
+                    </li>
+                  </ul>
+                )}
               </li>
-              <li className="tab">
-                <TbMinusVertical />
+              <li className="navbar-item">
+                <a className="link" href="#contato">Contato</a>
               </li>
-              <li>
-                <Link to="/perfil">
-                  <FaUser />
-                </Link>
+              <li className="navbar-item">
+                <a className="link" href="/sobrenos">Sobre Nós</a>
               </li>
-            </>
-            :
-            <>
-              <li>
-                <Link className="linkCad" to="/registro">
-                  Cadastrar
-                </Link>
-              </li>
-              <p>/</p>
-              <li>
-                <Link className="linkCad" to="/login">
-                  Entrar
-                </Link>
-              </li>
-            </>
-          }
-        </ul>
+            </ul>
+          <ul className="navbar-options">
+            {logado ?
+              <>
+                <li>
+                  <Link to="/carrinho">
+                    <FaCartArrowDown />
+                  </Link>
+                </li>
+                <li className="tab">
+                  <TbMinusVertical />
+                </li>
+                <li>
+                  <Link to="/perfil">
+                    <FaUser />
+                  </Link>
+                </li>
+              </>
+              :
+              <>
+                <li>
+                  <Link className="linkCad" to="/registro">
+                    Cadastrar
+                  </Link>
+                </li>
+                <p>/</p>
+                <li>
+                  <Link className="linkCad" to="/login">
+                    Entrar
+                  </Link>
+                </li>
+              </>
+            }
+          </ul>
+        </section>
       </nav>
     </header>
   );

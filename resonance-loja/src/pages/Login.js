@@ -21,7 +21,7 @@ export default function Login() {
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     height: '100vh'}} className="fundo login">
-      <Header/>
+      <Header cor="#121212"/>
         <main>
             <form action="" method="">
               <section className="main">

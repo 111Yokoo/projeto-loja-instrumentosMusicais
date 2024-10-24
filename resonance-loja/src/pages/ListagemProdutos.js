@@ -13,7 +13,7 @@ export default function ListagemProdutos() {
   const [selectedPrice, setSelectedPrice] = useState(null);
 
   const handlePriceChange = (value) => {
-    // Se o valor clicado for o mesmo que o selecionado, desmarque-o
+    // Se o valor clicado for o mesmo que o selecionado, desmarque-
     setSelectedPrice(prev => (prev === value ? null : value));
   };
 
