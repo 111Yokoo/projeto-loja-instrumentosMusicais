@@ -7,19 +7,20 @@ import CapaAlbum from "../../assets/images/FooFightersCapaAlbum.jfif";
 const Music = () => {
     const [play, setPlay] = useState(false);
     const [isMuted, setIsMuted] = useState(false);
-    const audioRef = useRef(new Audio(MyHeroMusic)); // Usar useRef para armazenar a instância de Audio
+    const audioRef = useRef(new Audio(MyHeroMusic));
     const fixedVolume = 0.1; 
     const [currentTime, setCurrentTime] = useState(0);
+    const [spanCount, setSpanCount] = useState(120); // Inicializa com 120 spans
 
     const playAudio = () => {
         setPlay(true);
-        audioRef.current.currentTime = currentTime; // Retorna ao ponto onde parou
+        audioRef.current.currentTime = currentTime;
         audioRef.current.play();
     };
 
     const pauseAudio = () => {
         setPlay(false);
-        setCurrentTime(audioRef.current.currentTime); // Armazena o tempo atual
+        setCurrentTime(audioRef.current.currentTime);
         audioRef.current.pause();
     };
 
@@ -27,19 +28,18 @@ const Music = () => {
         setIsMuted(prev => !prev);
         audioRef.current.muted = !isMuted; 
         if (!isMuted) {
-            audioRef.current.volume = 0; // Silencia o áudio
+            audioRef.current.volume = 0; 
         } else {
-            audioRef.current.volume = fixedVolume; // Restaura o volume fixo
+            audioRef.current.volume = fixedVolume; 
         }
     };
 
     useEffect(() => {
-        audioRef.current.volume = fixedVolume; // Define o volume fixo do áudio
+        audioRef.current.volume = fixedVolume;
 
-        // Função para reiniciar a música quando terminar
         const handleEnded = () => {
-            audioRef.current.currentTime = 0; // Reseta o tempo
-            audioRef.current.play(); // Recomeça a música
+            audioRef.current.currentTime = 0;
+            audioRef.current.play();
         };
 
         audioRef.current.addEventListener('ended', handleEnded);
@@ -47,7 +47,7 @@ const Music = () => {
         return () => {
             audioRef.current.pause();
             audioRef.current.currentTime = 0;
-            audioRef.current.removeEventListener('ended', handleEnded); // Limpa o evento ao desmontar
+            audioRef.current.removeEventListener('ended', handleEnded);
         };
     }, []);
 
@@ -58,15 +58,37 @@ const Music = () => {
             audioRef.current.pause();
         }
 
-        // Atualiza o tempo atual do áudio em intervalos regulares
         const updateCurrentTime = setInterval(() => {
             if (play) {
                 setCurrentTime(audioRef.current.currentTime);
             }
         }, 1000);
 
-        return () => clearInterval(updateCurrentTime); // Limpa o intervalo ao desmontar
+        return () => clearInterval(updateCurrentTime);
     }, [play]);
+
+    useEffect(() => {
+        const updateSpanCount = () => {
+            const width = window.innerWidth;
+
+            // Defina o número de spans com base na largura da tela
+            if (width < 550) {
+                setSpanCount(30); // Exibe 30 spans em telas pequenas
+            } else if (width < 768) {
+                setSpanCount(60); // Exibe 60 spans em telas médias
+            } else {
+                setSpanCount(120); // Exibe 120 spans em telas grandes
+            }
+        };
+
+        // Atualiza a contagem de spans ao redimensionar a tela
+        window.addEventListener('resize', updateSpanCount);
+        updateSpanCount(); // Chama a função para definir a contagem inicial
+
+        return () => {
+            window.removeEventListener('resize', updateSpanCount);
+        };
+    }, []);
 
     return (
         <div className="music">
@@ -79,7 +101,7 @@ const Music = () => {
                     {isMuted ? <FaVolumeMute /> : <FaVolumeUp />}
                 </button>
             </div>
-            {[...Array(120)].map((_, index) => (
+            {[...Array(spanCount)].map((_, index) => (
                 <span key={index} className={play ? 'animate' : 'static'}></span>
             ))}
         </div>

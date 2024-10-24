@@ -39,3 +39,10 @@
 .nomeProduto:hover{
     text-decoration: underline;
 }
+
+@media (max-width: 960px) {
+    .produto{
+        width: 250px;
+        height: 500px;
+    }
+  }
