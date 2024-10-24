@@ -44,6 +44,7 @@ export default function Home() {
         breakpoint: 630,
         settings: {
           slidesToShow: 1, // Exibir 1 produto em telas pequenas
+          slidesToScroll: 1,
         },
       },
     ],
