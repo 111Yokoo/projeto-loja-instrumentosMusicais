@@ -27,14 +27,15 @@ export default function Registro() {
 
   return (
     <div style={{
-      backgroundImage: `linear-gradient(to bottom, transparent, black), url(${Fundo})`,
+      backgroundImage: `url(${Fundo})`,
       backgroundSize: 'cover',
       backgroundPosition: 'center',
-      height: '100vh'
+      backgroundRepeat: 'repeat-y',
+      height: '100%'
   }} className="fundo">
-      <Header/>
+      <Header cor="#121212"/>
         <main className="registrar">
-            <form className="formRegistro" action="" method="">
+            <form className="formRegistro" action="" method="" >
               <section className="infosOne">
                 <img src={Logo} width="250px" alt="Logo Resonance"/>
                 <p className="tituloRegistrar">Seja bem vindo! Conclua seu cadastro para acessar nossa loja.</p>

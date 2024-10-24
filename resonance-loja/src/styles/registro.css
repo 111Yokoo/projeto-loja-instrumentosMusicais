@@ -108,3 +108,37 @@ input[type="submit"]{
     color: #fff;
     cursor: pointer;
 }
+
+@media (max-width: 960px) {
+    main.registrar{
+        margin-top: 140px;
+        margin-bottom: 50px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    .tituloRegistrar{
+        font-size: 16px;
+    }
+  }
+  @media (max-width: 660px) {
+    main.registrar{
+        margin-top: 200px;
+        margin-bottom: 0px;
+    }
+    .formRegistro{
+        display: flex;
+        flex-direction: column ;
+        margin-bottom: 15px;
+    }
+    .infosOne, .infosTwo{
+        width: 85%;
+    }
+    input[type="submit"]{
+        width: 100%;
+        font-weight: 700;
+        font-size: 18px;
+    }
+  }
+  @media (max-width: 480px) {
+    
+  }
