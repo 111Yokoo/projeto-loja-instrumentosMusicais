@@ -7,6 +7,7 @@ import { FaSearch } from "react-icons/fa";
 import { HiAdjustmentsHorizontal } from "react-icons/hi2";
 import { IoIosPricetags } from "react-icons/io";
 import { IoMdColorFill } from "react-icons/io";
+import { FaPlus } from "react-icons/fa6";
 
 export default function ListagemProdutos() {
   const inputRef = useRef(null);
@@ -22,10 +23,15 @@ export default function ListagemProdutos() {
       <Header cor="#121212" />
       <main>
         <section className="searchContainer">
-          <article className="inputGroup">
-            <FaSearch />
-            <input type="text" ref={inputRef} />
-          </article>
+          <div className="searchadd">
+            <article className="inputGroup">
+              <FaSearch />
+              <input type="text" ref={inputRef} />
+            </article>
+            <button className="buttonadd">
+              <FaPlus className="addproduto"/>
+            </button>
+          </div>
         </section>
         <section className="container">
           <article className="filter">

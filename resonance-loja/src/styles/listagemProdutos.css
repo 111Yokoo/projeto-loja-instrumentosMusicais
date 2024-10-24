@@ -78,3 +78,21 @@
     gap: 35px;
     flex-wrap: wrap;
 }
+.addproduto{
+    font-size: 30px;
+}
+.buttonadd {
+    background: transparent;
+    border: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.searchadd {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 35px;
+}
