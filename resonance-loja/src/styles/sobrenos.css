@@ -25,3 +25,34 @@
     font-weight: 700;
     max-width: 700px;
 }
+.incolor h2{
+    text-align: center;
+}
+
+@media (max-width: 1042px) {
+    .sessaoHistory article p{
+        font-size: 16px;
+    }
+  }
+  @media (max-width: 934px) {
+    .sessaoHistory article p{
+        font-size: 16px;
+    }
+    .incolor img{
+        display: none;
+    }
+    .color img{
+        display: none;
+    }
+  }
+  @media (max-width: 516px) {
+    .sessaoHistory article p{
+        font-size: 16px;
+    }
+    .incolor{
+        flex-direction: column;
+    }
+    .incolor img{
+        display: block;
+    }
+  }
