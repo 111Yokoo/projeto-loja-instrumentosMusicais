@@ -37,7 +37,9 @@
 .sessaoMeio .slick-prev:before, .sessaoMeio .slick-next:before {
     color: #fff !important; 
 }
-
+Produto{
+    width: 10px;
+}
 
 @media (max-width: 960px) {
     .produto{
