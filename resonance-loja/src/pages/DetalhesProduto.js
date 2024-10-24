@@ -45,7 +45,7 @@ export default function DetalhesProduto() {
             <p>Descrição 2</p>
           </article>
           <article>
-            <img src={BannerSecundario} />
+            <img src={BannerSecundario} alt="Banner secundário"/>
           </article>
         </section>
       </main>
