@@ -95,4 +95,11 @@ section.main{
         width: 350px;
         height: 450px;
     }
+    .login main{
+        padding-top: 200px;
+        margin-bottom: 0px;
+    }
+    .login form{
+        margin-bottom: 30px;
+    }
   }
