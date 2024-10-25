@@ -72,5 +72,12 @@
         height: auto;
         width: auto;
     }
-    
+    .quantidade{
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+    .buttonRemove{
+        width: 100%;
+    }
   }
