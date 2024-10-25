@@ -39,3 +39,19 @@
     gap: 35px;
     flex-wrap: wrap;
 }
+@media (max-width: 960px) {
+    .listagemVendas main{
+        padding: 140px 30px 100px 30px;
+    }
+    .compraCartao{
+        width: 100%;
+    }
+  }
+  @media (max-width: 660px) {
+    .listagemVendas main{
+        padding: 200px 30px 100px 30px;
+    }
+    .searchContainer .inputGroup {
+        width: 350px;
+    }
+  }

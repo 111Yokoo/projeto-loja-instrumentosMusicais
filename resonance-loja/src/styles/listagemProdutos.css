@@ -107,7 +107,7 @@
     }
   }
   @media (max-width: 530px) {
-    .container {
+    .listagemProdutos .container {
         flex-direction: column !important; 
         width: 100%;
     }
