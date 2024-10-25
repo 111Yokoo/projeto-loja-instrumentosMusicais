@@ -46,3 +46,23 @@
         height: 500px;
     }
   }
+  @media (max-width: 622px) {
+    .produto{
+        width: 200px !important;
+        height: 500px;
+    }
+    .imagem{
+        width: 200px !important;
+        height: 400px;
+    }
+  }
+  @media (max-width: 518px) {
+    .produto{
+        width: 250px !important;
+        height: 500px;
+    }
+    .imagem{
+        width: 250px !important;
+        height: 400px;
+    }
+  }

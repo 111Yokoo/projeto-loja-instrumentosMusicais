@@ -90,6 +90,7 @@ export default function ListagemProdutos() {
           </article>
           <article className="produtosListagem">
             <Produto />
+            <Produto />
           </article>
         </section>
       </main>
