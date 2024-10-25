@@ -8,7 +8,7 @@ import {
 
 // Controller para criar um novo produto com imagem
 export const criarProdutoController = async (req, res) => {
-  const { nome, preco, estoque, descricao } = req.body;
+  const { nome, preco, estoque, descricao, tituloInformacao, visibilidade, informacao } = req.body;
   const imagens = req.files ? req.files.map((file) => file.path) : [];
 
   try {
@@ -18,6 +18,9 @@ export const criarProdutoController = async (req, res) => {
       preco: parseFloat(preco),
       estoque: parseInt(estoque),
       descricao,
+      tituloInformacao,
+      visibilidade,
+      informacao,
       imagens,
     });
     res.status(201).json(produto);
@@ -25,6 +28,7 @@ export const criarProdutoController = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
+
 
 export const obterProdutos = async (req, res) => {
   try {
@@ -54,10 +58,7 @@ export const editarProduto = async (req, res) => {
   const dadosAtualizados = req.body;
 
   try {
-    const produto = await atualizarProduto(
-      parseInt(produtoId),
-      dadosAtualizados
-    );
+    const produto = await atualizarProduto(parseInt(produtoId), dadosAtualizados);
     res.json(produto);
   } catch (error) {
     return res.status(400).json({ error: error.message });

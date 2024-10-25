@@ -1,14 +1,17 @@
 import prisma from "./prismaClient.js";
 
 export const criarProduto = async (data) => {
-  const { nome, preco, estoque, descricao, imagens } = data;
+  const { nome, preco, estoque, descricao, tituloInformacao, visibilidade, informacao, imagens } = data;
 
   return await prisma.produto.create({
     data: {
       nome,
-      preco: parseFloat(preco), // Certifique-se de que o preco é um float
-      estoque: parseInt(estoque), // Certifique-se de que o estoque é um int
+      preco: parseFloat(preco),
+      estoque: parseInt(estoque),
       descricao,
+      tituloInformacao,
+      visibilidade,
+      informacao,
       imagens: {
         create: imagens.map((imagem) => ({ url: imagem })), // Cria uma entrada para cada imagem
       },
