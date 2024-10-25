@@ -13,9 +13,14 @@
 }
 .fotos{
     display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 70%;
+}
+.fotos div{
+    display: flex;
     flex-direction: row;
     gap: 60px;
-    width: 70%;
 }
 .descricao{
     display: flex;
@@ -36,3 +41,49 @@
     padding: 10px;
     border: none;
 }
+.bannerSecundario img{
+    width: 100%;
+}
+.descricaoParteTwo{
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+@media (max-width: 960px) {
+    .detalhesProduto main{
+        padding: 150px 30px;
+    }
+  }
+
+  @media (max-width: 850px) {
+    .fotosDetalhes{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 25px;
+    }
+    .fotos div{
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: center;
+        gap: 20px;
+    }
+    .fotos{
+        width: 100%;
+    }
+    .descricao{
+        width: 100%;
+    }
+  }
+  @media (max-width: 660px) {
+    .detalhesProduto main{
+        padding: 220px 30px;
+    }
+    .descricao aside{
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        width: 100%;
+    }
+  }

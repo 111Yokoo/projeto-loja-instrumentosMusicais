@@ -22,9 +22,9 @@ export default function AppRoutes() {
         <Route path="/produtos" element={<ListagemProdutos />} />
         <Route path="/carrinho" element={<Carrinho />} />
         <Route path="/perfil" element={<Perfil />} />
-        <Route path="/admin/listagemVendas" element={<ListagemVendas />} />
-        
+        <Route path="/admin/listagemVendas" element={<ListagemVendas />} />        
         <Route path="/admin/usuarios" element={<Usuarios />} />
+        
         <Route path="/produto/:id" element={<DetalhesProduto />} />
       </Routes>
     </Router>
