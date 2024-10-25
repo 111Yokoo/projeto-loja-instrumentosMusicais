@@ -71,7 +71,7 @@ section.main{
 .registrar{
     font-size:12px ;
 }
-.buttonSenhaLogin{
+.login .buttonSenhaLogin{
     background-color: transparent;
     border: none;
     font-size: 18px;

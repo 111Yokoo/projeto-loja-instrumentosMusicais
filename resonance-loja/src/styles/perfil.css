@@ -9,10 +9,18 @@
     flex-direction: column;
     justify-content: center;
     align-items: start;
-    padding: 0px 20px;
 }
-.titlePerfil h2{
+.titlePerfil h2, .linksPerfil{
     font-size: 30px;
+    padding-left: 20px;
+}
+.linksPerfil{
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+.linksPerfil a{
+    color: #000;
 }
 .buttonPerfilEdit{
     height: 45px;
@@ -44,6 +52,7 @@
     align-items: end;
     flex-wrap: wrap;
     gap: 20px;
+    width: 100%;
 }
 .infoConta label input{
     height: 40px;
@@ -60,6 +69,10 @@
     height: 40px;
     width: 250px;
     border: 1px solid black;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }
 .compras{
     display: flex;
@@ -79,3 +92,52 @@
     color: red;
     font-size: 30px;
 }
+.perfil .buttonSenhaLogin {
+    background-color: transparent;
+    border: none;
+    font-size: 18px;
+    color: #000;
+    cursor: pointer;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+@media (max-width: 960px) {
+    .perfil main{
+        padding: 130px 0px;
+    }
+  }
+  @media (max-width: 660px) {
+    .perfil main{
+        padding: 180px 0px;
+    }
+    .historicoCompras{
+        gap: 20px;
+    }
+  }
+  @media (max-width: 576px) {
+    .infoEdit{
+        gap: 15px;
+    }
+    .infoEdit span{
+        width: 100%;
+    }
+    .infoConta label{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+    .infoConta label input, .inputPasswordPerfil{
+        width: 100%;
+    }
+    .infoConta label .inputPasswordPerfil input {
+        width: 95%;
+    }
+    .compras{
+        padding: 15px;
+    }
+    .historicoCompras{
+        gap: 10px;
+    }
+  }

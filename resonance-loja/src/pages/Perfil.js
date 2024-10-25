@@ -7,6 +7,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import Compra from "../components/Compra";
 import ModalCompra from "../components/ModalCompra"; 
 import { IoExit } from "react-icons/io5";
+import { FaShoppingBag } from "react-icons/fa";
 
 export default function Perfil() {
   const navigate = useNavigate();
@@ -34,7 +35,10 @@ export default function Perfil() {
       <main>
         <section className="titlePerfil">
           <h2>Minha conta</h2>
-          <button className="buttonExit"><IoExit /></button>
+          <div class="linksPerfil">
+            <a href="#comprasAntigas"><FaShoppingBag /></a>
+            <button className="buttonExit"><IoExit /></button>
+          </div>
         </section>
         <section className="infoConta">
           <h2>Informações da conta</h2>
@@ -94,7 +98,7 @@ export default function Perfil() {
               Complemento
               <input type="text" value="Complemento" disabled={!isEditable} />
             </label>
-            <label>
+            <label  id="comprasAntigas">
               Número
               <input type="text" value="Número" disabled={!isEditable} />
             </label>
