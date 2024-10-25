@@ -39,3 +39,18 @@
     gap: 35px;
     flex-wrap: wrap;
 }
+@media (max-width: 960px) {
+    .usuarios main{
+        padding: 150px 30px;
+    }
+  }
+  @media (max-width: 762px) {
+    .usuarioCartao{
+        width: 100%;
+    }
+  }
+  @media (max-width: 660px) {
+    .usuarios main{
+        padding: 220px 30px;
+    }
+  }
