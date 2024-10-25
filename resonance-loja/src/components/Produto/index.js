@@ -1,16 +1,21 @@
-import React from "react";
+import React, { useState} from "react";
 import { useNavigate } from "react-router-dom";
 import { FaShoppingCart } from "react-icons/fa";
 import "./styles.css";
+import { FaPencilAlt } from "react-icons/fa";
 
 const Produto = ({ Foto, Nome, Preco, Cor }) => {
   const navigate = useNavigate();
+  const [logado, setLogado] = useState(false);
 
   const handleCarrinhoClick = (e) => {
-    e.stopPropagation(); // Impede a propagação do evento para o elemento pai
+    e.stopPropagation(); 
     navigate('/carrinho');
   };
-
+  const handleEditClick = (e) => {
+    e.stopPropagation();
+    navigate('/admin/criarProdutos');
+  };
   return (
     <section onClick={() => navigate('/produto/:id')} className="produto">
       <article style={{ backgroundImage: `url(${Foto})`, backgroundSize: 'cover' }} className="imagem">
@@ -21,9 +26,11 @@ const Produto = ({ Foto, Nome, Preco, Cor }) => {
       <article className="produtoDescricao">
         <aside className="produtoParteOne">
           <p>Resonance</p>
-          <span className="carrinho" onClick={handleCarrinhoClick}>
-            <FaShoppingCart />
-          </span>
+            {logado ? <><span className="carrinho" onClick={handleEditClick}>
+            <FaPencilAlt />
+            </span> </> : <span className="carrinho" onClick={handleCarrinhoClick}>
+              <FaShoppingCart />
+            </span> }
         </aside>
         <aside>
           <h3 className="nomeProduto">{Nome}</h3>
