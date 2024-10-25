@@ -7,10 +7,10 @@
     background-color: #D9D9D9;
     display: flex;
     align-items: center;
-    padding: 0px 20px;
 }
 .titleCarrinho h2{
     font-size: 30px;
+    padding-left: 20px;
 }
 .carrinhoSection{
     padding: 20px 0px;
@@ -25,7 +25,7 @@
 }
 .buttonNavigatePerfil{
     height: 40px;
-    width: 150px;
+    width: 100%;
     background-color: transparent;
     border: 1px solid #6f5f40;
     color: #6f5f40;
@@ -41,3 +41,50 @@
     padding: 10px;
     font-size: 16px;
 }
+.mobile{
+    display: none;
+}
+@media (max-width: 1050px) {
+    .carrinhoSection{
+        padding: 20px 0px;
+        display: flex;
+        flex-direction: column;
+    }
+    .carrinhoSection article{
+        padding: 20px 0px;
+        display: flex;
+        width: 100%;
+        justify-content: center;
+    }
+    .mobile{
+        display: block;
+    }
+    .web{
+        display: none;
+    }
+    .infosPagamento{
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 50px;
+    }
+  }
+  @media (max-width: 960px) {
+    .carrinho main{
+        padding: 130px 0px;
+    }
+  }
+  @media (max-width: 720px) {
+    .infosPagamento{
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: center;
+        gap: 50px;
+    }
+  }
+  @media (max-width: 660px) {
+    .carrinho main{
+        padding: 180px 0px;
+    }
+  }

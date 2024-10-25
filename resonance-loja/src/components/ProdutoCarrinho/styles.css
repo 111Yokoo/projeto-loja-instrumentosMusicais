@@ -51,3 +51,26 @@
     flex-direction: row;
     gap: 20px;
 }
+@media (max-width: 720px) {
+    .productCarrinho{
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        height: auto;
+        width: auto;
+    }
+    .productCarrinho img{
+        width: 80%;
+        height: 80%;
+    }
+  }
+  @media (max-width: 660px) {
+    .productCarrinho{
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        height: auto;
+        width: auto;
+    }
+    
+  }

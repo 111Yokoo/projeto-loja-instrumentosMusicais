@@ -19,10 +19,11 @@ export default function Carrinho() {
         </section>
         <section className="carrinhoSection">
           <article>
-              <ProdutoCarrinho nome="guitarra" preco="1200" quantidadeProduto={2}/>
+              <ProdutoCarrinho nome="guitarra" preco="1200" quantidadeProduto={1}/>
           </article>
+          <hr className="mobile"/>
           <article className="precoInfos">
-          <hr />
+          <hr className="web"/>
             <aside className="infosPagamento">
               <section>
                 <h2>Endereço de entrega</h2>
