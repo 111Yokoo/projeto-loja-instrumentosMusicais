@@ -1,0 +1,33 @@
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -250px; /* Começa fora da tela */
+    width: 250px;
+    height: 100%;
+    background: #121212;
+    transition: left 0.3s ease;
+    z-index: 1000;
+  }
+  
+  .sidebar.open {
+    left: 0; /* Move para dentro da tela */
+  }
+  
+  .sidebar-menu {
+    list-style: none;
+    padding: 20px;
+  }
+  
+  .sidebar-link {
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    padding: 10px 0px 10px 10px;
+    transition: background 0.3s;
+    width: 95%;
+  }
+  
+  .sidebar-link:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }

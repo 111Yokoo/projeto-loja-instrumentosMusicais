@@ -37,6 +37,11 @@
 .sessaoMeio .slick-prev:before, .sessaoMeio .slick-next:before {
     color: #fff !important; 
 }
+.slick-track .slick-active{
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
 Produto{
     width: 10px;
 }

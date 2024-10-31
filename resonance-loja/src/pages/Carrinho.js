@@ -4,9 +4,6 @@ import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import ProdutoCarrinho from "../components/ProdutoCarrinho";
-import { FaPix } from "react-icons/fa6";
-import { CiMoneyCheck1 } from "react-icons/ci";
-import { CiCreditCard1 } from "react-icons/ci";
 
 export default function Carrinho() {
   const navigate = useNavigate();

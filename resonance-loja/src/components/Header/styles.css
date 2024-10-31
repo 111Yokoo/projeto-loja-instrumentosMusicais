@@ -205,6 +205,9 @@ ul{
     justify-content: space-between;
     width: 100%;
 }
+.sidebar-toggle{
+    display: none;
+}
 @media (max-width: 960px) {
     header{
         height: 130px;
@@ -224,18 +227,23 @@ ul{
   }
   @media (max-width: 660px) {
     header{
-        height: 180px;
+        height: 100px;
     }
     .navbar{
         width: 100%;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+        flex-direction: row;
     }
     .navbarItens{
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-around;
+        display: none;
+    }
+    .sidebar-toggle{
+        display: flex;
+        color: #fff;
+        font-size: 25px;
+        background-color: transparent;
+        border: none;
+        justify-content: center;
+        margin-left: 20px;
     }
   }
   @media (max-width: 480px) {
@@ -268,4 +276,3 @@ ul{
         padding: 0px;
     }
   }
-  
