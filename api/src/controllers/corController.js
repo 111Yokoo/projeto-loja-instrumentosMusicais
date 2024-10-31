@@ -29,6 +29,11 @@ import {
   export const obterCorController = async (req, res) => {
     const { id } = req.params;
   
+    // Verifique se o ID é um número válido
+    if (isNaN(id) || parseInt(id) <= 0) {
+      return res.status(400).json({ message: "ID inválido" });
+    }
+  
     try {
       const cor = await obterCorPorId(parseInt(id));
       if (!cor) {
@@ -44,6 +49,11 @@ import {
     const { id } = req.params;
     const data = req.body;
   
+    // Verifique se o ID é um número válido
+    if (isNaN(id) || parseInt(id) <= 0) {
+      return res.status(400).json({ message: "ID inválido" });
+    }
+  
     try {
       const corAtualizada = await atualizarCor(parseInt(id), data);
       if (!corAtualizada) {
@@ -58,6 +68,11 @@ import {
   export const deletarCorController = async (req, res) => {
     const { id } = req.params;
   
+    // Verifique se o ID é um número válido
+    if (isNaN(id) || parseInt(id) <= 0) {
+      return res.status(400).json({ message: "ID inválido" });
+    }
+  
     try {
       await deletarCor(parseInt(id));
       return res.status(204).send(); // Cor deletada com sucesso
@@ -65,4 +80,3 @@ import {
       return res.status(400).json({ error: error.message });
     }
   };
-  

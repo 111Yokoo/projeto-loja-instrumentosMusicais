@@ -26,6 +26,7 @@
     padding: 10px 0px 10px 10px;
     transition: background 0.3s;
     width: 95%;
+    text-align: start;
   }
   
   .sidebar-link:hover {

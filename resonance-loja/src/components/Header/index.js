@@ -1,5 +1,6 @@
-import React, { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useRef, useEffect, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../contexts/AuthContext";
 import { FaCartArrowDown } from "react-icons/fa6";
 import { FaUser } from "react-icons/fa";
 import { TbMinusVertical } from "react-icons/tb";
@@ -7,6 +8,7 @@ import Logo from "../../assets/images/Logo.png";
 import { FaBars } from "react-icons/fa";
 import "./styles.css";
 import Sidebar from "../SideBar";
+import { IoLogOut } from "react-icons/io5";
 
 const Header = ({ cor }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -14,30 +16,39 @@ const Header = ({ cor }) => {
   const dropdownRef = useRef(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const [logado, setLogado] = useState(false);
+  const navigate = useNavigate();
+
+  const { user, logout } = useContext(AuthContext); 
+  console.log(user);
+
+  useEffect(() => {
+    if(user){
+      setLogado(true)
+    }
+  }, []);
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
 
   const handleScroll = () => {
     setIsScrolled(window.scrollY > 50);
   };
-
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
   const toggleDropdown = () => {
     setIsDropdownOpen((prev) => !prev);
   };
-
   const toggleSidebar = () => {
     setIsSidebarOpen((prev) => !prev);
   };
-
   const handleClickOutside = (event) => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
       setIsDropdownOpen(false);
     }
   };
-
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
@@ -98,6 +109,14 @@ const Header = ({ cor }) => {
                   <Link to="/perfil">
                     <FaUser />
                   </Link>
+                </li>
+                <li className="tab">
+                  <TbMinusVertical />
+                </li>
+                <li>
+                  <button className="linkLogout" to="#" onClick={() => handleLogout()}>
+                  <IoLogOut />
+                  </button>
                 </li>
               </>
             ) : (

@@ -71,6 +71,12 @@ ul{
 .linkCad{
     font-size: 18px;
 }
+.linkLogout{
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    font-size: 25px;
+}
 @keyframes fill {
     0% {
         width: 0%;

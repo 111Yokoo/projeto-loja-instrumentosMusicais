@@ -12,18 +12,18 @@ import { verificarToken, verificarAdmin } from "../middleware/authMiddleware.js"
 const router = express.Router();
 
 // Rota para listar todas as categorias (Admin Only)
-router.get("/", verificarToken, verificarAdmin, obterCategoriasController);
+router.get("/categorias", verificarToken, verificarAdmin, obterCategoriasController);
 
 // Rota para criar uma nova categoria (Admin Only)
-router.post("/", verificarToken, verificarAdmin, criarCategoriaController);
+router.post("/categorias/", verificarToken, verificarAdmin, criarCategoriaController);
 
 // Rota para obter uma categoria por ID
-router.get("/:id", verificarToken, obterCategoriaController);
+router.get("/categorias/:id", verificarToken, obterCategoriaController);
 
 // Rota para atualizar uma categoria por ID (Admin Only)
-router.put("/:id", verificarToken, verificarAdmin, atualizarCategoriaController);
+router.put("/categorias/:id", verificarToken, verificarAdmin, atualizarCategoriaController);
 
 // Rota para deletar uma categoria por ID (Admin Only)
-router.delete("/:id", verificarToken, verificarAdmin, deletarCategoriaController);
+router.delete("/categorias/:id", verificarToken, verificarAdmin, deletarCategoriaController);
 
 export default router;

@@ -1,4 +1,7 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../contexts/AuthContext";
+import api from "../services/api";
 import Header from "../components/Header";
 import Banner from "../components/Banner";
 import Footer from "../components/Footer";
@@ -12,14 +15,6 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 // Lista de produtos
-const produtos = [
-  { Foto: Capa, Nome: "Guitarra", Preco: "1500", Cor: "#fff" },
-  { Foto: Capa, Nome: "Bateria", Preco: "2000", Cor: "#fff" },
-  { Foto: Capa, Nome: "Baixo", Preco: "1700", Cor: "#fff" },
-  { Foto: Capa, Nome: "Teclado", Preco: "1200", Cor: "#fff" },
-  { Foto: Capa, Nome: "Microfone", Preco: "800", Cor: "#fff" },
-];
-
 export default function Home() {
   const settings = {
     dots: false, // Habilitar pontos abaixo do carrossel
@@ -56,6 +51,63 @@ export default function Home() {
       },
     ],
   };
+
+  const [produtos, setProdutos] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(""); // Estado para capturar erros
+  const navigate = useNavigate(); // Hook para navegação
+  const { user } = useContext(AuthContext); // Pega o usuário logado
+
+  // Buscar produtos ao montar o componente
+  useEffect(() => {
+    const fetchProdutos = async () => {
+      try {
+        const isAdmin = user?.role === "ADMIN"; // Verifica se o usuário é administrador
+        const response = await api.get(`/produtos?admin=${isAdmin}`);
+        setProdutos(response.data);
+        setLoading(false);
+      } catch (error) {
+        if (
+          error.response &&
+          error.response.data &&
+          error.response.data.message
+        ) {
+          setError(error.response.data.message); // Exibe a mensagem de erro da API
+        } else {
+          setError("Erro desconhecido. Por favor, tente novamente.");
+        }
+        setLoading(false); // Interrompe o estado de carregamento ao encontrar erro
+      }
+    };
+
+    fetchProdutos();
+  }, [user?.role]); // Adiciona `user?.role` como dependência
+
+  const handleAddToCart = async (produtoId) => {
+    try {
+      await api.post("/carrinho", {
+        userId: user.id, // Certifique-se de que o ID do usuário está correto
+        produtoId, // ID do produto
+        quantidade: 1, // Quantidade a ser adicionada
+      });
+      alert("Produto adicionado ao carrinho com sucesso!"); // Notifica o sucesso
+      navigate("/carrinho");
+    } catch (error) {
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        setError(error.response.data.message); // Exibe a mensagem de erro da API
+      } else {
+        setError("Erro desconhecido. Por favor, tente novamente.");
+      }
+    }
+  };
+
+  if (loading) {
+    return <div>Carregando produtos...</div>;
+  }
 
   return (
     <div className="home">

@@ -1,18 +1,26 @@
-import React, { useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useRef, useEffect, useContext } from 'react';
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../contexts/AuthContext";
 import { FaCartArrowDown } from 'react-icons/fa6';
 import { FaUser } from 'react-icons/fa';
 import './styles.css';
+import { IoLogOut } from "react-icons/io5";
 
 const Sidebar = ({ isOpen, toggleSidebar, logado }) => {
   const sidebarRef = useRef(null);
-
+  const navigate = useNavigate();
+  const { user, logout } = useContext(AuthContext); 
   // Função para lidar com cliques fora da sidebar
   const handleClickOutside = (event) => {
     if (sidebarRef.current && !sidebarRef.current.contains(event.target)) {
       toggleSidebar(false); // Fecha a sidebar se o clique for fora
     }
   };
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
+
 
   // Adiciona e remove o event listener
   useEffect(() => {
@@ -69,6 +77,16 @@ const Sidebar = ({ isOpen, toggleSidebar, logado }) => {
               <Link to="/carrinho" className="sidebar-link" onClick={handleLinkClick}>
                 <FaCartArrowDown />
               </Link>
+              <li>
+                <Link to="/perfil" className="sidebar-link" onClick={handleLinkClick}>
+                  <FaUser />
+                </Link>
+              </li>
+              <li>
+                <button className="linkLogout sidebar-link" to="#" onClick={() => handleLogout()}>
+                  <IoLogOut />
+                </button>
+              </li>
             </>
           ) : (
             <>
@@ -81,13 +99,6 @@ const Sidebar = ({ isOpen, toggleSidebar, logado }) => {
             </>
           )}
         </li>
-        {logado && (
-          <li>
-            <Link to="/perfil" className="sidebar-link" onClick={handleLinkClick}>
-              <FaUser />
-            </Link>
-          </li>
-        )}
       </ul>
     </div>
   );
