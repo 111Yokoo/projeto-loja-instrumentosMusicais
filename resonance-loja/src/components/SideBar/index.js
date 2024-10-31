@@ -10,19 +10,18 @@ const Sidebar = ({ isOpen, toggleSidebar, logado }) => {
   const sidebarRef = useRef(null);
   const navigate = useNavigate();
   const { user, logout } = useContext(AuthContext); 
-  // Função para lidar com cliques fora da sidebar
+
   const handleClickOutside = (event) => {
     if (sidebarRef.current && !sidebarRef.current.contains(event.target)) {
       toggleSidebar(false); // Fecha a sidebar se o clique for fora
     }
   };
+
   const handleLogout = () => {
     logout();
     navigate("/login");
   };
 
-
-  // Adiciona e remove o event listener
   useEffect(() => {
     if (isOpen) {
       document.addEventListener("mousedown", handleClickOutside);
@@ -32,7 +31,7 @@ const Sidebar = ({ isOpen, toggleSidebar, logado }) => {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [isOpen]); // O useEffect depende do estado isOpen
+  }, [isOpen]);
 
   const handleLinkClick = () => {
     toggleSidebar(false);
@@ -41,52 +40,83 @@ const Sidebar = ({ isOpen, toggleSidebar, logado }) => {
   return (
     <div className={`sidebar ${isOpen ? 'open' : ''}`} ref={sidebarRef}>
       <ul className="sidebar-menu">
-        <li>
-          <span>Categorias:</span>
-        </li>
-        <li>
-          <Link to="/acustico" className="sidebar-link" onClick={handleLinkClick}>
-            Acústico
-          </Link>
-        </li>
-        <li>
-          <Link to="/semiacustico" className="sidebar-link" onClick={handleLinkClick}>
-            Semiacústico
-          </Link>
-        </li>
-        <li>
-          <Link to="/eletrico" className="sidebar-link" onClick={handleLinkClick}>
-            Elétrico
-          </Link>
-        </li>
+        <div>
+          <li>
+            <span>Categorias:</span>
+          </li>
+          <li>
+            <Link to="/acustico" className="sidebar-link" onClick={handleLinkClick}>
+              Acústico
+            </Link>
+          </li>
+          <li>
+            <Link to="/semiacustico" className="sidebar-link" onClick={handleLinkClick}>
+              Semiacústico
+            </Link>
+          </li>
+          <li>
+            <Link to="/eletrico" className="sidebar-link" onClick={handleLinkClick}>
+              Elétrico
+            </Link>
+          </li>
+        </div>
         <hr />
-        <li>
-          <Link to="#contato" className="sidebar-link" onClick={handleLinkClick}>
-            Contato
-          </Link>
-        </li>
-        <li>
-          <Link to="/sobrenos" className="sidebar-link" onClick={handleLinkClick}>
-            Sobre Nós
-          </Link>
-        </li>
+        {user.role === "ADMIN" && (
+          <>
+            <div>
+              <li>
+                <span>Criação:</span>
+              </li>
+              <li>
+                <Link to="/admin/criarCores" className="sidebar-link" onClick={handleLinkClick}>
+                  Cor
+                </Link>
+              </li>
+              <li>
+                <Link to="/admin/criarCategorias" className="sidebar-link" onClick={handleLinkClick}>
+                  Categoria
+                </Link>
+              </li>
+              <li>
+                <Link to="/admin/criarProdutos" className="sidebar-link" onClick={handleLinkClick}>
+                  Produto
+                </Link>
+              </li>
+            </div>
+            <hr />
+          </>
+        )}
+        <div>
+          <li>
+            <Link to="#contato" className="sidebar-link" onClick={handleLinkClick}>
+              Contato
+            </Link>
+          </li>
+          <li>
+            <Link to="/sobrenos" className="sidebar-link" onClick={handleLinkClick}>
+              Sobre Nós
+            </Link>
+          </li>
+        </div>
         <hr />
         <li>
           {logado ? (
             <>
-              <Link to="/carrinho" className="sidebar-link" onClick={handleLinkClick}>
-                <FaCartArrowDown />
-              </Link>
-              <li>
-                <Link to="/perfil" className="sidebar-link" onClick={handleLinkClick}>
-                  <FaUser />
+              <div>
+                <Link to="/carrinho" className="sidebar-link" onClick={handleLinkClick}>
+                  <FaCartArrowDown />
                 </Link>
-              </li>
-              <li>
-                <button className="linkLogout sidebar-link" to="#" onClick={() => handleLogout()}>
-                  <IoLogOut />
-                </button>
-              </li>
+                <li>
+                  <Link to="/perfil" className="sidebar-link" onClick={handleLinkClick}>
+                    <FaUser />
+                  </Link>
+                </li>
+                <li>
+                  <button className="linkLogout sidebar-link" to="#" onClick={handleLogout}>
+                    <IoLogOut />
+                  </button>
+                </li>
+              </div>
             </>
           ) : (
             <>

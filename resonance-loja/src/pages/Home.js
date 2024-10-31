@@ -7,7 +7,6 @@ import Banner from "../components/Banner";
 import Footer from "../components/Footer";
 import Music from "../components/Music";
 import Produto from "../components/Produto";
-import Capa from "../assets/images/FooFightersCapaAlbum.jfif"; 
 import "../styles/home.css";
 import "../styles/global.css";
 import Slider from "react-slick";
@@ -54,9 +53,9 @@ export default function Home() {
 
   const [produtos, setProdutos] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(""); // Estado para capturar erros
-  const navigate = useNavigate(); // Hook para navegação
-  const { user } = useContext(AuthContext); // Pega o usuário logado
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+  const { user } = useContext(AuthContext); 
 
   // Buscar produtos ao montar o componente
   useEffect(() => {

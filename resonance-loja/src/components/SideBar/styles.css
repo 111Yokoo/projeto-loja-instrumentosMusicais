@@ -17,6 +17,9 @@
   .sidebar-menu {
     list-style: none;
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
   
   .sidebar-link {

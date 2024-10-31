@@ -12,20 +12,22 @@ import { IoLogOut } from "react-icons/io5";
 
 const Header = ({ cor }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isCriaçãoDropdownOpen, setIsCriaçãoDropdownOpen] = useState(false); // Novo estado para o dropdown "Criação"
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const dropdownRef = useRef(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const [logado, setLogado] = useState(false);
   const navigate = useNavigate();
 
-  const { user, logout } = useContext(AuthContext); 
+  const { user, logout } = useContext(AuthContext);
   console.log(user);
 
   useEffect(() => {
-    if(user){
-      setLogado(true)
+    if (user) {
+      setLogado(true);
     }
-  }, []);
+  }, [user]); // Adicione `user` como dependência
+
   const handleLogout = () => {
     logout();
     navigate("/login");
@@ -34,21 +36,33 @@ const Header = ({ cor }) => {
   const handleScroll = () => {
     setIsScrolled(window.scrollY > 50);
   };
+
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
   const toggleDropdown = () => {
     setIsDropdownOpen((prev) => !prev);
+    setIsCriaçãoDropdownOpen(false); // Fechar o dropdown de "Criação" ao abrir o outro
   };
+
+  const toggleCriaçãoDropdown = () => {
+    setIsCriaçãoDropdownOpen((prev) => !prev);
+    setIsDropdownOpen(false); // Fechar o dropdown de "Categorias" ao abrir este
+  };
+
   const toggleSidebar = () => {
     setIsSidebarOpen((prev) => !prev);
   };
+
   const handleClickOutside = (event) => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
       setIsDropdownOpen(false);
+      setIsCriaçãoDropdownOpen(false); // Fechar ambos os dropdowns
     }
   };
+
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
@@ -87,6 +101,26 @@ const Header = ({ cor }) => {
                 </ul>
               )}
             </li>
+            {user.role === "ADMIN" && (
+              <li className="navbar-item" ref={dropdownRef}>
+                <button className="dropdown-button link" onClick={toggleCriaçãoDropdown}>
+                  Criação
+                </button>
+                {isCriaçãoDropdownOpen && (
+                  <ul className="dropdown-menu">
+                    <li className="dropdown-item">
+                      <Link to="/admin/criarCores" className="dropdown-link">Cor</Link>
+                    </li>
+                    <li className="dropdown-item">
+                      <Link to="/admin/criarCategorias" className="dropdown-link">Categoria</Link>
+                    </li>
+                    <li className="dropdown-item">
+                      <Link to="/admin/criarProdutos" className="dropdown-link">Produto</Link>
+                    </li>
+                  </ul>
+                )}
+              </li>
+            )}
             <li className="navbar-item">
               <Link className="link" to="#contato">Contato</Link>
             </li>
@@ -97,14 +131,18 @@ const Header = ({ cor }) => {
           <ul className="navbar-options">
             {logado ? (
               <>
-                <li>
-                  <Link to="/carrinho">
-                    <FaCartArrowDown />
-                  </Link>
-                </li>
-                <li className="tab">
-                  <TbMinusVertical />
-                </li>
+                {user.role === "ADMIN" ? <></> : (
+                  <>
+                    <li>
+                      <Link to="/carrinho">
+                        <FaCartArrowDown />
+                      </Link>
+                    </li>
+                    <li className="tab">
+                      <TbMinusVertical />
+                    </li>
+                  </>
+                )}
                 <li>
                   <Link to="/perfil">
                     <FaUser />
@@ -114,8 +152,8 @@ const Header = ({ cor }) => {
                   <TbMinusVertical />
                 </li>
                 <li>
-                  <button className="linkLogout" to="#" onClick={() => handleLogout()}>
-                  <IoLogOut />
+                  <button className="linkLogout" to="#" onClick={handleLogout}>
+                    <IoLogOut />
                   </button>
                 </li>
               </>

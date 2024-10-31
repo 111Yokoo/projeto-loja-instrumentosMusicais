@@ -62,7 +62,7 @@ export default function Login() {
                     <aside className="input">
                       <span>
                         <IoIosMail />
-                      </span><input id="email" name="email" type="email" placeholder="Digite seu email" value={email} required onChange={(e) => setEmail(e.target.value)}/>
+                      </span><input id="email" name="email" type="text" placeholder="Digite seu email" value={email} required onChange={(e) => setEmail(e.target.value)}/>
                     </aside>
                   </article>
                   <article className="formImput">
