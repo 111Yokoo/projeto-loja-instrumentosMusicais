@@ -18,12 +18,64 @@ import { CiCompass1 } from "react-icons/ci";
 import { PiListNumbersFill } from "react-icons/pi";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
+import api from "../services/api";
+import { useNavigate } from "react-router-dom";
 
 export default function Registro() {
   const [showPassword, setShowPassword] = useState(false);
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
 };
+
+const [formData, setFormData] = useState({
+  nome: "",
+  email: "",
+  telefone: "",
+  password: "",
+  cpf: "",
+  cep: "",
+  cidade: "",
+  bairro: "",
+  logradouro: "",
+  complemento: "",
+  numero: "",
+  role: "USER", 
+});
+
+const [error, setError] = useState("");
+const navigate = useNavigate();
+
+const handleChange = (e) => {
+  setFormData({
+    ...formData,
+    [e.target.name]: e.target.value,
+  });
+};
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  console.log("Dados do formulário:", formData); // Log dos dados do formulário
+  try {
+    console.log("chegou 0");
+    await api.post("/auth/registro", formData);
+    console.log("chegou 1");
+    alert("Cadastro realizado com sucesso!");
+    console.log("chegou 2");
+    navigate("/login");
+  } catch (error) {
+    console.error("Erro ao registrar:", error); // Log do erro
+    if (
+      error.response &&
+      error.response.data &&
+      error.response.data.message
+    ) {
+      setError(error.response.data.message);
+    } else {
+      setError("Erro desconhecido. Por favor, tente novamente.");
+    }
+  }
+};
+
 
   return (
     <div style={{
@@ -35,61 +87,71 @@ export default function Registro() {
   }} className="fundo">
       <Header cor="#121212"/>
         <main className="registrar">
-            <form className="formRegistro" action="" method="" >
+            <form className="formRegistro" onSubmit={handleSubmit} >
               <section className="infosOne">
                 <img src={Logo} width="250px" alt="Logo Resonance"/>
                 <p className="tituloRegistrar">Seja bem vindo! Conclua seu cadastro para acessar nossa loja.</p>
                 <article className="inputGroup">
                   <aside>
                     <label for="nome"><p>Nome:</p></label>
-                    <div className="formInputRegistro"><MdDriveFileRenameOutline /><input name="nome" id="nome" type="text" placeholder="Digite seu nome"/></div>
+                    <div className="formInputRegistro"><MdDriveFileRenameOutline /><input name="nome" id="nome" type="text" value={formData.nome} onChange={handleChange} required placeholder="Digite seu nome"/></div>
                   </aside>
                   <aside>
                     <label for="email"><p>Email:</p></label>
-                    <div class="formInputRegistro"><IoMail /><input name="email" id="email" type="text" placeholder="Digite seu email"/></div>
+                    <div class="formInputRegistro"><IoMail /><input name="email" id="email" type="email" value={formData.email} onChange={handleChange} required  placeholder="Digite seu email"/></div>
                   </aside>
                   <aside>
                     <label for="telefone"><p>Telefone:</p></label>
-                    <div class="formInputRegistro"><FaPhoneAlt /><input name="telefone" id="telefone" type="text" placeholder="Digite seu telefone"/></div>
+                    <div class="formInputRegistro"><FaPhoneAlt /><input name="telefone" id="telefone" type="text" value={formData.telefone} onChange={handleChange} required  placeholder="Digite seu telefone"/></div>
                   </aside>
                   <aside>
                     <label for="cpf"><p>CPF:</p></label>
-                    <div class="formInputRegistro"><IoDocument /><input name="cpf" id="cpf" type="text" placeholder="Digite seu CPF"/></div>
+                    <div class="formInputRegistro"><IoDocument /><input name="cpf" id="cpf" type="text" value={formData.cpf} onChange={handleChange} required  placeholder="Digite seu CPF"/></div>
                   </aside>
                   <aside>
-                    <label for="senha"><p>Senha:</p></label>
-                    <div class="formInputRegistro"><MdOutlinePassword /><input name="senha" id="senha" type={showPassword ? "text" : "password"} placeholder="Digite sua senha"/>
-                      <button type="button" className="buttonSenha" onClick={togglePasswordVisibility}>
-                          {showPassword ? <FaEye /> : <FaEyeSlash />}
-                      </button>
-                    </div>
-                  </aside>
+  <label htmlFor="senha"><p>Senha:</p></label>
+  <div className="formInputRegistro">
+    <MdOutlinePassword />
+    <input
+      name="password" // Corrigido para 'password'
+      id="senha"
+      type={showPassword ? "text" : "password"}
+      value={formData.password}
+      onChange={handleChange}
+      required
+      placeholder="Digite sua senha"
+    />
+    <button type="button" className="buttonSenha" onClick={togglePasswordVisibility}>
+      {showPassword ? <FaEye /> : <FaEyeSlash />}
+    </button>
+  </div>
+</aside>
                 </article>
               </section>
               <section className="infosTwo">
               <aside>
                     <label for="cep"><p>CEP:</p></label>
-                    <div class="formInputRegistro"><FaSearchLocation /><input name="cep" id="cep" type="text" placeholder="Digite seu CEP"/></div>
+                    <div class="formInputRegistro"><FaSearchLocation /><input name="cep" id="cep" type="text" value={formData.cep} onChange={handleChange} required  placeholder="Digite seu CEP"/></div>
                   </aside>
                   <aside>
                     <label for="cidade"><p>Cidade:</p></label>
-                    <div class="formInputRegistro"><FaCity /><input name="cidade" id="cidade" type="text" placeholder="Digite sua cidade"/></div>
+                    <div class="formInputRegistro"><FaCity /><input name="cidade" id="cidade" type="text" value={formData.cidade} onChange={handleChange} required  placeholder="Digite sua cidade"/></div>
                   </aside>
                   <aside>
                     <label for="bairro"><p>Bairro:</p></label>
-                    <div class="formInputRegistro"><FaMapLocationDot /><input name="bairro" id="bairro" type="text" placeholder="Digite seu bairro"/></div>
+                    <div class="formInputRegistro"><FaMapLocationDot /><input name="bairro" id="bairro" type="text" value={formData.bairro} onChange={handleChange} required  placeholder="Digite seu bairro"/></div>
                   </aside>
                   <aside>
                     <label for="logradouro"><p>Logradouro:</p></label>
-                    <div class="formInputRegistro"><FaLocationDot /><input name="logradouro" id="logradouro" type="text" placeholder="Digite seu logradouro"/></div>
+                    <div class="formInputRegistro"><FaLocationDot /><input name="logradouro" id="logradouro" value={formData.logradouro} onChange={handleChange} required  type="text" placeholder="Digite seu logradouro"/></div>
                   </aside>
                   <aside>
                     <label for="complemento"><p>Complemento:</p></label>
-                    <div class="formInputRegistro"><CiCompass1 /><input name="complemento" id="complemento" type="text" placeholder="Complemento"/></div>
+                    <div class="formInputRegistro"><CiCompass1 /><input name="complemento" id="complemento" type="text" value={formData.complemento} onChange={handleChange} required placeholder="Complemento"/></div>
                   </aside>
                   <aside>
                     <label for="numero"><p>Número:</p></label>
-                    <div class="formInputRegistro"><PiListNumbersFill /><input name="numero" id="numero" type="text" placeholder="Número"/></div>
+                    <div class="formInputRegistro"><PiListNumbersFill /><input name="numero" id="numero" type="text" value={formData.numero} onChange={handleChange} required placeholder="Número"/></div>
                   </aside>
                   <input type="submit" value="Registrar"/>
               </section>
