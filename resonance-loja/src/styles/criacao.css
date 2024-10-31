@@ -116,6 +116,6 @@ input[type="submit"] {
   }
   @media (max-width: 660px) {
     .criacao main {
-        padding: 180px 0;
+        padding: 100px 0;
     }
   }

@@ -110,7 +110,7 @@
   }
   @media (max-width: 660px) {
     .perfil main{
-        padding: 180px 0px;
+        padding: 100px 0px;
     }
     .historicoCompras{
         gap: 20px;

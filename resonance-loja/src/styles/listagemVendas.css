@@ -49,7 +49,7 @@
   }
   @media (max-width: 660px) {
     .listagemVendas main{
-        padding: 200px 30px 100px 30px;
+        padding: 120px 30px 100px 30px;
     }
     .searchContainer .inputGroup {
         width: 350px;
