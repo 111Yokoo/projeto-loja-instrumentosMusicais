@@ -2,6 +2,29 @@
     margin: 0;
     padding: 0;
 }
-.banner{
+.banner {
+    position: relative; 
     margin-bottom: -5px;
-}
+  }
+  .navigation {
+    position: absolute;
+    top: 50%; /* Centraliza verticalmente */
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between; 
+    transform: translateY(-50%); 
+  }
+  .nav-button {
+    background-color: transparent; 
+    border: none;
+    font-size: 30px; 
+    cursor: pointer;
+    padding: 10px;
+    color: #fff;
+    transition: background-color 0.3s;
+  }
+  .nav-button:hover {
+    background-color: #00000061; 
+  }
+  

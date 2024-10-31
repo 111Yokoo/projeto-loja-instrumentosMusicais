@@ -1,4 +1,3 @@
-// Sidebar.js
 import React, { useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FaCartArrowDown } from 'react-icons/fa6';
@@ -8,18 +7,24 @@ import './styles.css';
 const Sidebar = ({ isOpen, toggleSidebar, logado }) => {
   const sidebarRef = useRef(null);
 
+  // Função para lidar com cliques fora da sidebar
   const handleClickOutside = (event) => {
     if (sidebarRef.current && !sidebarRef.current.contains(event.target)) {
-      toggleSidebar(false);
+      toggleSidebar(false); // Fecha a sidebar se o clique for fora
     }
   };
 
+  // Adiciona e remove o event listener
   useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);
+  }, [isOpen]); // O useEffect depende do estado isOpen
 
   const handleLinkClick = () => {
     toggleSidebar(false);

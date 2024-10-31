@@ -1,19 +1,39 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/sobrenos.css";
 import Banner from "../assets/images/Banner-SobreNos.png"
 import SobrenosImagemOne from "../assets/images/sobrenosFigura1.png"
 import SobrenosImagemTwo from "../assets/images/sobrenosFigura2.png"
 import SobrenosImagemTree from "../assets/images/sobrenosFigura3.png"
 import SobrenosImagemFour from "../assets/images/sobrenosFigura4.png"
+import SobreNosMobileBanner from "../assets/images/Banner-SobreNos-Mobile.png"
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
 export default function Sobrenos() {
+  const [bannerImage, setBannerImage] = useState(Banner);
+
+  const updateBannerImage = () => {
+    if (window.innerWidth <= 660) {
+      setBannerImage(SobreNosMobileBanner);
+    } else {
+      setBannerImage(Banner);
+    }
+  };
+
+  useEffect(() => {
+    updateBannerImage(); // Set initial banner image
+    window.addEventListener("resize", updateBannerImage);
+
+    return () => {
+      window.removeEventListener("resize", updateBannerImage);
+    };
+  }, []);
+
   return (
     <div className="sobrenos">
       <Header />
-      <section>
-      <img src={Banner} alt="Banner Imagem" width="100%"/>
+      <section className="banner">
+        <img src={bannerImage} alt="Banner" width="100%" />
       </section>
         <main>
           <section className="sessaoHistory incolor">

@@ -12,7 +12,6 @@ const Header = ({ cor }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const dropdownRef = useRef(null);
-  const sidebarRef = useRef(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const [logado, setLogado] = useState(false);
 
@@ -37,9 +36,6 @@ const Header = ({ cor }) => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
       setIsDropdownOpen(false);
     }
-    if (sidebarRef.current && !sidebarRef.current.contains(event.target)) {
-      setIsSidebarOpen(false);
-    }
   };
 
   useEffect(() => {
@@ -60,7 +56,7 @@ const Header = ({ cor }) => {
             <img src={Logo} alt="Logo Resonance" />
           </Link>
         </div>
-        <section className={`navbarItens ${isSidebarOpen ? "open" : ""}`} ref={sidebarRef}>
+        <section className={`navbarItens ${isSidebarOpen ? "open" : ""}`}>
           <ul className="navbar-menu">
             <li className="navbar-item" ref={dropdownRef}>
               <button className="dropdown-button link" onClick={toggleDropdown}>
@@ -69,22 +65,22 @@ const Header = ({ cor }) => {
               {isDropdownOpen && (
                 <ul className="dropdown-menu">
                   <li className="dropdown-item">
-                    <a href="/acustico" className="dropdown-link">Acústico</a>
+                    <Link to="/acustico" className="dropdown-link">Acústico</Link>
                   </li>
                   <li className="dropdown-item">
-                    <a href="/semiacustico" className="dropdown-link">Semiacústico</a>
+                    <Link to="/semiacustico" className="dropdown-link">Semiacústico</Link>
                   </li>
                   <li className="dropdown-item">
-                    <a href="/eletrico" className="dropdown-link">Elétrico</a>
+                    <Link to="/eletrico" className="dropdown-link">Elétrico</Link>
                   </li>
                 </ul>
               )}
             </li>
             <li className="navbar-item">
-              <a className="link" href="#contato">Contato</a>
+              <Link className="link" to="#contato">Contato</Link>
             </li>
             <li className="navbar-item">
-              <a className="link" href="/sobrenos">Sobre Nós</a>
+              <Link className="link" to="/sobrenos">Sobre Nós</Link>
             </li>
           </ul>
           <ul className="navbar-options">
