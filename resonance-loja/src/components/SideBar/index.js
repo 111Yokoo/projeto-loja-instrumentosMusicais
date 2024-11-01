@@ -9,7 +9,7 @@ import { IoLogOut } from "react-icons/io5";
 const Sidebar = ({ isOpen, toggleSidebar, logado }) => {
   const sidebarRef = useRef(null);
   const navigate = useNavigate();
-  const { user, logout } = useContext(AuthContext); 
+  const { user, logout } = useContext(AuthContext);
 
   const handleClickOutside = (event) => {
     if (sidebarRef.current && !sidebarRef.current.contains(event.target)) {
@@ -61,7 +61,7 @@ const Sidebar = ({ isOpen, toggleSidebar, logado }) => {
           </li>
         </div>
         <hr />
-        {user.role === "ADMIN" && (
+        {user && user.role === "ADMIN" && (
           <>
             <div>
               <li>
@@ -103,9 +103,9 @@ const Sidebar = ({ isOpen, toggleSidebar, logado }) => {
           {logado ? (
             <>
               <div>
-                <Link to="/carrinho" className="sidebar-link" onClick={handleLinkClick}>
+                {user && user.role ? <></> : <Link to="/carrinho" className="sidebar-link" onClick={handleLinkClick}>
                   <FaCartArrowDown />
-                </Link>
+                </Link>}
                 <li>
                   <Link to="/perfil" className="sidebar-link" onClick={handleLinkClick}>
                     <FaUser />

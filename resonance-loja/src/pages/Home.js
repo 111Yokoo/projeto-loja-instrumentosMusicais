@@ -57,7 +57,7 @@ export default function Home() {
   const navigate = useNavigate();
   const { user } = useContext(AuthContext); 
 
-  // Buscar produtos ao montar o componente
+  //Buscar produtos ao montar o componente
   useEffect(() => {
     const fetchProdutos = async () => {
       try {

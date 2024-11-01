@@ -20,7 +20,6 @@ const Header = ({ cor }) => {
   const navigate = useNavigate();
 
   const { user, logout } = useContext(AuthContext);
-  console.log(user);
 
   useEffect(() => {
     if (user) {
@@ -101,7 +100,7 @@ const Header = ({ cor }) => {
                 </ul>
               )}
             </li>
-            {user.role === "ADMIN" && (
+            {user && user.role === "ADMIN" && (
               <li className="navbar-item" ref={dropdownRef}>
                 <button className="dropdown-button link" onClick={toggleCriaçãoDropdown}>
                   Criação
@@ -131,7 +130,7 @@ const Header = ({ cor }) => {
           <ul className="navbar-options">
             {logado ? (
               <>
-                {user.role === "ADMIN" ? <></> : (
+                {user && user.role === "ADMIN" ? <></> : (
                   <>
                     <li>
                       <Link to="/carrinho">

@@ -1,31 +1,80 @@
-import prisma from "./prismaClient.js";
+  import prisma from "./prismaClient.js";
 
-export const criarProduto = async (data) => {
-  const { nome, preco, estoque, descricao, tituloInformacao, visibilidade, informacao, imagens } = data;
-
-  return await prisma.produto.create({
-    data: {
-      nome,
-      preco: parseFloat(preco),
-      estoque: parseInt(estoque),
-      descricao,
-      tituloInformacao,
-      visibilidade,
-      informacao,
-      imagens: {
-        create: imagens.map((imagem) => ({ url: imagem })), // Cria uma entrada para cada imagem
+  export const criarProduto = async (data) => {
+    const { 
+      nome, 
+      preco, 
+      estoque, 
+      descricao, 
+      tituloInformacao, 
+      visibilidade, 
+      informacao, 
+      imagens, 
+      categoriaId, 
+      cores 
+    } = data;
+  
+    return await prisma.produto.create({
+      data: {
+        nome,
+        preco: parseFloat(preco),
+        estoque: parseInt(estoque),
+        descricao,
+        tituloInformacao,
+        visibilidade,
+        informacao,
+        imagens: {
+          create: Array.isArray(imagens) ? imagens.map((imagem) => ({ url: imagem })) : [], // Verifica se imagens é um array
+        },
+        categoria: {
+          connect: { id: categoriaId }, // Conecta a categoria
+        },
+        cores: {
+          create: Array.isArray(cores) ? cores.map((corId) => ({ corId, produtoId: undefined })) : [], // Cria as entradas na tabela ProdutoCor
+        },
       },
-    },
-  });
-};
+    });
+  };
+  
 
-export const listarProdutos = async () => {
-  const produtos = await prisma.produto.findMany({
-    include: { imagens: true },
-  });
 
-  // Formata a URL das imagens
-  const produtosFormatados = produtos.map((produto) => {
+  export const listarProdutos = async () => {
+    const produtos = await prisma.produto.findMany({
+      include: {
+        imagens: true,
+        categoria: true, // Inclui a categoria no retorno
+        cores: true, // Inclui as cores no retorno
+      },
+    });
+
+    const produtosFormatados = produtos.map((produto) => {
+      const imagensFormatadas = produto.imagens.map((imagem) => {
+        return `${process.env.BASE_URL}/${imagem.url.replace(/\\/g, "/")}`;
+      });
+
+      return {
+        ...produto,
+        imagens: imagensFormatadas,
+      };
+    });
+
+    return produtosFormatados;
+  };
+
+  export const obterProdutoPorId = async (produtoId) => {
+    const produto = await prisma.produto.findUnique({
+      where: { id: produtoId },
+      include: {
+        imagens: true,
+        categoria: true, // Inclui a categoria no retorno
+        cores: true, // Inclui as cores no retorno
+      },
+    });
+
+    if (!produto) {
+      throw new Error("Produto não encontrado.");
+    }
+
     const imagensFormatadas = produto.imagens.map((imagem) => {
       return `${process.env.BASE_URL}/${imagem.url.replace(/\\/g, "/")}`;
     });
@@ -34,89 +83,71 @@ export const listarProdutos = async () => {
       ...produto,
       imagens: imagensFormatadas,
     };
-  });
-
-  return produtosFormatados;
-};
-
-export const obterProdutoPorId = async (produtoId) => {
-  const produto = await prisma.produto.findUnique({
-    where: { id: produtoId },
-    include: { imagens: true }, // Inclui as imagens do produto
-  });
-
-  if (!produto) {
-    throw new Error("Produto não encontrado.");
-  }
-
-  // Formata a URL das imagens
-  const imagensFormatadas = produto.imagens.map((imagem) => {
-    return `${process.env.BASE_URL}/${imagem.url.replace(/\\/g, "/")}`;
-  });
-
-  // Retorna o produto com as URLs das imagens formatadas
-  return {
-    ...produto,
-    imagens: imagensFormatadas,
-  };
-};
-
-export const atualizarProduto = async (produtoId, data) => {
-  const { nome, preco, estoque, descricao, imagens } = data;
-
-  // Dados de atualização
-  let updateData = {
-    nome,
-    preco,
-    estoque,
-    descricao,
   };
 
-  // Se o campo `imagens` for fornecido, crie ou atualize as imagens
-  if (imagens) {
-    updateData.imagens = {
-      deleteMany: {}, // Deleta todas as imagens relacionadas ao produto
-      create: imagens.map((imagem) => ({ url: imagem.url })), // Cria as novas imagens
+  export const atualizarProduto = async (produtoId, data) => {
+    const { nome, preco, estoque, descricao, visibilidade, imagens, categoriaId, cores } = data;
+
+    const updateData = {
+      nome,
+      preco: parseFloat(preco),
+      estoque: parseInt(estoque),
+      descricao,
+      visibilidade: visibilidade === 'true', // Certifique-se de que seja booleano
     };
-  }
 
-  // Atualiza o produto no banco de dados
-  return await prisma.produto.update({
-    where: { id: produtoId },
-    data: updateData,
-    include: {
-      imagens: true, // Inclui as imagens no retorno
-    },
-  });
-};
+    if (imagens) {
+      updateData.imagens = {
+        deleteMany: {}, // Deleta todas as imagens relacionadas ao produto
+        create: imagens.map((imagem) => ({ url: imagem })), // Cria as novas imagens
+      };
+    }
 
-export const deletarProduto = async (produtoId) => {
-  // Verifica se o produto existe
-  const produtoExistente = await prisma.produto.findUnique({
-    where: { id: produtoId },
-  });
+    if (categoriaId) {
+      updateData.categoria = {
+        connect: { id: parseInt(categoriaId) }, // Conecta a categoria
+      };
+    }
 
-  if (!produtoExistente) {
-    throw new Error("Produto não encontrado.");
-  }
+    if (cores) {
+      updateData.cores = {
+        set: cores.map((corId) => ({ id: parseInt(corId) })), // Atualiza as cores conectadas
+      };
+    }
 
-  // Deleta imagens relacionadas ao produto
-  await prisma.imagemProduto.deleteMany({
-    where: { produtoId },
-  });
+    return await prisma.produto.update({
+      where: { id: produtoId },
+      data: updateData,
+      include: {
+        imagens: true,
+        categoria: true, // Inclui a categoria no retorno
+        cores: true, // Inclui as cores no retorno
+      },
+    });
+  };
 
-  // Deleta vendas relacionadas ao produto
-  await prisma.venda.deleteMany({
-    where: { produtoId },
-  });
+  export const deletarProduto = async (produtoId) => {
+    const produtoExistente = await prisma.produto.findUnique({
+      where: { id: produtoId },
+    });
 
-  // Deleta itens do carrinho relacionados ao produto
-  await prisma.carrinho.deleteMany({
-    where: { produtoId },
-  });
+    if (!produtoExistente) {
+      throw new Error("Produto não encontrado.");
+    }
 
-  // Agora deleta o produto
-  return await prisma.produto.delete({
-    where: { id: produtoId },
-  });
-};
+    await prisma.imagemProduto.deleteMany({
+      where: { produtoId },
+    });
+
+    await prisma.venda.deleteMany({
+      where: { produtoId },
+    });
+
+    await prisma.carrinho.deleteMany({
+      where: { produtoId },
+    });
+
+    return await prisma.produto.delete({
+      where: { id: produtoId },
+    });
+  };

@@ -109,6 +109,62 @@ input[type="submit"] {
     height: auto; /* Mantém a proporção da imagem */
     border-radius: 5px; /* Opcional: arredondar bordas */
 }
+.listagemMap{
+    width: 80%;
+}
+.listagemTypes{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.getAllTypes{
+    width: 100%;
+    background-color: #d9d9d9;
+    border-radius: 15px;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.typesOne{
+    display: flex;
+    flex-direction: row;
+    gap: 25px;
+}
+.typesTwo{
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+.typesTwo button{
+    border: none;
+    font-size: 23px;
+    background-color: transparent;
+}
+.typeInputs input{
+    background-color: transparent;
+    border: none;
+    font-size: 18px;
+}
+.coresInputSelects{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 10px;
+}
+.coresInputSelects div{
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+.coresInputSelects input[type="checkbox"]{
+    width: 20px;
+    height: 20px;
+}
+.colorListProduct{
+    width: 10px; height: 10px; border-radius: 50%;
+}
 @media (max-width: 960px) {
     .criacao main {
         padding: 130px 0;

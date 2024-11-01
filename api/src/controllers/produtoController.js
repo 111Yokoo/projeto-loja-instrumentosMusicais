@@ -6,28 +6,41 @@ import {
   deletarProduto,
 } from "../services/produtoService.js";
 
-// Controller para criar um novo produto com imagem
 export const criarProdutoController = async (req, res) => {
-  const { nome, preco, estoque, descricao, tituloInformacao, visibilidade, informacao } = req.body;
-  const imagens = req.files ? req.files.map((file) => file.path) : [];
+  const { 
+    nome, 
+    preco, 
+    estoque, 
+    descricao, 
+    tituloInformacao, 
+    visibilidade, 
+    categoriaId, 
+    informacao, 
+    cores 
+  } = req.body;
+
+  const imagens = req.files ? req.files.map((file) => file.path) : []; // Imagens como array vazio se não houver arquivos
 
   try {
-    // Chama o serviço para criar o produto
     const produto = await criarProduto({
       nome,
       preco: parseFloat(preco),
       estoque: parseInt(estoque),
       descricao,
       tituloInformacao,
-      visibilidade,
+      visibilidade: visibilidade === 'true', // Converte visibilidade para booleano
       informacao,
       imagens,
+      categoriaId: parseInt(categoriaId), // Certifique-se que é um número
+      cores: Array.isArray(cores) ? cores.map(cor => parseInt(cor)) : [], // Garante que cores seja um array de números
     });
     res.status(201).json(produto);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 };
+
+
 
 
 export const obterProdutos = async (req, res) => {

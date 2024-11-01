@@ -34,9 +34,9 @@ model Endereco {
 }
 
 model Categoria {
-  id          Int             @id @default(autoincrement())
-  nome        String          @unique
-  produtos    ProdutoCategoria[] // Relacionamento com produtos
+  id          Int        @id @default(autoincrement())
+  nome        String     @unique
+  produtos    Produto[]  // Relação direta com produtos
 }
 
 model Produto {
@@ -49,7 +49,8 @@ model Produto {
   visibilidade    Boolean
   informacao      String
   cores           ProdutoCor[]    // Relacionamento com cores
-  categorias      ProdutoCategoria[] // Relacionamento com categorias
+  categoriaId     Int             // Chave estrangeira
+  categoria       Categoria       @relation(fields: [categoriaId], references: [id]) // Relação com categoria
   imagens         ImagemProduto[] 
   carrinho        Carrinho[]      
   pedidoItens     PedidoItem[]    
@@ -66,16 +67,8 @@ model ProdutoCor {
 model Cor {
   id        Int         @id @default(autoincrement())
   nome      String
-  hexadecimal      String
+  hexadecimal String
   produtos  ProdutoCor[] // Relacionamento com produtos
-}
-
-model ProdutoCategoria {
-  id          Int     @id @default(autoincrement())
-  categoriaId Int
-  produtoId   Int
-  categoria   Categoria @relation(fields: [categoriaId], references: [id])
-  produto     Produto   @relation(fields: [produtoId], references: [id])
 }
 
 model ImagemProduto {
