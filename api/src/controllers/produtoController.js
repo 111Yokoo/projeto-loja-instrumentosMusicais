@@ -7,17 +7,19 @@ import {
 } from "../services/produtoService.js";
 
 export const criarProdutoController = async (req, res) => {
-  const { 
-    nome, 
-    preco, 
-    estoque, 
-    descricao, 
-    tituloInformacao, 
-    visibilidade, 
-    categoriaId, 
-    informacao, 
-    cores 
+  const {
+    nome,
+    preco,
+    estoque,
+    descricao,
+    tituloInformacao,
+    visibilidade,
+    categoriaId,
+    informacao,
+    cores,
   } = req.body;
+
+  console.log(cores);
 
   const imagens = req.files ? req.files.map((file) => file.path) : []; // Imagens como array vazio se não houver arquivos
 
@@ -28,20 +30,21 @@ export const criarProdutoController = async (req, res) => {
       estoque: parseInt(estoque),
       descricao,
       tituloInformacao,
-      visibilidade: visibilidade === 'true', // Converte visibilidade para booleano
+      visibilidade: visibilidade === "true", // Converte visibilidade para booleano
       informacao,
       imagens,
       categoriaId: parseInt(categoriaId), // Certifique-se que é um número
-      cores: Array.isArray(cores) ? cores.map(cor => parseInt(cor)) : [], // Garante que cores seja um array de números
+      cores: Array.isArray(cores)
+        ? cores.map((cor) => parseInt(cor))
+        : [parseInt(cores)], // Transforma em array se for uma única cor
     });
+    console.log(produto);
+
     res.status(201).json(produto);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 };
-
-
-
 
 export const obterProdutos = async (req, res) => {
   try {
@@ -71,7 +74,10 @@ export const editarProduto = async (req, res) => {
   const dadosAtualizados = req.body;
 
   try {
-    const produto = await atualizarProduto(parseInt(produtoId), dadosAtualizados);
+    const produto = await atualizarProduto(
+      parseInt(produtoId),
+      dadosAtualizados
+    );
     res.json(produto);
   } catch (error) {
     return res.status(400).json({ error: error.message });

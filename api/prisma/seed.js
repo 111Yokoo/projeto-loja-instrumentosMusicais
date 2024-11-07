@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 
 async function main() {
   // Crie a senha hash para o administrador
-  const hashedPassword = await bcrypt.hash("matheus", 10);
+  const hashedPassword = await bcrypt.hash("admin", 10);
 
   // Insira o administrador no banco de dados
   const admin = await prisma.user.upsert({
@@ -13,11 +13,11 @@ async function main() {
     update: {},
     create: {
       nome: "matheus",
-      email: "matheus",
-      telefone: "11999999999",
+      email: "admin@admin.com",
+      telefone: "11899999999",
       password: hashedPassword,
       role: "ADMIN",
-      cpf: "44188888888",
+      cpf: "111111111111",
       endereco: {
         create: {
           cep: "12345-678",

@@ -43,7 +43,7 @@ app.get("/", (req, res) => {
 });
 
 // Porta na qual o servidor irá rodar
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3333;
 
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);

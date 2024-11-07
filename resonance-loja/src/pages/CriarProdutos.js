@@ -36,7 +36,9 @@ export default function CriarProdutos() {
         const response = await api.get("/categorias");
         setCategorias(response.data);
       } catch (error) {
-        setError(error.response?.data?.message || "Erro ao carregar as categorias.");
+        setError(
+          error.response?.data?.message || "Erro ao carregar as categorias."
+        );
       }
     };
 
@@ -49,22 +51,19 @@ export default function CriarProdutos() {
   };
 
   const handleCorChange = (event) => {
-    const value = event.target.value;
+    const corId = parseInt(event.target.value);
     setCoresSelecionadas((prev) => {
-      if (prev.includes(value)) {
-        return prev.filter(cor => cor !== value);
+      if (prev.includes(corId)) {
+        return prev.filter((id) => id !== corId);
       } else {
-        return [...prev, value];
+        return [...prev, corId];
       }
     });
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-  
-    // Defina cores com o valor 7 para teste
-    const coresParaTeste = [7];
-  
+
     const formData = new FormData();
     formData.append("id", 3); // ID do produto (ajuste conforme necessário)
     formData.append("nome", nomeProduto);
@@ -75,25 +74,27 @@ export default function CriarProdutos() {
     formData.append("visibilidade", true);
     formData.append("informacao", informacao);
     formData.append("categoriaId", Number(categoria));
-    
-    // Adiciona cores para teste
-    coresParaTeste.forEach(corId => formData.append("cores", Number(corId)));
-  
+
+    // Adiciona as cores selecionadas como números
+    coresSelecionadas.forEach((corId) =>
+      formData.append("cores", parseInt(corId, 10))
+    );
+
     // Adiciona as imagens, se houver
     Array.from(selectedImages).forEach((imagem) => {
       formData.append("imagens", imagem);
     });
-  
-    console.log('Dados a serem enviados:', Array.from(formData.entries())); // Verifique os dados
-  
+
+    console.log("Dados a serem enviados:", Array.from(formData.entries()));
+
     try {
       await api.post("/produtos", formData, {
         headers: {
-          "Content-Type": "multipart/form-data", // Mantém como FormData
+          "Content-Type": "multipart/form-data",
         },
       });
       setSuccessMessage("Produto cadastrado com sucesso!");
-  
+
       // Resetar os campos após o envio
       setNomeProduto("");
       setDescricao("");
@@ -105,7 +106,7 @@ export default function CriarProdutos() {
       setEstoque(0);
       setSelectedImages([]);
     } catch (error) {
-      console.error('Erro ao cadastrar produto:', error.response);
+      console.error("Erro ao cadastrar produto:", error.response);
       setError(error.response?.data?.message || "Erro ao cadastrar o produto.");
     }
   };
@@ -136,6 +137,20 @@ export default function CriarProdutos() {
                       required
                     />
                   </div>
+                </div>
+                <div className="inputContainer">
+                  <label>Selecionar Cores</label>
+                  {cores.map((cor) => (
+                    <div key={cor.id}>
+                      <input
+                        type="checkbox"
+                        value={cor.id}
+                        checked={coresSelecionadas.includes(cor.id)}
+                        onChange={handleCorChange}
+                      />
+                      <label>{cor.nome}</label>
+                    </div>
+                  ))}
                 </div>
                 <div className="inputContainer">
                   <label>Descrição</label>
@@ -187,7 +202,9 @@ export default function CriarProdutos() {
                       onChange={(e) => setCategoria(e.target.value)}
                       required
                     >
-                      <option value="" disabled>Selecione uma categoria</option>
+                      <option value="" disabled>
+                        Selecione uma categoria
+                      </option>
                       {categorias.map((categoria) => (
                         <option key={categoria.id} value={categoria.id}>
                           {categoria.nome}
@@ -235,7 +252,11 @@ export default function CriarProdutos() {
                   {selectedImages.length > 0 && (
                     <div className="imagePreview">
                       {Array.from(selectedImages).map((image, index) => (
-                        <img key={index} src={URL.createObjectURL(image)} alt={`Prévia ${index}`} />
+                        <img
+                          key={index}
+                          src={URL.createObjectURL(image)}
+                          alt={`Prévia ${index}`}
+                        />
                       ))}
                     </div>
                   )}
