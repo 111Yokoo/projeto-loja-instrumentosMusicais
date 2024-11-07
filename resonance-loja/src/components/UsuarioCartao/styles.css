@@ -33,3 +33,28 @@
     border: none;
     font-size: 20px;
 }
+.successMessage,
+.errorMessage {
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  font-weight: bold;
+  text-align: center;
+  transition: opacity 0.5s ease-out;
+}
+
+.successMessage {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.errorMessage {
+  background-color: #f44336;
+  color: white;
+}
+
+.successMessage.fadeOut,
+.errorMessage.fadeOut {
+  opacity: 0;
+  pointer-events: none;
+}

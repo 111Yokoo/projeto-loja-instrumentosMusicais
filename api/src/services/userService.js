@@ -61,21 +61,38 @@ export const atualizarUsuario = async (userId, data) => {
 };
 
 export const deletarUsuario = async (userId) => {
-  // Deletar vendas relacionadas ao usuário
-  await prisma.venda.deleteMany({
-    where: { userId },
-  });
+  try {
+    // 1. Deletar os itens no carrinho do usuário
+    await prisma.carrinho.deleteMany({
+      where: { userId },
+    });
 
-  // Deletar o endereço relacionado ao usuário
-  await prisma.endereco.deleteMany({
-    where: { userId },
-  });
+    // 2. Deletar os pedidos relacionados ao usuário, incluindo os itens de pedido
+    await prisma.pedidoItem.deleteMany({
+      where: { pedido: { userId } },  // Deleta todos os itens de pedidos do usuário
+    });
+    
+    await prisma.pedido.deleteMany({
+      where: { userId },  // Deleta todos os pedidos do usuário
+    });
 
-  // Agora, deletar o usuário
-  return await prisma.user.delete({
-    where: { id: userId },
-  });
+    // 3. Deletar o endereço relacionado ao usuário
+    await prisma.endereco.delete({
+      where: { userId },  // Deleta o único endereço do usuário
+    });
+
+    // 4. Finalmente, deletar o usuário
+    await prisma.user.delete({
+      where: { id: userId },  // Deleta o usuário
+    });
+
+    return { message: "Usuário e todos os dados relacionados deletados com sucesso!" };
+  } catch (error) {
+    console.error("Erro ao deletar usuário:", error);
+    throw new Error("Erro ao deletar usuário");
+  }
 };
+
 
 export const obterPerfil = async (userId) => {
   const usuario = await prisma.user.findUnique({

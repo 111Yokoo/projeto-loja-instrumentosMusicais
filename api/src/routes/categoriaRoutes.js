@@ -12,7 +12,7 @@ import { verificarToken, verificarAdmin } from "../middleware/authMiddleware.js"
 const router = express.Router();
 
 // Rota para listar todas as categorias (Admin Only)
-router.get("/categorias", verificarToken, verificarAdmin, obterCategoriasController);
+router.get("/categorias", obterCategoriasController);
 
 // Rota para criar uma nova categoria (Admin Only)
 router.post("/categorias/", verificarToken, verificarAdmin, criarCategoriaController);

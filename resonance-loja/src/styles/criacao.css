@@ -20,29 +20,24 @@
     justify-content: center;
     align-items: flex-start; /* Ajustado para flex-start */
 }
-
 .criacao .titlePerfil h2 {
     font-size: 30px;
     padding-left: 20px;
 }
-
 .sessaoForms {
     width: 70%;
     background-color: #D9D9D9;
     padding: 20px;
 }
-
 .sessaoForms form {
     display: flex;
     flex-direction: column;
 }
-
 .infosCriacao {
     display: flex;
     flex-wrap: wrap; /* Permite que os itens se movam para a próxima linha */
     gap: 15px; /* Espaço entre os inputs */
 }
-
 .inputGroupCriacao {
     display: flex;
     flex-direction: row;
@@ -50,18 +45,15 @@
     gap: 15px; /* Espaço entre os inputs */
     width: 100%; /* Ajuste conforme necessário */
 }
-
 .inputContainer {
     display: flex;
     flex-direction: column;
     flex: 1 1 200px; /* Flex-grow, flex-shrink e largura mínima */
     min-width: 200px; /* Largura mínima para cada input */
 }
-
 .inputContainer label {
     margin-bottom: 5px;
 }
-
 .inputWithIcon {
     display: flex;
     align-items: center;
@@ -69,11 +61,9 @@
     border-radius: 5px;
     padding: 5px;
 }
-
 .inputWithIcon .inputIcon {
     margin-right: 10px; /* Espaçamento entre o ícone e o input */
 }
-
 .inputWithIcon input,
 .inputWithIcon textarea,
 .inputWithIcon select {
@@ -83,12 +73,10 @@
     padding: 10px; /* Padding para o input */
     border-radius: 5px; /* Manter o arredondamento */
 }
-
 .inputWithIcon textarea {
     resize: vertical; /* Permite redimensionar verticalmente */
     min-height: 100px; /* Altura mínima */
 }
-
 input[type="submit"] {
     margin-top: 15px;
     padding: 10px;
@@ -98,12 +86,10 @@ input[type="submit"] {
     color: #fff;
     cursor: pointer;
 }
-
 .imagePreview {
     margin-top: 10px;
     max-width: 100%; /* Adapte a largura conforme necessário */
 }
-
 .imagePreview img {
     max-width: 100%; /* Ajuste para caber no contêiner */
     height: auto; /* Mantém a proporção da imagem */
@@ -166,12 +152,12 @@ input[type="submit"] {
     width: 10px; height: 10px; border-radius: 50%;
 }
 @media (max-width: 960px) {
-    .criacao main {
-        padding: 130px 0;
-    }
+  .criacao main {
+      padding: 130px 0;
   }
-  @media (max-width: 660px) {
-    .criacao main {
-        padding: 100px 0;
-    }
+}
+@media (max-width: 660px) {
+  .criacao main {
+      padding: 100px 0;
   }
+}

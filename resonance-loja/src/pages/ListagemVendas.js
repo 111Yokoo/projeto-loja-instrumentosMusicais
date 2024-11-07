@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "../styles/listagemVendas.css";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -8,10 +8,33 @@ import ModalCompra from "../components/ModalCompra";
 
 export default function ListagemVendas() {
   const inputRef = useRef(null);
-  const [selectedCompra, setSelectedCompra] = useState(null); 
+  const [vendas, setVendas] = useState([]);  // Estado para armazenar as vendas
+  const [selectedCompra, setSelectedCompra] = useState(null);
+  
+  // Função para carregar as vendas da API
+  const loadVendas = async () => {
+    try {
+      const response = await fetch("SUA_API_URL_AQUI");  // Substitua pela URL da sua API
+      if (response.ok) {
+        const data = await response.json();
+        setVendas(data);  // Supondo que a resposta da API seja um array de vendas
+      } else {
+        console.error("Erro ao carregar vendas:", response.status);
+      }
+    } catch (error) {
+      console.error("Erro ao buscar as vendas:", error);
+    }
+  };
+
+  // Carregar as vendas quando o componente for montado
+  useEffect(() => {
+    loadVendas();
+  }, []);  // O array vazio significa que isso será executado uma única vez, quando o componente for montado
+
   const handleCompraClick = (compra) => {
     setSelectedCompra(compra);
   };
+
   const handleCloseModal = () => {
     setSelectedCompra(null);
   };
@@ -29,8 +52,15 @@ export default function ListagemVendas() {
         </section>
         <section className="container">
           <article className="vendasListagem">
-          <Compra preco="100" nomeUsuario="Fulano" onClick={() => handleCompraClick({ idCompra: "idCompra", imagem: "imagem", nomes: "nomes", precos: "preços", valorTotal: "valoTotal" })} />
-          <Compra preco="200" nomeUsuario="Beltrano" onClick={() => handleCompraClick({ idCompra: "idCompra", imagem: "imagem", nomes: "nomes", precos: "preços", valorTotal: "valoTotal" })} />
+            {/* Renderiza as compras vindas da API */}
+            {vendas.map((compra) => (
+              <Compra
+                key={compra.idCompra}  // Supondo que idCompra seja único
+                preco={compra.valorTotal}
+                nomeUsuario={compra.nomes}
+                onClick={() => handleCompraClick(compra)}
+              />
+            ))}
           </article>
         </section>
       </main>
@@ -39,7 +69,8 @@ export default function ListagemVendas() {
         <ModalCompra
           compra={selectedCompra}
           onClose={handleCloseModal}
-        />)}
+        />
+      )}
     </div>
   );
 }

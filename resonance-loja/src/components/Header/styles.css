@@ -282,3 +282,9 @@ ul{
         padding: 0px;
     }
   }
+/* Estilos para o dropdown */
+.dropdown-menu {
+    position: absolute;
+    z-index: 10; /* Garante que o menu fique acima dos outros elementos */
+  }
+ 

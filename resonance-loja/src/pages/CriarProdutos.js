@@ -139,20 +139,6 @@ export default function CriarProdutos() {
                   </div>
                 </div>
                 <div className="inputContainer">
-                  <label>Selecionar Cores</label>
-                  {cores.map((cor) => (
-                    <div key={cor.id}>
-                      <input
-                        type="checkbox"
-                        value={cor.id}
-                        checked={coresSelecionadas.includes(cor.id)}
-                        onChange={handleCorChange}
-                      />
-                      <label>{cor.nome}</label>
-                    </div>
-                  ))}
-                </div>
-                <div className="inputContainer">
                   <label>Descrição</label>
                   <div className="inputWithIcon">
                     <span className="inputIcon">🔍</span>
@@ -190,6 +176,22 @@ export default function CriarProdutos() {
                       placeholder="Informação"
                       required
                     />
+                  </div>
+                </div>
+                <div className="inputContainer">
+                  <label>Selecionar Cores</label>
+                  <div className="coresInputSelects">
+                    {cores.map((cor) => (
+                      <div key={cor.id}>
+                        <input
+                          type="checkbox"
+                          value={cor.id}
+                          checked={coresSelecionadas.includes(cor.id)}
+                          onChange={handleCorChange}
+                        />
+                        <label style={{background: `#${cor.hexadecimal}`, width: "20px", height: "20px", borderRadius: "50%"}}></label>
+                      </div>
+                    ))}
                   </div>
                 </div>
                 <div className="inputContainer">

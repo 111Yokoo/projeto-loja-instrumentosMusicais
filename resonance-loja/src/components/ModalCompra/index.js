@@ -6,18 +6,27 @@ const ModalCompra = ({ compra, onClose }) => {
     <div className="modal">
       <div className="modalContent">
         <section className="cabecalhoModel">
-            <p>{compra.idCompra}</p>
-            <button onClick={onClose}>X</button>
+          <p>ID da Compra: {compra.idCompra}</p>
+          <button onClick={onClose}>X</button>
         </section>
         <h2>Detalhes da Compra</h2>
         <section className="produtosCompra">
-            <article className="infosModel">
-                <img src={compra.imagem} alt={compra.nomes} width="150px" height="150px"/>
+          {compra.produtos && compra.produtos.length > 0 ? (
+            compra.produtos.map((produto, index) => (
+              <article className="infosModel" key={index}>
+                <img src={produto.imagem} alt={produto.nome} width="150px" height="150px" />
                 <aside>
-                    <p>Nome do produto: {compra.nomes}</p>
-                    <p>Preço: R$ {compra.precos}</p>
+                  <p>Nome do produto: {produto.nome}</p>
+                  <p>Preço: R$ {produto.preco}</p>
                 </aside>
-            </article>  
+              </article>
+            ))
+          ) : (
+            <p>Nenhum produto encontrado para esta compra.</p>
+          )}
+        </section>
+        <section className="totalCompra">
+          <p><strong>Total da Compra: R$ {compra.precostotal}</strong></p>
         </section>
       </div>
     </div>

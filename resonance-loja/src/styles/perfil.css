@@ -141,3 +141,58 @@
         gap: 10px;
     }
   }
+/* Container para a mensagem de status */
+.statusMessage {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    z-index: 1000; /* Para garantir que a mensagem fique acima de outros elementos */
+    color: white;
+    opacity: 0; /* Inicialmente invisível */
+    animation: fadeIn 0.5s forwards; /* Animação para aparecer */
+  }
+  
+  /* Efeito de fade-in para a mensagem */
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+      transform: translateY(-50px); /* Começa de cima, levemente deslocado */
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0); /* Fica na posição final */
+    }
+  }
+  
+  /* Efeito de fade-out quando a mensagem desaparecer */
+  @keyframes fadeOut {
+    0% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-50px); /* Desaparece indo para cima */
+    }
+  }
+  
+  /* Animação de sucesso (fundo verde) */
+  .success {
+    background-color: #28a745; /* Cor verde para sucesso */
+  }
+  
+  /* Animação de erro (fundo vermelho) */
+  .error {
+    background-color: #dc3545; /* Cor vermelha para erro */
+  }
+  
+  /* Quando a mensagem de sucesso ou erro desaparecer (fade out) */
+  .statusMessage.fadeOut {
+    animation: fadeOut 0.5s forwards; /* Animação de saída para o topo */
+  }
+  
