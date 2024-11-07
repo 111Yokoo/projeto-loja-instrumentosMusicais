@@ -88,17 +88,18 @@ const Header = ({ cor }) => {
 
   // Função para fechar os dropdowns ao clicar fora
   const handleClickOutside = (event) => {
+    // Verificar se o clique ocorreu fora de qualquer dropdown
     if (
-      (dropdownRef.current && !dropdownRef.current.contains(event.target)) &&
-      (criaçãoDropdownRef.current && !criaçãoDropdownRef.current.contains(event.target)) &&
-      (listagemDropdownRef.current && !listagemDropdownRef.current.contains(event.target))
+      !dropdownRef.current?.contains(event.target) &&
+      !criaçãoDropdownRef.current?.contains(event.target) &&
+      !listagemDropdownRef.current?.contains(event.target)
     ) {
+      // Fechar todos os dropdowns se o clique for fora
       setIsDropdownOpen(false);
       setIsCriaçãoDropdownOpen(false);
       setIsListagemDropdownOpen(false);
     }
   };
-  
 
   const handleLinkClick = (event) => {
     event.stopPropagation(); // Previne o fechamento do dropdown ao clicar em um link
