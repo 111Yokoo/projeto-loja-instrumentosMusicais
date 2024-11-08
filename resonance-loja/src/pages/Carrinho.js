@@ -28,7 +28,6 @@ export default function Carrinho() {
   useEffect(() => {
     const fetchUsuarioECarrinho = async () => {
       try {
-        // Puxar dados do usuário
         const fetchUserData = async () => {
           try {
             const response = await api.get(`/perfil`);
@@ -49,7 +48,6 @@ export default function Carrinho() {
 
         // Puxar dados do carrinho do usuário
         const response = await api.get("/carrinho"); // Faz a requisição da API
-        console.log("carrinho", response.data["produtos-carrinho"]); // Verifica o retorno da API
 
         // Define os itens do carrinho com os produtos retornados
         setCarrinhoItens(response.data["produtos-carrinho"]);
@@ -91,6 +89,36 @@ export default function Carrinho() {
     }
   };  
   
+  const handleAtualizarQuantidade = async (produtoId, novaQuantidade) => {
+    try {
+      // Envia a requisição PUT para a API para atualizar a quantidade do produto
+      await api.put('/carrinho', { produtoId, quantidade: novaQuantidade });
+      
+      // Atualiza o estado com a nova quantidade
+      setCarrinhoItens((prevItems) => {
+        const updatedItems = prevItems.map((item) =>
+          item.produto.id === produtoId
+            ? { ...item, quantidade: novaQuantidade }
+            : item
+        );
+        
+        // Recalcula o total após atualizar o carrinho
+        const totalCarrinho = updatedItems.reduce(
+          (acc, item) => acc + item.produto.preco * item.quantidade,
+          0
+        );
+        setTotal(totalCarrinho);
+        
+        return updatedItems; // Retorna os itens atualizados
+      });
+    } catch (error) {
+      console.error("Erro ao atualizar quantidade na API:", error);
+      if (error.response) {
+        console.error("Erro no servidor:", error.response.data);  // Exibe a resposta do servidor
+      }
+    }
+  };
+  
   return (
     <div className="carrinho" style={{
       display: "flex",
@@ -114,6 +142,7 @@ export default function Carrinho() {
                     quantidadeProduto={item.quantidade}
                     imagem={item.produto.imagens[0]}
                     deletarItem={() => handleDeletarItem(item.produtoId)}
+                    atualizarQuantidade={handleAtualizarQuantidade}
                   />
                 ))
               ) : (

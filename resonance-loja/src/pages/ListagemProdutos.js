@@ -11,52 +11,95 @@ import { IoIosPricetags } from "react-icons/io";
 import { IoMdColorFill } from "react-icons/io";
 import { FaPlus } from "react-icons/fa6";
 import { AuthContext } from "../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 export default function ListagemProdutos() {
   const inputRef = useRef(null);
   const { id } = useParams();
   const [selectedPrice, setSelectedPrice] = useState(null);
+  const [selectedColorId, setSelectedColorId] = useState(null); // Armazena o ID da cor
   const [produtosFiltrados, setProdutosFiltrados] = useState([]);
   const [produtos, setProdutos] = useState([]);
+  const [cores, setCores] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const { user } = useContext(AuthContext);
-  console.log(id)
+  const [searchTerm, setSearchTerm] = useState(""); // Estado para o termo de pesquisa
+  const navigate = useNavigate();
 
   const handlePriceChange = (value) => {
-    // Se o valor clicado for o mesmo que o selecionado, desmarque-
-    setSelectedPrice(prev => (prev === value ? null : value));
+    setSelectedPrice((prev) => (prev === value ? null : value));
   };
+
+  const handleColorChange = (colorId) => {
+    setSelectedColorId((prev) => (prev === colorId ? null : colorId)); // Alterna o ID da cor
+  };
+
+  const clearFilters = () => {
+    setSelectedPrice(null);
+    setSelectedColorId(null);
+    setSearchTerm("");
+  };
+
+  useEffect(() => {
+    const fetchCores = async () => {
+      try {
+        const response = await api.get(`/cores`);
+        setCores(response.data);
+        setLoading(false);
+      } catch (error) {
+        setError("Erro ao carregar cores.");
+        setLoading(false);
+      }
+    };
+    fetchCores();
+  }, []);
 
   useEffect(() => {
     const fetchProdutos = async () => {
       try {
-        const isAdmin = user?.role === "ADMIN"; // Verifica se o usuário é administrador
+        const isAdmin = user?.role === "ADMIN";
         const response = await api.get(`/produtos?admin=${isAdmin}`);
         setProdutos(response.data);
         setLoading(false);
       } catch (error) {
-        if (
-          error.response &&
-          error.response.data &&
-          error.response.data.message
-        ) {
-          setError(error.response.data.message); // Exibe a mensagem de erro da API
-        } else {
-          setError("Erro desconhecido. Por favor, tente novamente.");
-        }
-        setLoading(false); // Interrompe o estado de carregamento ao encontrar erro
+        setError("Erro ao carregar produtos.");
+        setLoading(false);
       }
     };
 
     fetchProdutos();
-  }, [user?.role]); // Adiciona `user?.role` como dependência
-console.log(produtos)
+  }, [user?.role]);
+
   useEffect(() => {
-    const produtosFiltrados = produtos.filter(produto => parseInt(produto.categoriaId) === parseInt(id));
+    const produtosFiltrados = produtos.filter((produto) => {
+      const isCategoriaMatch = parseInt(produto.categoriaId) === parseInt(id);
+      const isNomeMatch = produto.nome.toLowerCase().includes(searchTerm.toLowerCase());
+
+      let isPriceMatch = true;
+      if (selectedPrice === "Abaixo de R$2000.00") {
+        isPriceMatch = produto.preco < 2000;
+      } else if (selectedPrice === "De R$2001.00 a R$4000.00") {
+        isPriceMatch = produto.preco >= 2001 && produto.preco <= 4000;
+      } else if (selectedPrice === "Acima de R$4001.00") {
+        isPriceMatch = produto.preco > 4000;
+      }
+
+      const isColorMatch = selectedColorId ? produto.cores.some((cor) => cor.id === selectedColorId) : true;
+
+      return isCategoriaMatch && isNomeMatch && isPriceMatch && isColorMatch;
+    });
+
     setProdutosFiltrados(produtosFiltrados);
-  }, [id, produtos]);
-  console.log("produto filtrado",produtosFiltrados)
+  }, [id, produtos, searchTerm, selectedPrice, selectedColorId]);
+
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const navigateToCreateProduct = () => {
+    navigate(`/admin/criarProdutos`);
+  };
 
   return (
     <div className="listagemProdutos">
@@ -66,18 +109,30 @@ console.log(produtos)
           <div className="searchadd">
             <article className="inputGroup">
               <FaSearch />
-              <input type="text" ref={inputRef} />
+              <input
+                type="text"
+                ref={inputRef}
+                value={searchTerm}
+                onChange={handleSearchChange}
+                placeholder="Pesquisar produtos..."
+              />
             </article>
-            <button className="buttonadd">
-              <FaPlus className="addproduto" />
-            </button>
+            {user?.role === "ADMIN" && (
+              <button className="buttonadd" onClick={navigateToCreateProduct}>
+                <FaPlus className="addproduto" />
+              </button>
+            )}
           </div>
         </section>
         <section className="container">
           <article className="filter">
-            <aside className="titleFilter">
-              <HiAdjustmentsHorizontal /> Filtros:
+            <aside className="titleFilter clear">
+              <span>
+                <HiAdjustmentsHorizontal /> Filtros:
+              </span>
+               <button className="clearFiltersButton" onClick={clearFilters}>Limpar Filtros</button>
             </aside>
+
             <hr />
             <aside className="precoFiltro">
               <div className="titleFilter">
@@ -119,21 +174,22 @@ console.log(produtos)
                 <IoMdColorFill /> Cor:
               </div>
               <div className="formColor">
-                <div
-                  className="colorFilter"
-                  onClick={() => { }}
-                  style={{ background: "#000" }}
-                ></div>
+                {cores.map((cor) => (
+                  <div
+                    key={cor.id}
+                    className={`colorFilter ${selectedColorId === cor.id ? "selected" : ""}`}
+                    onClick={() => handleColorChange(cor.id)}
+                    style={{ background: `#${cor.hexadecimal}` }}
+                  ></div>
+                ))}
               </div>
             </aside>
             <hr />
           </article>
           <article className="produtosListagem">
             {produtosFiltrados.length > 0 ? (
-              produtosFiltrados.map(produto => (
-                <Produto
-                  Produto={produto}
-                />
+              produtosFiltrados.map((produto) => (
+                <Produto key={produto.id} Produto={produto} />
               ))
             ) : (
               <p>Nenhum produto encontrado para esta categoria.</p>

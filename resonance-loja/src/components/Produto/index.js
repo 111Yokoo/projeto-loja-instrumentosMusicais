@@ -38,7 +38,7 @@ const Produto = ({ Produto }) => {
 
   const handleEditClick = (e) => {
     e.stopPropagation();
-    navigate('/admin/criarProdutos');
+    navigate(`/admin/editarProdutos/${Produto.id}`);
   };
 
   const logarAntes = (e) => {

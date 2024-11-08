@@ -29,6 +29,14 @@
     padding: 10px;
     font-size: 20px;
 }
+.formColor{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+.formColor div{
+    cursor: pointer;
+}
 .inputGroup input{
     border: none;
     width: 380px;
@@ -49,6 +57,17 @@
     justify-content: start;
     gap: 10px;
     font-size: 20px;
+}
+.titleFilter.clear{
+    justify-content: space-between;
+}
+.clear button{
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid #6f5f40;
+    color: #6f5f40;
+    font-weight: 500;
+    font-size: 16px;
 }
 .precoFiltro{
     display: flex;

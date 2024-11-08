@@ -48,10 +48,11 @@ export const listarItensDoCarrinhoController = async (req, res) => {
   }
 };
 
-// Atualizar um item no carrinho
 export const editarItemDoCarrinhoController = async (req, res) => {
   const userId = req.user.userId; // ID do usuário autenticado
   const { produtoId, quantidade } = req.body;
+
+  console.log(`Atualizando carrinho do usuário ${userId} - Produto: ${produtoId}, Quantidade: ${quantidade}`);
 
   // Verifica se o usuário é um administrador
   if (req.user.role !== "USER") {
@@ -64,6 +65,7 @@ export const editarItemDoCarrinhoController = async (req, res) => {
     const carrinho = await editarItemDoCarrinho(userId, produtoId, quantidade);
     res.status(200).json(carrinho);
   } catch (error) {
+    console.error("Erro ao editar item no carrinho:", error);  // Log do erro completo
     res.status(400).json({ error: error.message });
   }
 };

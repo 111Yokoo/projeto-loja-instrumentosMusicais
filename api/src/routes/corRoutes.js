@@ -12,7 +12,7 @@ import { verificarToken, verificarAdmin } from "../middleware/authMiddleware.js"
 const router = express.Router();
 
 // Rota para listar todas as cores (Admin Only)
-router.get("/cores", verificarToken, verificarAdmin, obterCoresController);
+router.get("/cores", obterCoresController);
 
 // Rota para criar uma nova cor (Admin Only)
 router.post("/cores", verificarToken, verificarAdmin, criarCorController);

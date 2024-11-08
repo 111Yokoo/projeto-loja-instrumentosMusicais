@@ -13,6 +13,7 @@ import Sobrenos from "../pages/Sobrenos";
 import ListagemProdutos from "../pages/ListagemProdutos";
 import ListagemVendas from "../pages/ListagemVendas";
 import CriarProdutos from "../pages/CriarProdutos";
+import EditarProdutos from "../pages/EditarProdutos";
 import CriarCategorias from "../pages/CriarCategorias";
 import CriarCores from "../pages/CriarCores";
 
@@ -40,6 +41,7 @@ export default function AppRoutes() {
           <Route path="/admin/listagemVendas" element={<ListagemVendas />} />
           <Route path="/admin/usuarios" element={<Usuarios />} />
           <Route path="/admin/criarProdutos" element={<CriarProdutos />} />
+          <Route path="/admin/editarProdutos/:id" element={<EditarProdutos />} />
           <Route path="/admin/criarCategorias" element={<CriarCategorias />} />
           <Route path="/admin/criarCores" element={<CriarCores />} />
         </Route>
