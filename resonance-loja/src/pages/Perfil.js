@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "../styles/perfil.css";
 import { AuthContext } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
@@ -33,6 +33,22 @@ export default function Perfil() {
   const [successMessage, setSuccessMessage] = useState("");
   const [fadeOut, setFadeOut] = useState(false);
   const { user, logout } = useContext(AuthContext);
+  const [pedidos, setPedidos] = useState([]);
+
+  useEffect(() => {
+    const fetchPedidos = async () => {
+      try {
+        const response = await api.get(`/pedidos`); // API route to fetch orders
+        setPedidos(response.data); // Store orders in state
+      } catch (error) {
+        console.error("Erro ao buscar compras:", error);
+      }
+    };
+  
+    if (user) {
+      fetchPedidos(); // Call the function when the user is logged in
+    }
+  }, [user]); // Re-run when 'user' changes  
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -75,7 +91,7 @@ export default function Perfil() {
 
     fetchUserData(); // Chama a função quando o componente for montado
   }, []);
-
+console.log(pedidos)
   // Função para salvar as alterações no perfil
   const handleSaveChanges = async (e) => {
     e.preventDefault(); // Previne o comportamento padrão do formulário, caso o botão de salvar seja dentro de um <form>
@@ -283,17 +299,30 @@ export default function Perfil() {
         <section className="compras">
           {user && user.role === "ADMIN" ? (
             <>
+              {/* Aqui pode adicionar alguma lógica de exibição para administradores, se necessário */}
             </>
-          ) :
+          ) : (
             <>
               <h2>Histórico de compras</h2>
               <article className="historicoCompras">
-                <Compra preco="100" nomeUsuario="Fulano" onClick={() => handleCompraClick({ idCompra: "idCompra", imagem: "imagem", nomes: "nomes", precos: "preços", valorTotal: "valoTotal" })} />
-                <Compra preco="200" nomeUsuario="Beltrano" onClick={() => handleCompraClick({ idCompra: "idCompra", imagem: "imagem", nomes: "nomes", precos: "preços", valorTotal: "valoTotal" })} />
+                {pedidos.length === 0 ? (
+                  <p>Nenhuma compra realizada.</p>
+                ) : (
+                  pedidos.map((compra) => (
+                    <Compra
+                      key={compra.id} // Supondo que cada compra tenha um id único
+                      preco={compra.total} // Exibe o valor total da compra
+                      nomeUsuario={userData.nome} // Exibe o nome do usuário associado à compra
+                      data={compra.data} // Exibe o nome do usuário associado à compra
+                      onClick={() => handleCompraClick(compra)} // Passa a compra selecionada para o modal
+                    />
+                  ))
+                )}
               </article>
             </>
-          }
+          )}
         </section>
+
       </main>
       <Footer corTexto="#fff" corBackground="#121212" corSecundaria="#6f5f40" />
 
