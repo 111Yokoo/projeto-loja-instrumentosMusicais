@@ -10,7 +10,6 @@ import ProdutoCarrinho from "../components/ProdutoCarrinho";
 export default function Carrinho() {
   const navigate = useNavigate();
   const [error, setError] = useState("");
-  const [carrinho, setCarrinho] = useState("");
   const [success, setSuccess] = useState("");
   const { user } = useContext(AuthContext);
   const [userData, setUserData] = useState({
@@ -24,6 +23,7 @@ export default function Carrinho() {
   });
   const [carrinhoItens, setCarrinhoItens] = useState([]);
   const [total, setTotal] = useState(0);
+  const [metodoPagamento, setMetodoPagamento] = useState(""); // Controla o método de pagamento
 
   useEffect(() => {
     const fetchUsuarioECarrinho = async () => {
@@ -72,11 +72,17 @@ export default function Carrinho() {
       await api.delete(`/carrinho/${produtoId}`);
   
       // Atualiza o estado do carrinho, removendo o item da lista
-      setCarrinho((prevCarrinho) =>
+      setCarrinhoItens((prevCarrinho) =>
         prevCarrinho.filter((item) => item.produtoId !== produtoId)
       );
+  
+      // Recalcula o total após a remoção
+      const totalCarrinho = carrinhoItens.reduce(
+        (acc, item) => acc + item.produto.preco * item.quantidade,
+        0
+      );
+      setTotal(totalCarrinho);
     } catch (error) {
-      // Trata erro, se houver
       if (
         error.response &&
         error.response.data &&
@@ -87,8 +93,8 @@ export default function Carrinho() {
         setError("Erro desconhecido. Por favor, tente novamente.");
       }
     }
-  };  
-  
+  };
+
   const handleAtualizarQuantidade = async (produtoId, novaQuantidade) => {
     try {
       // Envia a requisição PUT para a API para atualizar a quantidade do produto
@@ -118,24 +124,51 @@ export default function Carrinho() {
       }
     }
   };
-  
+
+  const handleCriarPedido = async (event) => {
+    event.preventDefault(); // Impede o envio do formulário
+
+    if (!metodoPagamento) {
+      setError("Por favor, selecione um método de pagamento.");
+      return;
+    }
+
+    try {
+      // Cria o pedido com o método de pagamento selecionado
+      await api.post("/pedidos", { metodoPagamento });
+      alert("Pedido realizado com sucesso!");
+
+      // Limpa o carrinho após o pedido
+      setCarrinhoItens([]);
+      setTotal(0);
+      navigate("/");
+    } catch (error) {
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        setError(error.response.data.message); // Exibe a mensagem de erro da API
+      } else {
+        setError("Erro desconhecido. Por favor, tente novamente.");
+      }
+    }
+  };
+
   return (
-    <div className="carrinho" style={{
-      display: "flex",
-      flexDirection: "column",
-      minHeight: "100vh"}}>
+    <div className="carrinho" style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
       <Header cor="#121212" />
       <main>
         <section className="titleCarrinho">
           <h2>Carrinho de compras</h2>
         </section>
-        <form action="">
+        <form onSubmit={handleCriarPedido}>
           <section className="carrinhoSection">
             <article className="itensCarrinho">
               {carrinhoItens.length > 0 ? (
                 carrinhoItens.map((item) => (
                   <ProdutoCarrinho
-                    key={item.produto.id}  // Added unique key here
+                    key={item.produto.id}  // Adiciona a chave única aqui
                     produtoId={item.produto.id}
                     nome={item.produto.nome}
                     preco={item.produto.preco}
@@ -155,13 +188,19 @@ export default function Carrinho() {
               <aside className="infosPagamento">
                 <section>
                   <h2>Endereço de entrega</h2>
-                  <p className="enderecoText">{userData?.logradouro + " - " + userData?.bairro + " - " + userData?.numero + " - " + userData?.complemento + " - " + userData?.cidade + " - " + userData?.cep || "Endereço não cadastrado"}</p>
+                  <p className="enderecoText">
+                    {userData?.logradouro + " - " + userData?.bairro + " - " + userData?.numero + " - " + userData?.complemento + " - " + userData?.cidade + " - " + userData?.cep || "Endereço não cadastrado"}
+                  </p>
                   <button className="buttonNavigatePerfil" onClick={() => navigate('/perfil')}><strong>Editar endereço</strong></button>
                 </section>
                 <section>
                   <h2>Forma de Pagamento</h2>
                   <div className="botoesPagamento">
-                    <select className="selectPagamento">
+                    <select
+                      className="selectPagamento"
+                      value={metodoPagamento}  // Controla o valor selecionado
+                      onChange={(e) => setMetodoPagamento(e.target.value)} // Atualiza o estado
+                    >
                       <option value="">Escolher método de pagamento</option>
                       <option value="pix">Pagamento via Pix</option>
                       <option value="cheque">Pagamento via Cheque</option>
@@ -171,7 +210,7 @@ export default function Carrinho() {
                 </section>
                 <section>
                   <h2>Total: R$ {total.toFixed(2)}</h2>
-                  <input type="submit" value="Finalizar Pedido" />
+                  <input type="submit" value="Finalizar Pedido" onClick={handleCriarPedido}/>
                 </section>
               </aside>
             </article>
