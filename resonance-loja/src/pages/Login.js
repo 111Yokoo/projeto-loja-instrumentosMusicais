@@ -58,7 +58,7 @@ export default function Login() {
                 </section>
                 <section className="form">
                   <article className="formImput">
-                    <label for="email"><strong>Email:</strong></label>
+                    <label htmlFor="email"><strong>Email:</strong></label>
                     <aside className="input">
                       <span>
                         <IoIosMail />
@@ -66,7 +66,7 @@ export default function Login() {
                     </aside>
                   </article>
                   <article className="formImput">
-                    <label for="senha"><strong>Senha:</strong></label>
+                    <label htmlFor="senha"><strong>Senha:</strong></label>
                     <aside className="input">
                       <span>
                         <MdOutlinePassword />

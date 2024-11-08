@@ -90,19 +90,19 @@ export default function Registro() {
             <p className="tituloRegistrar">Seja bem vindo! Conclua seu cadastro para acessar nossa loja.</p>
             <article className="inputGroup">
               <aside>
-                <label for="nome"><p>Nome:</p></label>
+                <label htmlFor="nome"><p>Nome:</p></label>
                 <div className="formInputRegistro"><MdDriveFileRenameOutline /><input name="nome" id="nome" type="text" value={formData.nome} onChange={handleChange} required placeholder="Digite seu nome" /></div>
               </aside>
               <aside>
-                <label for="email"><p>Email:</p></label>
+                <label htmlFor="email"><p>Email:</p></label>
                 <div className="formInputRegistro"><IoMail /><input name="email" id="email" type="email" value={formData.email} onChange={handleChange} required placeholder="Digite seu email" /></div>
               </aside>
               <aside>
-                <label for="telefone"><p>Telefone:</p></label>
+                <label htmlFor="telefone"><p>Telefone:</p></label>
                 <div className="formInputRegistro"><FaPhoneAlt /><input name="telefone" id="telefone" type="text" value={formData.telefone} onChange={handleChange} required placeholder="Digite seu telefone" /></div>
               </aside>
               <aside>
-                <label for="cpf"><p>CPF:</p></label>
+                <label htmlFor="cpf"><p>CPF:</p></label>
                 <div className="formInputRegistro"><IoDocument /><input name="cpf" id="cpf" type="text" value={formData.cpf} onChange={handleChange} required placeholder="Digite seu CPF" /></div>
               </aside>
               <aside>
@@ -127,27 +127,27 @@ export default function Registro() {
           </section>
           <section className="infosTwo">
             <aside>
-              <label for="cep"><p>CEP:</p></label>
+              <label htmlFor="cep"><p>CEP:</p></label>
               <div className="formInputRegistro"><FaSearchLocation /><input name="cep" id="cep" type="text" value={formData.cep} onChange={handleChange} required placeholder="Digite seu CEP" /></div>
             </aside>
             <aside>
-              <label for="cidade"><p>Cidade:</p></label>
+              <label htmlFor="cidade"><p>Cidade:</p></label>
               <div className="formInputRegistro"><FaCity /><input name="cidade" id="cidade" type="text" value={formData.cidade} onChange={handleChange} required placeholder="Digite sua cidade" /></div>
             </aside>
             <aside>
-              <label for="bairro"><p>Bairro:</p></label>
+              <label htmlFor="bairro"><p>Bairro:</p></label>
               <div className="formInputRegistro"><FaMapLocationDot /><input name="bairro" id="bairro" type="text" value={formData.bairro} onChange={handleChange} required placeholder="Digite seu bairro" /></div>
             </aside>
             <aside>
-              <label for="logradouro"><p>Logradouro:</p></label>
+              <label htmlFor="logradouro"><p>Logradouro:</p></label>
               <div className="formInputRegistro"><FaLocationDot /><input name="logradouro" id="logradouro" value={formData.logradouro} onChange={handleChange} required type="text" placeholder="Digite seu logradouro" /></div>
             </aside>
             <aside>
-              <label for="complemento"><p>Complemento:</p></label>
+              <label htmlFor="complemento"><p>Complemento:</p></label>
               <div className="formInputRegistro"><CiCompass1 /><input name="complemento" id="complemento" type="text" value={formData.complemento} onChange={handleChange} required placeholder="Complemento" /></div>
             </aside>
             <aside>
-              <label for="numero"><p>Número:</p></label>
+              <label htmlFor="numero"><p>Número:</p></label>
               <div className="formInputRegistro"><PiListNumbersFill /><input name="numero" id="numero" type="text" value={formData.numero} onChange={handleChange} required placeholder="Número" /></div>
             </aside>
             <input type="submit" value="Registrar" />
