@@ -140,16 +140,12 @@ const Sidebar = ({ isOpen, toggleSidebar, logado }) => {
                     <FaCartArrowDown />
                   </Link>
                 )}
-                <li>
                   <Link to="/perfil" className="sidebar-link" onClick={handleLinkClick}>
                     <FaUser />
                   </Link>
-                </li>
-                <li>
                   <button className="linkLogout sidebar-link" to="#" onClick={handleLogout}>
                     <IoLogOut />
                   </button>
-                </li>
               </div>
             </>
           ) : (

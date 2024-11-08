@@ -32,7 +32,12 @@
     display: flex;
     flex-direction: column;
     gap: 15px;
-    width: 30%;
+    width: 100%;
+}
+.coresList{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
 }
 .descricao button{
     background-color: #6f5f40;
@@ -49,6 +54,31 @@
     flex-direction: column;
     gap: 25px;
 }
+.imagemPrincipalFoto{
+    width: 500px;
+    height: 500px;
+}
+.miniaturas{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .miniaturas img {
+    cursor: pointer;
+  }  
+  .miniaturas img.ativa {
+    border: 2px solid #6f5f40;
+  }  
+@media (max-width: 1050px) {
+    .imagemPrincipalFoto{
+        width: 400px;
+        height: 400px;
+    }
+    .miniaturas img {
+        width: 70px;
+        height: 70px;
+    }  
+  }
 @media (max-width: 960px) {
     .detalhesProduto main{
         padding: 150px 30px;
@@ -63,6 +93,11 @@
         align-items: center;
         gap: 25px;
     }
+    .miniaturas{
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+      }
     .fotos div{
         display: flex;
         flex-direction: column-reverse;
@@ -77,6 +112,10 @@
     }
   }
   @media (max-width: 660px) {
+    .imagemPrincipalFoto{
+        width: 300px;
+        height: 300px;
+    }
     .detalhesProduto main{
         padding: 120px 30px;
     }

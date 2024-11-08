@@ -25,7 +25,7 @@ export default function Home() {
       {
         breakpoint: 1150,
         settings: {
-          slidesToShow: 3, 
+          slidesToShow: 3,
         },
       },
       {
@@ -55,7 +55,7 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const { user } = useContext(AuthContext); 
+  const { user } = useContext(AuthContext);
 
   //Buscar produtos ao montar o componente
   useEffect(() => {
@@ -82,32 +82,12 @@ export default function Home() {
     fetchProdutos();
   }, [user?.role]); // Adiciona `user?.role` como dependência
 
-  const handleAddToCart = async (produtoId) => {
-    try {
-      await api.post("/carrinho", {
-        userId: user.id, // Certifique-se de que o ID do usuário está correto
-        produtoId, // ID do produto
-        quantidade: 1, // Quantidade a ser adicionada
-      });
-      alert("Produto adicionado ao carrinho com sucesso!"); // Notifica o sucesso
-      navigate("/carrinho");
-    } catch (error) {
-      if (
-        error.response &&
-        error.response.data &&
-        error.response.data.message
-      ) {
-        setError(error.response.data.message); // Exibe a mensagem de erro da API
-      } else {
-        setError("Erro desconhecido. Por favor, tente novamente.");
-      }
-    }
-  };
+  
 
   if (loading) {
     return <div>Carregando produtos...</div>;
   }
-
+  console.log(produtos)
   return (
     <div className="home">
       <Header />
@@ -121,10 +101,7 @@ export default function Home() {
               {produtos.map((produto, index) => (
                 <div key={index}>
                   <Produto
-                    Foto={produto.Foto}
-                    Nome={produto.Nome}
-                    Preco={produto.Preco}
-                    Cor={produto.Cor}
+                    Produto={produto}
                   />
                 </div>
               ))}
@@ -138,10 +115,7 @@ export default function Home() {
               {produtos.map((produto, index) => (
                 <div key={index}>
                   <Produto
-                    Foto={produto.Foto}
-                    Nome={produto.Nome}
-                    Preco={produto.Preco}
-                    Cor={produto.Cor}
+                    Produto={produto}
                   />
                 </div>
               ))}
@@ -155,10 +129,7 @@ export default function Home() {
               {produtos.map((produto, index) => (
                 <div key={index}>
                   <Produto
-                    Foto={produto.Foto}
-                    Nome={produto.Nome}
-                    Preco={produto.Preco}
-                    Cor={produto.Cor}
+                    Produto={produto}
                   />
                 </div>
               ))}

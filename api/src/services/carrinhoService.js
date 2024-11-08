@@ -32,7 +32,6 @@ export const adicionarItemAoCarrinho = async (
     });
   }
 };
-
 export const listarItensDoCarrinho = async (userId) => {
   // Busca todos os itens do carrinho do usuário autenticado
   const itensCarrinho = await prisma.carrinho.findMany({
@@ -40,7 +39,11 @@ export const listarItensDoCarrinho = async (userId) => {
       userId: userId, // Filtra pelo userId do usuário autenticado
     },
     include: {
-      produto: true, // Inclui os detalhes do produto no retorno
+      produto: {
+        include: {
+          imagens: true, // Inclui as imagens do produto no retorno
+        },
+      },
     },
   });
 
@@ -48,19 +51,29 @@ export const listarItensDoCarrinho = async (userId) => {
   return {
     id: userId, // ID do usuário autenticado
     userId: userId, // Vincula o carrinho ao usuário
-    "produtos-carrinho": itensCarrinho.map((item) => ({
-      produtoId: item.produtoId,
-      quantidade: item.quantidade,
-      produto: {
-        id: item.produto.id,
-        nome: item.produto.nome,
-        preco: item.produto.preco,
-        estoque: item.produto.estoque,
-        descricao: item.produto.descricao,
-      },
-    })),
+    "produtos-carrinho": itensCarrinho.map((item) => {
+      // Formata as URLs das imagens para cada produto
+      const imagensFormatadas = item.produto.imagens.map((imagem) => {
+        return `${process.env.BASE_URL}/${imagem.url.replace(/\\/g, "/")}`;
+      });
+
+      return {
+        produtoId: item.produtoId,
+        quantidade: item.quantidade,
+        produto: {
+          id: item.produto.id,
+          nome: item.produto.nome,
+          preco: item.produto.preco,
+          estoque: item.produto.estoque,
+          descricao: item.produto.descricao,
+          imagens: imagensFormatadas, // Inclui as imagens formatadas no retorno
+        },
+      };
+    }),
   };
 };
+
+
 
 export const editarItemDoCarrinho = async (userId, produtoId, quantidade) => {
   // Verifica se o item existe no carrinho do usuário

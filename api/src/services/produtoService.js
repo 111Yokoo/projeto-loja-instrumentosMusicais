@@ -105,7 +105,11 @@ export const obterProdutoPorId = async (produtoId) => {
     include: {
       imagens: true,
       categoria: true, // Inclui a categoria no retorno
-      cores: true, // Inclui as cores no retorno
+      cores: {
+        include: {
+          cor: true, // Inclui as cores, incluindo o hexadecimal
+        },
+      },
     },
   });
 
@@ -113,13 +117,22 @@ export const obterProdutoPorId = async (produtoId) => {
     throw new Error("Produto não encontrado.");
   }
 
+  // Formatar as imagens
   const imagensFormatadas = produto.imagens.map((imagem) => {
     return `${process.env.BASE_URL}/${imagem.url.replace(/\\/g, "/")}`;
   });
 
+  // Aqui, você garante que o hexadecimal seja retornado corretamente nas cores
+  const coresFormatadas = produto.cores.map((produtoCor) => ({
+    id: produtoCor.cor.id,
+    nome: produtoCor.cor.nome,
+    hexadecimal: produtoCor.cor.hexadecimal, // Garantindo que o hexadecimal da cor seja retornado
+  }));
+
   return {
     ...produto,
     imagens: imagensFormatadas,
+    cores: coresFormatadas, // Incluir as cores formatadas, incluindo o hexadecimal
   };
 };
 
@@ -174,6 +187,7 @@ export const atualizarProduto = async (produtoId, data) => {
 };
 
 export const deletarProduto = async (produtoId) => {
+  // Verifique se o produto existe
   const produtoExistente = await prisma.produto.findUnique({
     where: { id: produtoId },
   });
@@ -182,18 +196,36 @@ export const deletarProduto = async (produtoId) => {
     throw new Error("Produto não encontrado.");
   }
 
+  // 1. Exclua todas as referências de ProdutoCor (associações de cores)
+  const produtoCorAssociado = await prisma.produtoCor.findMany({
+    where: { produtoId }, // Encontrar todas as associações de ProdutoCor com esse produto
+  });
+
+  if (produtoCorAssociado.length > 0) {
+    console.log(`Deletando ${produtoCorAssociado.length} associações de cor para o produto.`);
+    await prisma.produtoCor.deleteMany({
+      where: { produtoId }, // Excluindo todas as entradas de ProdutoCor associadas a este produto
+    });
+  } else {
+    console.log('Nenhuma associação de cor encontrada para este produto.');
+  }
+
+  // 2. Exclua as imagens associadas ao produto
   await prisma.imagemProduto.deleteMany({
     where: { produtoId },
   });
 
+  // 3. Exclua as vendas associadas ao produto
   await prisma.venda.deleteMany({
     where: { produtoId },
   });
 
+  // 4. Exclua os carrinhos que contém esse produto
   await prisma.carrinho.deleteMany({
     where: { produtoId },
   });
 
+  // 5. Finalmente, exclua o produto
   return await prisma.produto.delete({
     where: { id: produtoId },
   });
