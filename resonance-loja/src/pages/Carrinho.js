@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import "../styles/carrinho.css";
+import { AuthContext } from "../contexts/AuthContext";
 import api from "../services/api";
 import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
@@ -8,6 +9,10 @@ import ProdutoCarrinho from "../components/ProdutoCarrinho";
 
 export default function Carrinho() {
   const navigate = useNavigate();
+  const [error, setError] = useState("");
+  const [carrinho, setCarrinho] = useState("");
+  const [success, setSuccess] = useState("");
+  const { user } = useContext(AuthContext);
   const [userData, setUserData] = useState({
     nome: "",
     cep: "",
@@ -62,8 +67,35 @@ export default function Carrinho() {
 
     fetchUsuarioECarrinho();
   }, []);
+
+  const handleDeletarItem = async (produtoId) => {
+    try {
+      // Envia a requisição para remover o item no servidor
+      await api.delete(`/carrinho/${produtoId}`);
+  
+      // Atualiza o estado do carrinho, removendo o item da lista
+      setCarrinho((prevCarrinho) =>
+        prevCarrinho.filter((item) => item.produtoId !== produtoId)
+      );
+    } catch (error) {
+      // Trata erro, se houver
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        setError(error.response.data.message); // Exibe a mensagem de erro da API
+      } else {
+        setError("Erro desconhecido. Por favor, tente novamente.");
+      }
+    }
+  };  
+  
   return (
-    <div className="carrinho">
+    <div className="carrinho" style={{
+      display: "flex",
+      flexDirection: "column",
+      minHeight: "100vh"}}>
       <Header cor="#121212" />
       <main>
         <section className="titleCarrinho">
@@ -81,6 +113,7 @@ export default function Carrinho() {
                     preco={item.produto.preco}
                     quantidadeProduto={item.quantidade}
                     imagem={item.produto.imagens[0]}
+                    deletarItem={() => handleDeletarItem(item.produtoId)}
                   />
                 ))
               ) : (

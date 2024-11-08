@@ -23,7 +23,6 @@ const Produto = ({ Produto }) => {
         quantidade: 1, // Quantidade a ser adicionada
       });
       alert("Produto adicionado ao carrinho com sucesso!"); // Notifica o sucesso
-      navigate("/carrinho");
     } catch (error) {
       if (
         error.response &&

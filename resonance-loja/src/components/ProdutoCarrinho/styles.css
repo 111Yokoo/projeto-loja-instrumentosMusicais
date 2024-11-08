@@ -4,7 +4,6 @@
     gap: 20px;
     height: 200px;
     width: 700px;
-    cursor: pointer;
 }
 .quantidadeSection{
     border: 1px solid black;
@@ -28,6 +27,9 @@
     background-color: #6f5f40;
     color: #fff;
     border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .buttonRemove{
     height: 40px;

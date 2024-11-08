@@ -81,7 +81,7 @@ export const excluirItemDoCarrinhoController = async (req, res) => {
   }
 
   try {
-    const carrinho = await excluirItemDoCarrinho(userId, produtoId);
+    const carrinho = await excluirItemDoCarrinho(parseInt(userId), parseInt(produtoId));
     res.status(200).json(carrinho);
   } catch (error) {
     res.status(400).json({ error: error.message });

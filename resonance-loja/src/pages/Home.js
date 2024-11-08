@@ -82,8 +82,6 @@ export default function Home() {
     fetchProdutos();
   }, [user?.role]); // Adiciona `user?.role` como dependência
 
-  
-
   if (loading) {
     return <div>Carregando produtos...</div>;
   }

@@ -139,7 +139,7 @@ const Header = ({ cor }) => {
                   ) : (
                     getCategorias.map((categoria) => (
                       <li key={categoria.id} className="dropdown-item">
-                        <Link to={`/categoria/${categoria.id}`} className="dropdown-link" onClick={handleLinkClick}>
+                        <Link to={`/produtos/${categoria.id}`} className="dropdown-link" onClick={handleLinkClick}>
                           {categoria.nome}
                         </Link>
                       </li>

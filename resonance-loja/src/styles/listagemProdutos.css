@@ -1,5 +1,11 @@
+.listagemProdutos{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
 .listagemProdutos main{
     padding: 90px 30px;
+    flex: 1;
 }
 .container{
     display: flex;

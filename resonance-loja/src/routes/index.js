@@ -26,7 +26,7 @@ export default function AppRoutes() {
         <Route path="/login" element={<Login />} />
         <Route path="/registro" element={<Registro />} />
         <Route path="/sobrenos" element={<Sobrenos />} />
-        <Route path="/produtos" element={<ListagemProdutos />} />
+        <Route path="/produtos/:id" element={<ListagemProdutos />} />
         <Route path="/produto/:id" element={<DetalhesProduto />} />
 
         {/* Rotas protegidas (apenas usuários logados) */}
