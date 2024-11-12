@@ -61,6 +61,16 @@ export default function EditarProduto() {
         setCurrentImages((prevImages) => prevImages.filter((_, i) => i !== index));
     };
 
+    const excluirProduto = async () => {
+        try {
+            await api.delete(`/produtos/${id}`);
+            setSuccessMessage("Produto excluído com sucesso!");
+            setTimeout(() => navigate("/produtos"), 1500); // Redireciona após 1,5 segundo
+        } catch (error) {
+            setError(error.response?.data?.message || "Erro ao excluir o produto.");
+        }
+    };
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         const formData = new FormData();
@@ -99,6 +109,7 @@ export default function EditarProduto() {
                 {successMessage && <p>{successMessage}</p>}
                 <section className="sessaoForms">
                     <form onSubmit={handleSubmit}>
+                        <div><button type="button" onClick={excluirProduto}>🗑️ Excluir Produto</button></div>
                         <div className="infosCriacao">
                             <article className="inputGroupCriacao">
                                 <div className="inputContainer">

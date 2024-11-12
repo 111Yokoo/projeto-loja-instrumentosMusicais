@@ -22,10 +22,10 @@ const ModalCompra = ({ compra, onClose }) => {
             compra.itens.map((produto, index) => (
               <article className="infosModel" key={index}>
                 <aside>
-                  <p>Nome do produto: {produto.produto.nome}</p>
-                  <p>Preço unitário: R$ {produto.preco}</p>
-                  <p>Quantidade: {produto.quantidade}</p>
-                  <p>Subtotal: R$ {produto.preco * produto.quantidade}</p>
+                  <p><strong>Nome do produto:</strong> {produto.produto.nome}</p>
+                  <p><strong>Preço unitário:</strong> R$ {produto.preco}</p>
+                  <p><strong>Quantidade:</strong> {produto.quantidade}</p>
+                  <p><strong>Subtotal:</strong> R$ {produto.preco * produto.quantidade}</p>
                 </aside>
               </article>
             ))
