@@ -21,7 +21,6 @@ const ModalCompra = ({ compra, onClose }) => {
           {compra.itens && compra.itens.length > 0 ? (
             compra.itens.map((produto, index) => (
               <article className="infosModel" key={index}>
-                <img src={produto.produto.imagem} alt={produto.produto.nome} width="150px" height="150px" />
                 <aside>
                   <p>Nome do produto: {produto.produto.nome}</p>
                   <p>Preço unitário: R$ {produto.preco}</p>

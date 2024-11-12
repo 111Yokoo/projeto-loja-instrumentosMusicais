@@ -108,7 +108,6 @@ export default function Perfil() {
       );
     }
   };
-
   // Função para lidar com a mudança nos inputs
   const handleInputChange = (event) => {
     const { name, value } = event.target;
