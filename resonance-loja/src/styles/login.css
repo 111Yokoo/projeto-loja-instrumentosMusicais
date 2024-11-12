@@ -3,13 +3,17 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 100vh;
+}
+.login{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 .login main{
     padding-top: 100px;
-    margin-bottom: 70px;
     display: flex;
     justify-content: center;
+    flex: 1;
 }
 section.main{
     border-radius: 15px;

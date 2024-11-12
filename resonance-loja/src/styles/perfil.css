@@ -1,5 +1,11 @@
+.perfil{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
 .perfil main{
     padding: 70px 0px;
+    flex: 1;
 }
 .titlePerfil{
     width: 100%;

@@ -91,7 +91,6 @@ export default function Perfil() {
 
     fetchUserData(); // Chama a função quando o componente for montado
   }, []);
-console.log(pedidos)
   // Função para salvar as alterações no perfil
   const handleSaveChanges = async (e) => {
     e.preventDefault(); // Previne o comportamento padrão do formulário, caso o botão de salvar seja dentro de um <form>

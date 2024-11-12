@@ -3,13 +3,16 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 100vh;
+}
+.registrar{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 main.registrar{
-    margin-top: 100px;
-    margin-bottom: 70px;
     display: flex;
     justify-content: center;
+    flex: 1;
 }
 .formRegistro{
     display: flex;
