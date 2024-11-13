@@ -11,7 +11,7 @@
     gap: 25px;
     flex: 1;
 }
-.inputWithIcon input{
+.inputWithIcon input, .inputWithIcon select{
     width: 100%;
 }
 .criacao .titlePerfil {
