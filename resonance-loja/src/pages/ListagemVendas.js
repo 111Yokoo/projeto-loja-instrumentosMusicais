@@ -1,35 +1,39 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
+import { AuthContext } from "../contexts/AuthContext";
 import "../styles/listagemVendas.css";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { FaSearch } from "react-icons/fa";
 import Compra from "../components/Compra";
 import ModalCompra from "../components/ModalCompra";
+import api from "../services/api";
 
 export default function ListagemVendas() {
   const inputRef = useRef(null);
-  const [vendas, setVendas] = useState([]);  // Estado para armazenar as vendas
+  const [vendas, setVendas] = useState([]); // Estado para armazenar as vendas
+  const [filteredVendas, setFilteredVendas] = useState([]); // Estado para armazenar vendas filtradas
   const [selectedCompra, setSelectedCompra] = useState(null);
-  
-  // Função para carregar as vendas da API
-  const loadVendas = async () => {
-    try {
-      const response = await fetch("SUA_API_URL_AQUI");  // Substitua pela URL da sua API
-      if (response.ok) {
-        const data = await response.json();
-        setVendas(data);  // Supondo que a resposta da API seja um array de vendas
-      } else {
-        console.error("Erro ao carregar vendas:", response.status);
-      }
-    } catch (error) {
-      console.error("Erro ao buscar as vendas:", error);
-    }
-  };
+  const { user, logout } = useContext(AuthContext);
 
-  // Carregar as vendas quando o componente for montado
+  // Função para carregar as vendas quando o usuário está logado
   useEffect(() => {
-    loadVendas();
-  }, []);  // O array vazio significa que isso será executado uma única vez, quando o componente for montado
+    const fetchVendas = async () => {
+      try {
+        const response = await api.get(`/vendas`); // Rota da API para buscar as vendas
+        setVendas(response.data); // Armazena as vendas no estado
+        setFilteredVendas(response.data); // Inicializa vendas filtradas
+      } catch (error) {
+        console.error("Erro ao buscar compras:", error);
+      }
+    };
+
+    if (user) {
+      fetchVendas();
+    } else {
+      setVendas([]);
+      setFilteredVendas([]);
+    }
+  }, [user]);
 
   const handleCompraClick = (compra) => {
     setSelectedCompra(compra);
@@ -37,6 +41,14 @@ export default function ListagemVendas() {
 
   const handleCloseModal = () => {
     setSelectedCompra(null);
+  };
+
+  const handleSearch = () => {
+    const searchTerm = inputRef.current.value.toLowerCase();
+    const filtered = vendas.filter((compra) =>
+      compra.user?.nome?.toLowerCase().includes(searchTerm)
+    );
+    setFilteredVendas(filtered);
   };
 
   return (
@@ -47,17 +59,23 @@ export default function ListagemVendas() {
         <section className="searchContainer">
           <article className="inputGroup">
             <FaSearch />
-            <input type="text" ref={inputRef} />
+            <input
+              type="text"
+              ref={inputRef}
+              placeholder="Pesquisar por nome de usuário"
+              onChange={handleSearch}
+            />
           </article>
         </section>
         <section className="container">
           <article className="vendasListagem">
-            {/* Renderiza as compras vindas da API */}
-            {vendas.map((compra) => (
+            {/* Renderiza todos os pedidos */}
+            {filteredVendas.map((compra) => (
               <Compra
-                key={compra.idCompra}  // Supondo que idCompra seja único
-                preco={compra.valorTotal}
-                nomeUsuario={compra.nomes}
+                key={compra.idCompra} // Supondo que idCompra seja único
+                preco={compra.total}
+                nomeUsuario={compra.user.nome}
+                data={compra.data}
                 onClick={() => handleCompraClick(compra)}
               />
             ))}
