@@ -143,48 +143,64 @@ export const atualizarProduto = async (produtoId, data) => {
     estoque,
     descricao,
     visibilidade,
+    tituloInformacao,
+    informacao,
     imagens,
     categoriaId,
-    cores,
+    cores, // cores é um array de IDs
   } = data;
 
+  // Prepara os dados para atualização do produto
   const updateData = {
     nome,
     preco: parseFloat(preco),
     estoque: parseInt(estoque),
     descricao,
+    tituloInformacao,
+    informacao,
     visibilidade: visibilidade === "true", // Certifique-se de que seja booleano
   };
 
+  // Se houver imagens, faz a atualização
   if (imagens) {
     updateData.imagens = {
-      deleteMany: {}, // Deleta todas as imagens relacionadas ao produto
+      deleteMany: {}, // Deleta todas as imagens antigas do produto
       create: imagens.map((imagem) => ({ url: imagem })), // Cria as novas imagens
     };
   }
 
+  // Se houver categoria, conecta ao produto
   if (categoriaId) {
     updateData.categoria = {
-      connect: { id: parseInt(categoriaId) }, // Conecta a categoria
+      connect: { id: parseInt(categoriaId) }, // Conecta à categoria
     };
   }
 
-  if (cores) {
+  // Atualiza as cores: apaga as antigas e associa as novas
+  if (cores && Array.isArray(cores)) {
+    // A lógica de exclusão das cores anteriores e inserção das novas
     updateData.cores = {
-      set: cores.map((corId) => ({ id: parseInt(corId) })), // Atualiza as cores conectadas
+      deleteMany: {}, // Deleta todas as cores antigas associadas ao produto
+      create: cores.map((corId) => ({ corId })) // Cria as novas relações com as cores enviadas
     };
   }
 
+  // Atualiza o produto
   return await prisma.produto.update({
     where: { id: produtoId },
     data: updateData,
     include: {
       imagens: true,
-      categoria: true, // Inclui a categoria no retorno
+      categoria: true,
       cores: true, // Inclui as cores no retorno
     },
   });
 };
+
+
+
+
+
 export const deletarProduto = async (produtoId) => {
   try {
     // Verifique se o produto existe
