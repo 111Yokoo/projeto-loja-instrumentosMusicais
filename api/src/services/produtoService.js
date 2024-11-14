@@ -185,48 +185,121 @@ export const atualizarProduto = async (produtoId, data) => {
     },
   });
 };
-
 export const deletarProduto = async (produtoId) => {
-  // Verifique se o produto existe
-  const produtoExistente = await prisma.produto.findUnique({
-    where: { id: produtoId },
-  });
-
-  if (!produtoExistente) {
-    throw new Error("Produto não encontrado.");
-  }
-
-  // 1. Exclua todas as referências de ProdutoCor (associações de cores)
-  const produtoCorAssociado = await prisma.produtoCor.findMany({
-    where: { produtoId }, // Encontrar todas as associações de ProdutoCor com esse produto
-  });
-
-  if (produtoCorAssociado.length > 0) {
-    console.log(`Deletando ${produtoCorAssociado.length} associações de cor para o produto.`);
-    await prisma.produtoCor.deleteMany({
-      where: { produtoId }, // Excluindo todas as entradas de ProdutoCor associadas a este produto
+  try {
+    // Verifique se o produto existe
+    const produtoExistente = await prisma.produto.findUnique({
+      where: { id: produtoId },
     });
-  } else {
-    console.log('Nenhuma associação de cor encontrada para este produto.');
+
+    if (!produtoExistente) {
+      throw new Error("Produto não encontrado.");
+    }
+
+    // 1. Desvincule o produto da categoria
+    console.log(`Desvinculando produto ${produtoId} da categoria.`);
+    await prisma.produto.update({
+      where: { id: produtoId },
+      data: {
+        categoria: {
+          disconnect: true, // Desvincula a categoria
+        },
+      },
+    });
+
+    // 2. Exclua todas as referências de ProdutoCor (associações de cores)
+    const produtoCorAssociado = await prisma.produtoCor.findMany({
+      where: { produtoId },
+    });
+
+    if (produtoCorAssociado && produtoCorAssociado.length > 0) {
+      console.log(`Deletando ${produtoCorAssociado.length} associações de cor para o produto.`);
+      await prisma.produtoCor.deleteMany({
+        where: { produtoId },
+      });
+    } else {
+      console.log('Nenhuma associação de cor encontrada para este produto.');
+    }
+
+    // 3. Exclua as imagens associadas ao produto
+    const imagensAssociadas = await prisma.imagemProduto.findMany({
+      where: { produtoId },
+    });
+
+    if (imagensAssociadas && imagensAssociadas.length > 0) {
+      console.log(`Deletando ${imagensAssociadas.length} imagens associadas ao produto.`);
+      await prisma.imagemProduto.deleteMany({
+        where: { produtoId },
+      });
+    } else {
+      console.log('Nenhuma imagem associada encontrada para este produto.');
+    }
+
+    // 4. Exclua os carrinhos que contêm esse produto
+    const carrinhosAssociados = await prisma.carrinho.findMany({
+      where: { produtoId },
+    });
+
+    if (carrinhosAssociados && carrinhosAssociados.length > 0) {
+      console.log(`Deletando ${carrinhosAssociados.length} carrinhos que contêm este produto.`);
+      await prisma.carrinho.deleteMany({
+        where: { produtoId },
+      });
+    } else {
+      console.log('Nenhum carrinho associado encontrado para este produto.');
+    }
+
+    // 5. Exclua os itens de pedidos que contêm esse produto
+    const pedidoItensAssociados = await prisma.pedidoItem.findMany({
+      where: { produtoId },
+    });
+
+    if (pedidoItensAssociados && pedidoItensAssociados.length > 0) {
+      console.log(`Deletando ${pedidoItensAssociados.length} itens de pedidos associados ao produto.`);
+      await prisma.pedidoItem.deleteMany({
+        where: { produtoId },
+      });
+    } else {
+      console.log('Nenhum item de pedido associado encontrado para este produto.');
+    }
+
+    // 6. Exclua os pedidos que contêm esse produto
+    const pedidosAssociados = await prisma.pedido.findMany({
+      where: {
+        itens: {
+          some: { produtoId }, // Verifica se há algum PedidoItem com esse produtoId
+        },
+      },
+    });
+
+    if (pedidosAssociados && pedidosAssociados.length > 0) {
+      console.log(`Deletando ${pedidosAssociados.length} pedidos que contêm este produto.`);
+      await prisma.pedido.deleteMany({
+        where: {
+          itens: {
+            some: { produtoId },
+          },
+        },
+      });
+    } else {
+      console.log('Nenhum pedido associado encontrado para este produto.');
+    }
+
+    // 7. Finalmente, exclua o produto
+    console.log(`Deletando produto com id ${produtoId}.`);
+    await prisma.produto.delete({
+      where: { id: produtoId },
+    });
+
+    console.log(`Produto ${produtoId} deletado com sucesso.`);
+    return { message: 'Produto deletado com sucesso.' };
+
+  } catch (error) {
+    console.error('Erro ao deletar produto:', error);
+    throw new Error('Erro ao deletar produto. Por favor, tente novamente mais tarde.');
   }
-
-  // 2. Exclua as imagens associadas ao produto
-  await prisma.imagemProduto.deleteMany({
-    where: { produtoId },
-  });
-
-  // 3. Exclua as vendas associadas ao produto
-  await prisma.venda.deleteMany({
-    where: { produtoId },
-  });
-
-  // 4. Exclua os carrinhos que contém esse produto
-  await prisma.carrinho.deleteMany({
-    where: { produtoId },
-  });
-
-  // 5. Finalmente, exclua o produto
-  return await prisma.produto.delete({
-    where: { id: produtoId },
-  });
 };
+
+
+
+

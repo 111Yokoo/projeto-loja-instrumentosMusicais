@@ -40,21 +40,22 @@ model Categoria {
 }
 
 model Produto {
-  id              Int             @id @default(autoincrement())
-  nome            String          @unique
+  id              Int        @id @default(autoincrement())
+  nome            String     @unique
   preco           Float
   estoque         Int
   descricao       String
   tituloInformacao String
   visibilidade    Boolean
   informacao      String
-  cores           ProdutoCor[]    // Relacionamento com cores
-  categoriaId     Int             // Chave estrangeira
-  categoria       Categoria       @relation(fields: [categoriaId], references: [id]) // Relação com categoria
+  cores           ProdutoCor[] // Relacionamento com cores
+  categoriaId     Int?        // Altere para Int? (tornando opcional)
+  categoria       Categoria?  @relation(fields: [categoriaId], references: [id]) // Relacionamento com categoria
   imagens         ImagemProduto[] 
   carrinho        Carrinho[]      
   pedidoItens     PedidoItem[]    
 }
+
 
 model ProdutoCor {
   id        Int     @id @default(autoincrement())

@@ -71,9 +71,24 @@ export default function CriarCategorias() {
         <section className="titlePerfil">
           <h2>Cadastro de Categoria</h2>
         </section>
-        {error && <p>{error}</p>}
-        {successMessage && <p>{successMessage}</p>}
-        {loading && <p>Carregando...</p>}
+        <div style={{width: "100%", textAlign: 'center'}}>
+          {/* Faixa de sucesso (verde) */}
+          {successMessage && (
+            <div style={{ backgroundColor: 'green', color: 'white', padding: '10px', marginBottom: '10px' }}>
+              {successMessage}
+            </div>
+          )}
+
+          {/* Faixa de erro (vermelha) */}
+          {error && (
+            <div style={{ backgroundColor: 'red', color: 'white', padding: '10px', marginBottom: '10px' }}>
+              {error}
+            </div>
+          )}
+
+          {/* Mensagem de carregamento */}
+          {loading && <p>Carregando...</p>}
+        </div>
         <section className="sessaoForms">
           <form onSubmit={handleAddCategoria}>
             <div className="infosCriacao">

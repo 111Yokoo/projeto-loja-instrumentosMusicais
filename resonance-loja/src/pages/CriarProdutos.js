@@ -14,11 +14,12 @@ export default function CriarProdutos() {
   const [categoria, setCategoria] = useState("");
   const [preco, setPreco] = useState("");
   const [estoque, setEstoque] = useState(0);
-  const [selectedImages, setSelectedImages] = useState([]); // Alterado para suportar múltiplas imagens
+  const [selectedImages, setSelectedImages] = useState([]);
   const [cores, setCores] = useState([7]);
   const [categorias, setCategorias] = useState([]);
   const [error, setError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const [loading, setLoading] = useState(false); // Estado de carregamento
   const { user } = useContext(AuthContext);
 
   useEffect(() => {
@@ -64,6 +65,8 @@ export default function CriarProdutos() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    setLoading(true); // Ativa o loading
+
     const formData = new FormData();
     formData.append("id", 3); // ID do produto (ajuste conforme necessário)
     formData.append("nome", nomeProduto);
@@ -108,6 +111,8 @@ export default function CriarProdutos() {
     } catch (error) {
       console.error("Erro ao cadastrar produto:", error.response);
       setError(error.response?.data?.message || "Erro ao cadastrar o produto.");
+    } finally {
+      setLoading(false); // Desativa o loading após a resposta da API
     }
   };
 
@@ -118,8 +123,38 @@ export default function CriarProdutos() {
         <section className="titlePerfil">
           <h2>Cadastro Produto</h2>
         </section>
-        {error && <p>{error}</p>}
-        {successMessage && <p>{successMessage}</p>}
+        <div style={{ width: "100%", textAlign: "center" }}>
+          {/* Faixa de sucesso (verde) */}
+          {successMessage && (
+            <div
+              style={{
+                backgroundColor: "green",
+                color: "white",
+                padding: "10px",
+                marginBottom: "10px",
+              }}
+            >
+              {successMessage}
+            </div>
+          )}
+
+          {/* Faixa de erro (vermelha) */}
+          {error && (
+            <div
+              style={{
+                backgroundColor: "red",
+                color: "white",
+                padding: "10px",
+                marginBottom: "10px",
+              }}
+            >
+              {error}
+            </div>
+          )}
+
+          {/* Mensagem de carregamento */}
+          {loading && <p>Carregando...</p>}
+        </div>
         <section className="sessaoForms">
           <form onSubmit={handleSubmit}>
             <div className="infosCriacao">
@@ -152,7 +187,7 @@ export default function CriarProdutos() {
                   </div>
                 </div>
                 <div className="inputContainer">
-                  <label>Titúlo informação</label>
+                  <label>Título informação</label>
                   <div className="inputWithIcon">
                     <span className="inputIcon">🔍</span>
                     <input
@@ -160,7 +195,7 @@ export default function CriarProdutos() {
                       name="tituloInformacao"
                       value={tituloInformacao}
                       onChange={(e) => setTituloInformacao(e.target.value)}
-                      placeholder="Titulo Informacao"
+                      placeholder="Título Informacao"
                       required
                     />
                   </div>
@@ -189,7 +224,14 @@ export default function CriarProdutos() {
                           checked={coresSelecionadas.includes(cor.id)}
                           onChange={handleCorChange}
                         />
-                        <label style={{background: `#${cor.hexadecimal}`, width: "20px", height: "20px", borderRadius: "50%"}}></label>
+                        <label
+                          style={{
+                            background: `#${cor.hexadecimal}`,
+                            width: "20px",
+                            height: "20px",
+                            borderRadius: "50%",
+                          }}
+                        ></label>
                       </div>
                     ))}
                   </div>

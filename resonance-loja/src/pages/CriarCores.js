@@ -5,7 +5,7 @@ import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
 import api from "../services/api";
 import { AuthContext } from "../contexts/AuthContext";
-import { FaTrash,  FaCheck } from "react-icons/fa";
+import { FaTrash, FaCheck } from "react-icons/fa";
 import { FaPencil } from "react-icons/fa6";
 
 export default function CriarCores() {
@@ -80,9 +80,24 @@ export default function CriarCores() {
         <section className="titlePerfil">
           <h2>Cadastro de Cor</h2>
         </section>
-        {error && <p>{error}</p>}
-        {successMessage && <p>{successMessage}</p>}
-        {loading && <p>Carregando...</p>}
+        <div style={{width: "100%", textAlign: 'center'}}>
+          {/* Faixa de sucesso (verde) */}
+          {successMessage && (
+            <div style={{ backgroundColor: 'green', color: 'white', padding: '10px', marginBottom: '10px' }}>
+              {successMessage}
+            </div>
+          )}
+
+          {/* Faixa de erro (vermelha) */}
+          {error && (
+            <div style={{ backgroundColor: 'red', color: 'white', padding: '10px', marginBottom: '10px' }}>
+              {error}
+            </div>
+          )}
+
+          {/* Mensagem de carregamento */}
+          {loading && <p>Carregando...</p>}
+        </div>
         <section className="sessaoForms">
           <form onSubmit={handleAddCor}>
             <div className="infosCriacao">
@@ -126,10 +141,10 @@ export default function CriarCores() {
             {getCores.map((cor, index) => (
               <article className="getAllTypes" key={cor.id}>
                 <div className="typesOne">
-                  <div style={{background: `#${cor.hexadecimal}`, width: "50px", height: "50px", borderRadius: "50%"}}></div>
+                  <div style={{ background: `#${cor.hexadecimal}`, width: "50px", height: "50px", borderRadius: "50%" }}></div>
                   <div className="typeInputs">
                     <h3>
-                      Nome: 
+                      Nome:
                       <input
                         type="text"
                         value={editableIndex === index ? cor.nome : cor.nome}
@@ -144,7 +159,7 @@ export default function CriarCores() {
                       />
                     </h3>
                     <p>
-                      Hexadecimal: # 
+                      Hexadecimal: #
                       <input
                         type="text"
                         value={editableIndex === index ? cor.hexadecimal : cor.hexadecimal}

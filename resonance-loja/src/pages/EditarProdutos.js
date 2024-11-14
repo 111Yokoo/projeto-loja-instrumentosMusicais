@@ -23,11 +23,13 @@ export default function EditarProduto() {
     const [categorias, setCategorias] = useState([]);
     const [error, setError] = useState("");
     const [successMessage, setSuccessMessage] = useState("");
+    const [loading, setLoading] = useState(false); // Estado de carregamento
     const { user } = useContext(AuthContext);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
+                setLoading(true); // Ativa o loading enquanto busca os dados
                 const produtoResponse = await api.get(`/produtos/${id}`);
                 const produto = produtoResponse.data;
 
@@ -48,6 +50,8 @@ export default function EditarProduto() {
                 setCategorias(categoriasResponse.data);
             } catch (error) {
                 setError(error.response?.data?.message || "Erro ao carregar o produto.");
+            } finally {
+                setLoading(false); // Desativa o loading após a resposta
             }
         };
         fetchData();
@@ -62,17 +66,21 @@ export default function EditarProduto() {
     };
 
     const excluirProduto = async () => {
+        setLoading(true); // Ativa o loading ao excluir
         try {
             await api.delete(`/produtos/${id}`);
             setSuccessMessage("Produto excluído com sucesso!");
             setTimeout(() => navigate("/produtos"), 1500); // Redireciona após 1,5 segundo
         } catch (error) {
             setError(error.response?.data?.message || "Erro ao excluir o produto.");
+        } finally {
+            setLoading(false); // Desativa o loading após a resposta
         }
     };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        setLoading(true); // Ativa o loading ao submeter os dados
         const formData = new FormData();
         formData.append("id", id);
         formData.append("nome", nomeProduto);
@@ -96,8 +104,11 @@ export default function EditarProduto() {
             navigate(`/produtos/${id}`);
         } catch (error) {
             setError(error.response?.data?.message || "Erro ao atualizar o produto.");
+        } finally {
+            setLoading(false); // Desativa o loading após a resposta
         }
     };
+
     return (
         <div className="criacao">
             <Header cor="#121212" />
@@ -105,13 +116,46 @@ export default function EditarProduto() {
                 <section className="titlePerfil">
                     <h2>Editar Produto</h2>
                 </section>
-                {error && <p>{error}</p>}
-                {successMessage && <p>{successMessage}</p>}
+                <div style={{ width: "100%", textAlign: "center" }}>
+                    {/* Faixa de sucesso (verde) */}
+                    {successMessage && (
+                        <div
+                            style={{
+                                backgroundColor: "green",
+                                color: "white",
+                                padding: "10px",
+                                marginBottom: "10px",
+                            }}
+                        >
+                            {successMessage}
+                        </div>
+                    )}
+
+                    {/* Faixa de erro (vermelha) */}
+                    {error && (
+                        <div
+                            style={{
+                                backgroundColor: "red",
+                                color: "white",
+                                padding: "10px",
+                                marginBottom: "10px",
+                            }}
+                        >
+                            {error}
+                        </div>
+                    )}
+
+                    {/* Mensagem de carregamento */}
+                    {loading && <p>Carregando...</p>}
+                </div>
                 <section className="sessaoForms">
                     <form onSubmit={handleSubmit}>
-                        <div><button type="button" onClick={excluirProduto}>🗑️ Excluir Produto</button></div>
+                        <div>
+                            <button type="button" onClick={excluirProduto} disabled={loading}>🗑️ Excluir Produto</button>
+                        </div>
                         <div className="infosCriacao">
                             <article className="inputGroupCriacao">
+                                {/* Formulário de Edição */}
                                 <div className="inputContainer">
                                     <label>Nome do Produto</label>
                                     <div className="inputWithIcon">
@@ -174,13 +218,12 @@ export default function EditarProduto() {
                                                 <input
                                                     type="checkbox"
                                                     value={cor.id}
-                                                    // Aqui garantimos que a comparação é feita com números
-                                                    checked={coresSelecionadas.some((selected) => selected.id === cor.id)} // Comparando IDs das cores
+                                                    checked={coresSelecionadas.some((selected) => selected.id === cor.id)}
                                                     onChange={() => {
                                                         setCoresSelecionadas((prev) =>
                                                             prev.some((selected) => selected.id === cor.id)
-                                                                ? prev.filter((selected) => selected.id !== cor.id) // Remove a cor se já estiver selecionada
-                                                                : [...prev, cor] // Adiciona a cor se não estiver selecionada
+                                                                ? prev.filter((selected) => selected.id !== cor.id)
+                                                                : [...prev, cor]
                                                         );
                                                     }}
                                                 />
@@ -197,7 +240,6 @@ export default function EditarProduto() {
                                     </div>
                                 </div>
 
-
                                 <div className="inputContainer">
                                     <label>Categoria</label>
                                     <div className="inputWithIcon">
@@ -207,9 +249,7 @@ export default function EditarProduto() {
                                             onChange={(e) => setCategoria(e.target.value)}
                                             required
                                         >
-                                            <option value="" disabled>
-                                                Selecione uma categoria
-                                            </option>
+                                            <option value="" disabled>Selecione uma categoria</option>
                                             {categorias.map((categoria) => (
                                                 <option key={categoria.id} value={categoria.id}>
                                                     {categoria.nome}
@@ -287,7 +327,8 @@ export default function EditarProduto() {
                                         </div>
                                     )}
                                 </div>
-                                <input type="submit" value="Atualizar Produto" />
+
+                                <input type="submit" value="Atualizar Produto" disabled={loading} />
                             </article>
                         </div>
                     </form>

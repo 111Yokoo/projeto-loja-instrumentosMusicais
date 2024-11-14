@@ -48,10 +48,11 @@ const Produto = ({ Produto }) => {
 
   return (
     <section onClick={() => navigate(`/produto/${Produto.id}`)} className="produto">
-      <article style={{ backgroundImage: `url(${Produto.imagens[0]})`, backgroundSize: 'cover' }} className="imagem">
+      <article className="imagem">
         <span>
           <p style={{ background: `#${Produto.cores[0].hexadecimal}` }} className="cor"></p>
         </span>
+        <div><img src={Produto.imagens[0]} className="imagemFoto"/></div>
       </article>
       <article className="produtoDescricao">
         <aside className="produtoParteOne">

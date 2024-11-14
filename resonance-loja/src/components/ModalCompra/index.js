@@ -1,4 +1,5 @@
 import React from "react";
+import { IoIosClose } from "react-icons/io";
 import "./styles.css";
 
 const ModalCompra = ({ compra, onClose }) => {
@@ -14,7 +15,7 @@ const ModalCompra = ({ compra, onClose }) => {
       <div className="modalContent">
         <section className="cabecalhoModel">
           <p>ID da Compra: {compra.id}</p>
-          <button onClick={onClose}>X</button>
+          <button onClick={onClose}><IoIosClose /></button>
         </section>
         <h2>Detalhes da Compra</h2>
         <section className="produtosCompra">
