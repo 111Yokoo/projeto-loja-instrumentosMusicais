@@ -39,7 +39,7 @@
     font-size: 20px;
 }
 .usuariosListagem{
-    width: 80%;
+    width: 90%;
     display: flex;
     flex-direction: row;
     gap: 35px;

@@ -94,7 +94,6 @@ export default function CriarCores() {
               {error}
             </div>
           )}
-
           {/* Mensagem de carregamento */}
           {loading && <p>Carregando...</p>}
         </div>

@@ -144,7 +144,6 @@ export default function Perfil() {
           <h2>Minha conta</h2>
           <div className="linksPerfil">
             <a href="#comprasAntigas"><FaShoppingBag /></a>
-            <button className="buttonExit"><IoExit /></button>
           </div>
         </section>
         <section className="infoConta">

@@ -136,12 +136,13 @@ export default function Carrinho() {
     try {
       // Cria o pedido com o método de pagamento selecionado
       await api.post("/pedidos", { metodoPagamento });
-      alert("Pedido realizado com sucesso!");
+      setSuccess("Compra realizada com sucesso!");
 
-      // Limpa o carrinho após o pedido
       setCarrinhoItens([]);
       setTotal(0);
-      navigate("/");
+      setTimeout(() => {
+        navigate("/");
+      }, 2000);
     } catch (error) {
       if (
         error.response &&
@@ -162,6 +163,19 @@ export default function Carrinho() {
         <section className="titleCarrinho">
           <h2>Carrinho de compras</h2>
         </section>
+        {/* Faixa de sucesso (verde) */}
+        {success && (
+            <div style={{ backgroundColor: 'green', color: 'white', padding: '10px', marginBottom: '10px' }}>
+              {success}
+            </div>
+          )}
+
+          {/* Faixa de erro (vermelha) */}
+          {error && (
+            <div style={{ backgroundColor: 'red', color: 'white', padding: '10px', marginBottom: '10px' }}>
+              {error}
+            </div>
+          )}
         <form onSubmit={handleCriarPedido}>
           <section className="carrinhoSection">
             <article className="itensCarrinho">

@@ -175,7 +175,7 @@ export default function EditarProduto() {
         </div>
         <section className="sessaoForms">
           <form onSubmit={handleSubmit}>
-            <div>
+            <div className="buttonTrashProduct">
               <button type="button" onClick={excluirProduto} disabled={loading}>🗑️ Excluir Produto</button>
             </div>
             <div className="infosCriacao">

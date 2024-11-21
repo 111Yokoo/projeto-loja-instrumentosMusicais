@@ -7,6 +7,16 @@
     flex-direction: column;
     gap: 10px;
 }
+.buttonTrashProduct{
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+}
+.buttonTrashProduct button{
+    background-color: transparent;
+    border-radius: 10px;
+    padding: 5px;
+}
 .criacao{
     display: flex;
     flex-direction: column;
@@ -41,6 +51,7 @@
 .sessaoForms form {
     display: flex;
     flex-direction: column;
+    gap: 15px;
 }
 .infosCriacao {
     display: flex;
