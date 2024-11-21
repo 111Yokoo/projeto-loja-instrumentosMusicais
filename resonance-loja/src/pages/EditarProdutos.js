@@ -82,17 +82,17 @@ export default function EditarProduto() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true); // Ativa o loading
-  
+
     // Verifique se preço e estoque são números válidos
     if (isNaN(preco) || isNaN(estoque)) {
       setError("Preço e estoque devem ser números válidos.");
       setLoading(false);
       return;
     }
-  
+
     // Extraindo apenas os IDs das cores selecionadas
     const coresIds = coresSelecionadas.map(cor => cor.id); // Extrai apenas os IDs das cores
-  
+
     // Preparando os dados para o envio
     const produtoData = {
       nome: nomeProduto,
@@ -108,10 +108,10 @@ export default function EditarProduto() {
         ...Array.from(selectedImages).map((imagem) => imagem.name), // Adiciona tanto as imagens atuais quanto as novas selecionadas (nomes dos arquivos)
       ],
     };
-  
+
     // Logando os dados do produto para conferir o formato
     console.log("Dados a serem enviados:", produtoData);
-  
+
     try {
       // Envio da requisição PUT para atualizar o produto
       await api.put(`/produtos/${id}`, produtoData, {
@@ -119,7 +119,7 @@ export default function EditarProduto() {
           "Content-Type": "application/json", // Indicando que estamos enviando JSON
         },
       });
-  
+
       setSuccessMessage("Produto atualizado com sucesso!");
     } catch (error) {
       // Exibe a mensagem de erro detalhada
@@ -128,11 +128,11 @@ export default function EditarProduto() {
       setLoading(false); // Desativa o loading após a resposta
     }
   };
-  
-  
-  
-  
-  
+
+  console.log(coresSelecionadas)
+
+
+
 
   return (
     <div className="criacao">
@@ -242,13 +242,16 @@ export default function EditarProduto() {
                         <input
                           type="checkbox"
                           value={cor.id}
-                          checked={coresSelecionadas.includes(cor.id)} // Verifica se o ID da cor está selecionado
+                          checked={coresSelecionadas.some((item) => item.id === cor.id)} // Verifica se o ID da cor está em coresSelecionadas
                           onChange={() => {
-                            setCoresSelecionadas((prev) =>
-                              prev.includes(cor.id)
-                                ? prev.filter((selectedId) => selectedId !== cor.id) // Remove o ID se já estiver selecionado
-                                : [...prev, cor.id] // Adiciona o ID se não estiver selecionado
-                            );
+                            setCoresSelecionadas((prev) => {
+                              if (prev.some((item) => item.id === cor.id)) {
+                                return prev.filter((item) => item.id !== cor.id);
+                              } else {
+                                // Se o ID não estiver em coresSelecionadas, adicionamos o objeto completo
+                                return [...prev, { id: cor.id, nome: cor.nome, hexadecimal: cor.hexadecimal }];
+                              }
+                            });
                           }}
                         />
                         <label
@@ -257,13 +260,14 @@ export default function EditarProduto() {
                             width: "20px",
                             height: "20px",
                             borderRadius: "50%",
+                            display: "inline-block",
+                            cursor: "pointer",
                           }}
                         ></label>
                       </div>
                     ))}
                   </div>
                 </div>
-
                 <div className="inputContainer">
                   <label>Categoria</label>
                   <div className="inputWithIcon">
@@ -351,7 +355,6 @@ export default function EditarProduto() {
                     </div>
                   )}
                 </div>
-
                 <input type="submit" value="Atualizar Produto" disabled={loading} />
               </article>
             </div>
