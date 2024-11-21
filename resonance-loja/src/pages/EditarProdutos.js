@@ -33,6 +33,7 @@ export default function EditarProduto() {
         const produtoResponse = await api.get(`/produtos/${id}`);
         const produto = produtoResponse.data;
 
+        console.log(produto)
         setNomeProduto(produto.nome);
         setDescricao(produto.descricao);
         setTituloInformacao(produto.tituloInformacao);
@@ -42,6 +43,7 @@ export default function EditarProduto() {
         setCategoria(produto.categoriaId);
         setCoresSelecionadas(produto.cores || []);
         setCurrentImages(produto.imagens || []);
+        console.log(produto)
 
         const coresResponse = await api.get("/cores");
         setCores(coresResponse.data);
@@ -105,9 +107,10 @@ export default function EditarProduto() {
       cores: coresIds, // Agora passando apenas os IDs das cores
       imagens: [
         ...currentImages,
-        ...Array.from(selectedImages).map((imagem) => imagem.name), // Adiciona tanto as imagens atuais quanto as novas selecionadas (nomes dos arquivos)
+        ...Array.from(selectedImages).map((imagem) => `uploads/${imagem.lastModified}.png`), // Adiciona tanto as imagens atuais quanto as novas selecionadas (nomes dos arquivos)
       ],
     };
+    console.log(selectedImages)
 
     // Logando os dados do produto para conferir o formato
     console.log("Dados a serem enviados:", produtoData);
@@ -128,12 +131,6 @@ export default function EditarProduto() {
       setLoading(false); // Desativa o loading após a resposta
     }
   };
-
-  console.log(coresSelecionadas)
-
-
-
-
   return (
     <div className="criacao">
       <Header cor="#121212" />
