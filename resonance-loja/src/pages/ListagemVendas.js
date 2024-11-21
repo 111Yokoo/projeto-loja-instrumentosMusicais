@@ -70,9 +70,9 @@ export default function ListagemVendas() {
         <section className="container">
           <article className="vendasListagem">
             {/* Renderiza todos os pedidos */}
-            {filteredVendas.map((compra) => (
+            {filteredVendas.map((compra, index) => (
               <Compra
-                key={compra.idCompra} // Supondo que idCompra seja único
+                key={index} 
                 preco={compra.total}
                 nomeUsuario={compra.user.nome}
                 data={compra.data}

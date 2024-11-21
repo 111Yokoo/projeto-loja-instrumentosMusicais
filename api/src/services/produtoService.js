@@ -196,11 +196,6 @@ export const atualizarProduto = async (produtoId, data) => {
     },
   });
 };
-
-
-
-
-
 export const deletarProduto = async (produtoId) => {
   try {
     // Verifique se o produto existe
@@ -279,27 +274,28 @@ export const deletarProduto = async (produtoId) => {
       console.log('Nenhum item de pedido associado encontrado para este produto.');
     }
 
-    // 6. Exclua os pedidos que contêm esse produto
-    const pedidosAssociados = await prisma.pedido.findMany({
+    // 6. Exclua os pedidos que contêm apenas este produto
+    const pedidosComUnicoProduto = await prisma.pedido.findMany({
       where: {
         itens: {
-          some: { produtoId }, // Verifica se há algum PedidoItem com esse produtoId
+          every: { produtoId }, // Verifica se todos os itens do pedido têm este produtoId
         },
       },
     });
 
-    if (pedidosAssociados && pedidosAssociados.length > 0) {
-      console.log(`Deletando ${pedidosAssociados.length} pedidos que contêm este produto.`);
+    if (pedidosComUnicoProduto && pedidosComUnicoProduto.length > 0) {
+      console.log(`Deletando ${pedidosComUnicoProduto.length} pedidos com apenas este produto.`);
       await prisma.pedido.deleteMany({
         where: {
           itens: {
-            some: { produtoId },
+            every: { produtoId }, // Condição para excluir pedidos com apenas este produto
           },
         },
       });
     } else {
-      console.log('Nenhum pedido associado encontrado para este produto.');
+      console.log('Nenhum pedido exclusivo associado encontrado para este produto.');
     }
+
 
     // 7. Finalmente, exclua o produto
     console.log(`Deletando produto com id ${produtoId}.`);
@@ -315,7 +311,3 @@ export const deletarProduto = async (produtoId) => {
     throw new Error('Erro ao deletar produto. Por favor, tente novamente mais tarde.');
   }
 };
-
-
-
-

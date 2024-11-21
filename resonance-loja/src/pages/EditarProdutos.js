@@ -16,7 +16,7 @@ export default function EditarProduto() {
   const [coresSelecionadas, setCoresSelecionadas] = useState([]);
   const [categoria, setCategoria] = useState("");
   const [preco, setPreco] = useState("");
-  const [estoque, setEstoque] = useState();
+  const [estoque, setEstoque] = useState("");
   const [selectedImages, setSelectedImages] = useState([]);
   const [currentImages, setCurrentImages] = useState([]);
   const [cores, setCores] = useState([]);
