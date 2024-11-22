@@ -56,14 +56,24 @@ export default function Home() {
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
+  const [eletric, setEletric] = useState([]);
+  const [semiacustico, setSemiacustico] = useState([]);
+  const [acustico, setAcustico] = useState([]);
 
-  //Buscar produtos ao montar o componente
   useEffect(() => {
     const fetchProdutos = async () => {
       try {
         const isAdmin = user?.role === "ADMIN"; // Verifica se o usuário é administrador
         const response = await api.get(`/produtos?admin=${isAdmin}`);
-        setProdutos(response.data);
+        const produtos = response.data;
+
+        // Filtrando produtos por categorias
+        setEletric(produtos.filter((produto) => produto.categoriaId === 3));
+        setSemiacustico(
+          produtos.filter((produto) => produto.categoriaId === 2)
+        );
+        setAcustico(produtos.filter((produto) => produto.categoriaId === 1));
+
         setLoading(false);
       } catch (error) {
         if (
@@ -82,6 +92,7 @@ export default function Home() {
     fetchProdutos();
   }, [user?.role]); // Adiciona `user?.role` como dependência
 
+
   if (loading) {
     return <div>Carregando produtos...</div>;
   }
@@ -94,13 +105,11 @@ export default function Home() {
       <main>
         <section className="primeiraSessao">
           <article className="sessaoInterna">
-            <h1 className="titulo">Mais vendidos:</h1>
+            <h1 className="titulo">Eletricos:</h1>
             <Slider {...settings}>
-              {produtos.map((produto, index) => (
+              {eletric.map((produto, index) => (
                 <div key={index}>
-                  <Produto
-                    Produto={produto}
-                  />
+                  <Produto Produto={produto} />
                 </div>
               ))}
             </Slider>
@@ -108,13 +117,11 @@ export default function Home() {
         </section>
         <section className="primeiraSessao sessaoMeio">
           <article className="sessaoInterna">
-            <h1 className="titulo meio">Talvez você goste de:</h1>
+            <h1 className="titulo meio">Semiacústico:</h1>
             <Slider {...settings}>
-              {produtos.map((produto, index) => (
+              {semiacustico.map((produto, index) => (
                 <div key={index}>
-                  <Produto
-                    Produto={produto}
-                  />
+                  <Produto Produto={produto} />
                 </div>
               ))}
             </Slider>
@@ -122,13 +129,11 @@ export default function Home() {
         </section>
         <section className="primeiraSessao">
           <article className="sessaoInterna">
-            <h1 className="titulo">Mais antigos:</h1>
+            <h1 className="titulo">Acústico:</h1>
             <Slider {...settings}>
-              {produtos.map((produto, index) => (
+              {acustico.map((produto, index) => (
                 <div key={index}>
-                  <Produto
-                    Produto={produto}
-                  />
+                  <Produto Produto={produto} />
                 </div>
               ))}
             </Slider>
