@@ -77,12 +77,12 @@ export default function ListagemProdutos() {
       const isNomeMatch = produto.nome.toLowerCase().includes(searchTerm.toLowerCase());
 
       let isPriceMatch = true;
-      if (selectedPrice === "Abaixo de R$2000.00") {
-        isPriceMatch = produto.preco < 2000;
-      } else if (selectedPrice === "De R$2001.00 a R$4000.00") {
-        isPriceMatch = produto.preco >= 2001 && produto.preco <= 4000;
-      } else if (selectedPrice === "Acima de R$4001.00") {
-        isPriceMatch = produto.preco > 4000;
+      if (selectedPrice === "Abaixo de R$7000.00") {
+        isPriceMatch = produto.preco < 7000;
+      } else if (selectedPrice === "De R$7001.00 a R$13000.00") {
+        isPriceMatch = produto.preco >= 7001 && produto.preco <= 13000;
+      } else if (selectedPrice === "Acima de R$13000.00") {
+        isPriceMatch = produto.preco > 13000;
       }
 
       const isColorMatch = selectedColorId ? produto.cores.some((cor) => cor.id === selectedColorId) : true;
@@ -143,28 +143,28 @@ export default function ListagemProdutos() {
                   <input
                     type="checkbox"
                     id="checkOne"
-                    checked={selectedPrice === "Abaixo de R$2000.00"}
-                    onChange={() => handlePriceChange("Abaixo de R$2000.00")}
+                    checked={selectedPrice === "Abaixo de R$7000.00"}
+                    onChange={() => handlePriceChange("Abaixo de R$7000.00")}
                   />
-                  <label htmlFor="checkOne">Abaixo de R$2000.00</label>
+                  <label htmlFor="checkOne">Abaixo de R$7000.00</label>
                 </div>
                 <div>
                   <input
                     type="checkbox"
                     id="checkTwo"
-                    checked={selectedPrice === "De R$2001.00 a R$4000.00"}
-                    onChange={() => handlePriceChange("De R$2001.00 a R$4000.00")}
+                    checked={selectedPrice === "De R$7001.00 a R$13000.00"}
+                    onChange={() => handlePriceChange("De R$7001.00 a R$13000.00")}
                   />
-                  <label htmlFor="checkTwo">De R$2001.00 a R$4000.00</label>
+                  <label htmlFor="checkTwo">De R$7001.00 a R$13000.00</label>
                 </div>
                 <div>
                   <input
                     type="checkbox"
                     id="checkThree"
-                    checked={selectedPrice === "Acima de R$4001.00"}
-                    onChange={() => handlePriceChange("Acima de R$4001.00")}
+                    checked={selectedPrice === "Acima de R$13000.00"}
+                    onChange={() => handlePriceChange("Acima de R$13000.00")}
                   />
-                  <label htmlFor="checkThree">Acima de R$4001.00</label>
+                  <label htmlFor="checkThree">Acima de R$13000.00</label>
                 </div>
               </div>
             </aside>

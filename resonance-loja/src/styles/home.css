@@ -48,6 +48,5 @@ Produto{
 @media (max-width: 960px) {
     .produto{
         width: 250px;
-        height: 500px;
     }
   }  

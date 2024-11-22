@@ -34,7 +34,6 @@ export const criarProduto = async (data) => {
       },
     },
   });
-  console.log("chegou no service", cores);
 
   // Adiciona as cores associadas usando o produtoId recém-criado, uma por uma
   if (cores && cores.length > 0) {
@@ -147,55 +146,106 @@ export const atualizarProduto = async (produtoId, data) => {
     informacao,
     imagens,
     categoriaId,
-    cores, // cores é um array de IDs
+    cores,
   } = data;
 
-  // Prepara os dados para atualização do produto
   const updateData = {
     nome,
-    preco: parseFloat(preco),
-    estoque: parseInt(estoque),
+    preco: isNaN(preco) ? undefined : parseFloat(preco),
+    estoque: isNaN(estoque) ? undefined : parseInt(estoque),
     descricao,
     tituloInformacao,
     informacao,
-    visibilidade: visibilidade === "true", // Certifique-se de que seja booleano
+    visibilidade: visibilidade === "true",
   };
 
-  // Se houver imagens, faz a atualização
-  if (imagens) {
-    updateData.imagens = {
-      deleteMany: {}, // Deleta todas as imagens antigas do produto
-      create: imagens.map((imagem) => ({ url: imagem })), // Cria as novas imagens
-    };
-  }
-
-  // Se houver categoria, conecta ao produto
+  // Atualizar categoria
   if (categoriaId) {
-    updateData.categoria = {
-      connect: { id: parseInt(categoriaId) }, // Conecta à categoria
-    };
+    updateData.categoria = { connect: { id: parseInt(categoriaId) } };
   }
 
-  // Atualiza as cores: apaga as antigas e associa as novas
+  // Atualizar cores
   if (cores && Array.isArray(cores)) {
-    // A lógica de exclusão das cores anteriores e inserção das novas
-    updateData.cores = {
-      deleteMany: {}, // Deleta todas as cores antigas associadas ao produto
-      create: cores.map((corId) => ({ corId })) // Cria as novas relações com as cores enviadas
-    };
+    await prisma.produtoCor.deleteMany({ where: { produtoId } });
+    await Promise.all(
+      cores.map((corId) =>
+        prisma.produtoCor.create({
+          data: {
+            produtoId,
+            corId: parseInt(corId),
+          },
+        })
+      )
+    );
   }
 
-  // Atualiza o produto
-  return await prisma.produto.update({
+  // Atualizar imagens
+  if (imagens && imagens.length > 0) {
+    const imagensNoBanco = await prisma.imagemProduto
+      .findMany({
+        where: { produtoId },
+        select: { url: true },
+      })
+      .then((result) => result.map((img) => img.url));
+
+    // Remover o prefixo 'http://localhost:3333/' das imagens atuais
+    const imagensFormatadas = imagens.map((img) =>
+      img.startsWith("http://localhost:3333/")
+        ? img.replace("http://localhost:3333/", "")
+        : img
+    );
+
+    // Diferenciar imagens
+    const imagensParaManter = imagensFormatadas.filter((img) =>
+      imagensNoBanco.includes(img)
+    );
+    const novasImagens = imagensFormatadas.filter(
+      (img) => !imagensNoBanco.includes(img)
+    );
+
+    console.log("Imagens para manter:", imagensParaManter);
+    console.log("Novas imagens para adicionar:", novasImagens);
+
+    // Remove imagens que não estão na lista de manutenção
+    await prisma.imagemProduto.deleteMany({
+      where: { produtoId, url: { notIn: imagensParaManter } },
+    });
+
+    // Adicionar novas imagens
+    if (novasImagens.length > 0) {
+      await Promise.all(
+        novasImagens.map(async (url) => {
+          const novaImagem = await prisma.imagemProduto.create({
+            data: {
+              url,
+              produtoId,
+            },
+          });
+          console.log("Nova imagem vinculada:", novaImagem);
+        })
+      );
+    }
+  } else {
+    // Caso nenhuma imagem seja enviada, remova todas as imagens associadas ao produto
+    await prisma.imagemProduto.deleteMany({ where: { produtoId } });
+  }
+
+  // Atualizar os outros campos do produto
+  const produtoAtualizado = await prisma.produto.update({
     where: { id: produtoId },
     data: updateData,
     include: {
       imagens: true,
       categoria: true,
-      cores: true, // Inclui as cores no retorno
+      cores: { include: { cor: true } },
     },
   });
+
+  console.log("Produto atualizado com imagens vinculadas:", produtoAtualizado);
+
+  return produtoAtualizado;
 };
+
 export const deletarProduto = async (produtoId) => {
   try {
     // Verifique se o produto existe
@@ -208,7 +258,6 @@ export const deletarProduto = async (produtoId) => {
     }
 
     // 1. Desvincule o produto da categoria
-    console.log(`Desvinculando produto ${produtoId} da categoria.`);
     await prisma.produto.update({
       where: { id: produtoId },
       data: {
@@ -224,12 +273,10 @@ export const deletarProduto = async (produtoId) => {
     });
 
     if (produtoCorAssociado && produtoCorAssociado.length > 0) {
-      console.log(`Deletando ${produtoCorAssociado.length} associações de cor para o produto.`);
       await prisma.produtoCor.deleteMany({
         where: { produtoId },
       });
     } else {
-      console.log('Nenhuma associação de cor encontrada para este produto.');
     }
 
     // 3. Exclua as imagens associadas ao produto
@@ -238,12 +285,10 @@ export const deletarProduto = async (produtoId) => {
     });
 
     if (imagensAssociadas && imagensAssociadas.length > 0) {
-      console.log(`Deletando ${imagensAssociadas.length} imagens associadas ao produto.`);
       await prisma.imagemProduto.deleteMany({
         where: { produtoId },
       });
     } else {
-      console.log('Nenhuma imagem associada encontrada para este produto.');
     }
 
     // 4. Exclua os carrinhos que contêm esse produto
@@ -252,12 +297,10 @@ export const deletarProduto = async (produtoId) => {
     });
 
     if (carrinhosAssociados && carrinhosAssociados.length > 0) {
-      console.log(`Deletando ${carrinhosAssociados.length} carrinhos que contêm este produto.`);
       await prisma.carrinho.deleteMany({
         where: { produtoId },
       });
     } else {
-      console.log('Nenhum carrinho associado encontrado para este produto.');
     }
 
     // 5. Exclua os itens de pedidos que contêm esse produto
@@ -266,12 +309,10 @@ export const deletarProduto = async (produtoId) => {
     });
 
     if (pedidoItensAssociados && pedidoItensAssociados.length > 0) {
-      console.log(`Deletando ${pedidoItensAssociados.length} itens de pedidos associados ao produto.`);
       await prisma.pedidoItem.deleteMany({
         where: { produtoId },
       });
     } else {
-      console.log('Nenhum item de pedido associado encontrado para este produto.');
     }
 
     // 6. Exclua os pedidos que contêm apenas este produto
@@ -284,7 +325,6 @@ export const deletarProduto = async (produtoId) => {
     });
 
     if (pedidosComUnicoProduto && pedidosComUnicoProduto.length > 0) {
-      console.log(`Deletando ${pedidosComUnicoProduto.length} pedidos com apenas este produto.`);
       await prisma.pedido.deleteMany({
         where: {
           itens: {
@@ -293,21 +333,18 @@ export const deletarProduto = async (produtoId) => {
         },
       });
     } else {
-      console.log('Nenhum pedido exclusivo associado encontrado para este produto.');
     }
 
-
     // 7. Finalmente, exclua o produto
-    console.log(`Deletando produto com id ${produtoId}.`);
     await prisma.produto.delete({
       where: { id: produtoId },
     });
 
-    console.log(`Produto ${produtoId} deletado com sucesso.`);
-    return { message: 'Produto deletado com sucesso.' };
-
+    return { message: "Produto deletado com sucesso." };
   } catch (error) {
-    console.error('Erro ao deletar produto:', error);
-    throw new Error('Erro ao deletar produto. Por favor, tente novamente mais tarde.');
+    console.error("Erro ao deletar produto:", error);
+    throw new Error(
+      "Erro ao deletar produto. Por favor, tente novamente mais tarde."
+    );
   }
 };

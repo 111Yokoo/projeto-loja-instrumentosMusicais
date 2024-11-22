@@ -1,73 +1,100 @@
-.produto{
+.produto {
     background-color: #fff;
     border: 1px solid #6f5f40;
     width: 250px;
-    height: 525px;
     cursor: pointer;
-}
-.imagem{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+  }
+  
+  .imagem {
     width: 250px;
     height: 400px;
     border-bottom: 1px solid #6f5f40;
-}
-.imagem span{
+    position: relative;
+  }
+  
+  .coresAcima {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0.5rem; /* Espaço entre as cores e a imagem */
     position: absolute;
-}
-.imagemFoto{
+    top: 10px;
+    left: 0;
+    width: 100%;
+    z-index: 1;
+  }
+  
+  .coresAcima .cor {
+    width: 30px; /* Tamanho dos círculos das cores */
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid #6f5f40;
+    margin: 0 5px; /* Espaço entre os círculos */
+    cursor: pointer; /* Adiciona o cursor de ponteiro ao passar sobre as cores */
+  }
+  
+  .imagemFoto {
     width: 250px;
     height: 400px;
     border-bottom: 1px solid #6f5f40;
     position: relative;
     object-fit: cover;
-}
-.produtoDescricao{
+  }
+  
+  .produtoDescricao {
     padding: 15px;
-}
-.produtoParteOne{
+  }
+  
+  .produtoParteOne {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-}
-.produtoParteOne p{
+  }
+  
+  .produtoParteOne p {
     font-size: 12px;
-}
-.produtoParteOne span{
+  }
+  
+  .produtoParteOne span {
     font-size: 18px;
-}
-.cor{
-    right: 0;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    border: 1px solid #6f5f40;
-}
-.nomeProduto:hover{
+  }
+  
+  .cor {
+    /* Estilo da cor agora está ajustado para uma posição de controle acima da imagem */
+  }
+  
+  .nomeProduto:hover {
     text-decoration: underline;
-}
-
-@media (max-width: 960px) {
-    .produto{
-        width: 250px;
-        height: 500px;
+  }
+  
+  /* Estilos para dispositivos com largura máxima de 960px */
+  @media (max-width: 960px) {
+    .produto {
+      width: 240px; /* Ajuste a largura para telas menores */
+      min-height: 525px;
     }
   }
+  
+  /* Estilos para dispositivos com largura máxima de 622px */
   @media (max-width: 622px) {
-    .produto{
-        width: 200px !important;
-        height: 500px;
+    .produto {
+      width: 200px !important; /* Reduz a largura */
     }
-    .imagem{
-        width: 200px !important;
-        height: 400px;
+    .imagem {
+      width: 200px !important; /* Reduz a largura da imagem */
     }
   }
+  
+  /* Estilos para dispositivos com largura máxima de 518px */
   @media (max-width: 518px) {
-    .produto{
-        width: 250px !important;
-        height: 500px;
+    .produto {
+      width: 250px !important; /* Restabelece a largura para telas muito pequenas */
     }
-    .imagem{
-        width: 250px !important;
-        height: 400px;
+    .imagem {
+      width: 250px !important; /* Restabelece a largura da imagem */
     }
   }
+  

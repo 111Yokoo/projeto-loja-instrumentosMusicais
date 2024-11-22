@@ -33,7 +33,7 @@ export default function EditarProduto() {
         const produtoResponse = await api.get(`/produtos/${id}`);
         const produto = produtoResponse.data;
 
-        console.log(produto)
+        console.log(produto);
         setNomeProduto(produto.nome);
         setDescricao(produto.descricao);
         setTituloInformacao(produto.tituloInformacao);
@@ -43,7 +43,7 @@ export default function EditarProduto() {
         setCategoria(produto.categoriaId);
         setCoresSelecionadas(produto.cores || []);
         setCurrentImages(produto.imagens || []);
-        console.log(produto)
+        console.log(produto);
 
         const coresResponse = await api.get("/cores");
         setCores(coresResponse.data);
@@ -51,7 +51,9 @@ export default function EditarProduto() {
         const categoriasResponse = await api.get("/categorias");
         setCategorias(categoriasResponse.data);
       } catch (error) {
-        setError(error.response?.data?.message || "Erro ao carregar o produto.");
+        setError(
+          error.response?.data?.message || "Erro ao carregar o produto."
+        );
       } finally {
         setLoading(false); // Desativa o loading após a resposta
       }
@@ -83,54 +85,48 @@ export default function EditarProduto() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setLoading(true); // Ativa o loading
+    setLoading(true);
 
-    // Verifique se preço e estoque são números válidos
-    if (isNaN(preco) || isNaN(estoque)) {
-      setError("Preço e estoque devem ser números válidos.");
-      setLoading(false);
-      return;
-    }
+    const formData = new FormData();
 
-    // Extraindo apenas os IDs das cores selecionadas
-    const coresIds = coresSelecionadas.map(cor => cor.id); // Extrai apenas os IDs das cores
+    formData.append("nome", nomeProduto);
+    formData.append("preco", parseFloat(preco));
+    formData.append("estoque", parseInt(estoque));
+    formData.append("descricao", descricao);
+    formData.append("tituloInformacao", tituloInformacao);
+    formData.append("informacao", informacao);
+    formData.append("categoriaId", categoria);
 
-    // Preparando os dados para o envio
-    const produtoData = {
-      nome: nomeProduto,
-      preco: parseFloat(preco),
-      estoque: estoque,
-      descricao: descricao,
-      tituloInformacao: tituloInformacao,
-      informacao: informacao,
-      categoriaId: Number(categoria),
-      cores: coresIds, // Agora passando apenas os IDs das cores
-      imagens: [
-        ...currentImages,
-        ...Array.from(selectedImages).map((imagem) => `uploads/${imagem.lastModified}.png`), // Adiciona tanto as imagens atuais quanto as novas selecionadas (nomes dos arquivos)
-      ],
-    };
-    console.log(selectedImages)
+    // Adiciona IDs das cores selecionadas
+    coresSelecionadas.forEach((cor) => {
+      formData.append("cores", typeof cor === "object" ? cor.id : cor);
+    });
 
-    // Logando os dados do produto para conferir o formato
-    console.log("Dados a serem enviados:", produtoData);
+    // Adiciona imagens existentes (URLs)
+    currentImages.forEach((imageUrl) => {
+      formData.append("imagensAtuais", imageUrl);
+    });
+
+    // Adiciona novas imagens (arquivos)
+    Array.from(selectedImages).forEach((imagem) => {
+      formData.append("novasImagens", imagem);
+    });
 
     try {
-      // Envio da requisição PUT para atualizar o produto
-      await api.put(`/produtos/${id}`, produtoData, {
+      await api.put(`/produtos/${id}`, formData, {
         headers: {
-          "Content-Type": "application/json", // Indicando que estamos enviando JSON
+          "Content-Type": "multipart/form-data",
         },
       });
-
       setSuccessMessage("Produto atualizado com sucesso!");
     } catch (error) {
-      // Exibe a mensagem de erro detalhada
+      console.error("Erro no envio:", error.response || error);
       setError(error.response?.data?.message || "Erro ao atualizar o produto.");
     } finally {
-      setLoading(false); // Desativa o loading após a resposta
+      setLoading(false);
     }
   };
+
   return (
     <div className="criacao">
       <Header cor="#121212" />
@@ -173,7 +169,9 @@ export default function EditarProduto() {
         <section className="sessaoForms">
           <form onSubmit={handleSubmit}>
             <div className="buttonTrashProduct">
-              <button type="button" onClick={excluirProduto} disabled={loading}>🗑️ Excluir Produto</button>
+              <button type="button" onClick={excluirProduto} disabled={loading}>
+                🗑️ Excluir Produto
+              </button>
             </div>
             <div className="infosCriacao">
               <article className="inputGroupCriacao">
@@ -239,14 +237,25 @@ export default function EditarProduto() {
                         <input
                           type="checkbox"
                           value={cor.id}
-                          checked={coresSelecionadas.some((item) => item.id === cor.id)} // Verifica se o ID da cor está em coresSelecionadas
+                          checked={coresSelecionadas.some(
+                            (item) => item.id === cor.id
+                          )} // Verifica se o ID da cor está em coresSelecionadas
                           onChange={() => {
                             setCoresSelecionadas((prev) => {
                               if (prev.some((item) => item.id === cor.id)) {
-                                return prev.filter((item) => item.id !== cor.id);
+                                return prev.filter(
+                                  (item) => item.id !== cor.id
+                                );
                               } else {
                                 // Se o ID não estiver em coresSelecionadas, adicionamos o objeto completo
-                                return [...prev, { id: cor.id, nome: cor.nome, hexadecimal: cor.hexadecimal }];
+                                return [
+                                  ...prev,
+                                  {
+                                    id: cor.id,
+                                    nome: cor.nome,
+                                    hexadecimal: cor.hexadecimal,
+                                  },
+                                ];
                               }
                             });
                           }}
@@ -274,7 +283,9 @@ export default function EditarProduto() {
                       onChange={(e) => setCategoria(e.target.value)}
                       required
                     >
-                      <option value="" disabled>Selecione uma categoria</option>
+                      <option value="" disabled>
+                        Selecione uma categoria
+                      </option>
                       {categorias.map((categoria) => (
                         <option key={categoria.id} value={categoria.id}>
                           {categoria.nome}
@@ -318,7 +329,11 @@ export default function EditarProduto() {
                     {currentImages.length > 0 ? (
                       currentImages.map((imageUrl, index) => (
                         <div key={index} className="imageContainer">
-                          <img src={imageUrl} alt={`Imagem ${index}`} className="imagensEditarProduto" />
+                          <img
+                            src={imageUrl}
+                            alt={`Imagem ${index}`}
+                            className="imagensEditarProduto"
+                          />
                           <button
                             type="button"
                             onClick={() => removeCurrentImage(index)}
@@ -352,7 +367,11 @@ export default function EditarProduto() {
                     </div>
                   )}
                 </div>
-                <input type="submit" value="Atualizar Produto" disabled={loading} />
+                <input
+                  type="submit"
+                  value="Atualizar Produto"
+                  disabled={loading}
+                />
               </article>
             </div>
           </form>

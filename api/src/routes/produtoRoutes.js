@@ -34,6 +34,7 @@ router.post(
 // Rota para atualizar um produto (Admin Only)
 router.put(
   "/produtos/:produtoId",
+  upload.array("novasImagens", 10), // Middleware multer para processar as novas imagens
   verificarToken,
   verificarAdmin,
   editarProduto

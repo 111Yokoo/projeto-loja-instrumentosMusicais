@@ -19,8 +19,6 @@ export const criarProdutoController = async (req, res) => {
     cores,
   } = req.body;
 
-  console.log(cores);
-
   const imagens = req.files ? req.files.map((file) => file.path) : []; // Imagens como array vazio se não houver arquivos
 
   try {
@@ -38,7 +36,6 @@ export const criarProdutoController = async (req, res) => {
         ? cores.map((cor) => parseInt(cor))
         : [parseInt(cores)], // Transforma em array se for uma única cor
     });
-    console.log(produto);
 
     res.status(201).json(produto);
   } catch (error) {
@@ -71,16 +68,54 @@ export const obterProduto = async (req, res) => {
 
 export const editarProduto = async (req, res) => {
   const { produtoId } = req.params;
-  const dadosAtualizados = req.body;
+
+  console.log("files", req.files);
+  console.log("body", req.body);
+
+  // Processar imagens atuais (URLs) enviadas pelo frontend
+  const imagensAtuais = req.body.imagensAtuais
+    ? Array.isArray(req.body.imagensAtuais)
+      ? req.body.imagensAtuais
+      : [req.body.imagensAtuais]
+    : [];
+
+  // Processar novas imagens (arquivos enviados pelo multer)
+  const novasImagens = req.files ? req.files.map((file) => file.path) : [];
+
+  console.log("Imagens atuais recebidas:", imagensAtuais);
+  console.log("Novas imagens recebidas:", novasImagens);
 
   try {
-    const produto = await atualizarProduto(
-      parseInt(produtoId),
-      dadosAtualizados
-    );
-    res.json(produto);
+    // Valida o produtoId
+    const id = parseInt(produtoId);
+    if (isNaN(id)) {
+      return res.status(400).json({ error: "ID do produto inválido" });
+    }
+
+    // Combina as imagens atuais e novas
+    const imagens = [
+      ...(Array.isArray(imagensAtuais) ? imagensAtuais : []),
+      ...(Array.isArray(novasImagens) ? novasImagens : []),
+    ];
+
+    // Atualiza o produto
+    const produtoAtualizado = await atualizarProduto(id, {
+      ...req.body,
+      imagens,
+    });
+
+    // Retorna o produto atualizado
+    res.json(produtoAtualizado);
   } catch (error) {
-    return res.status(400).json({ error: error.message });
+    console.error("Erro ao atualizar produto:", {
+      mensagem: error.message,
+      stack: error.stack,
+      parametros: req.body,
+    });
+
+    res.status(400).json({
+      error: "Erro ao atualizar o produto. Verifique os dados enviados.",
+    });
   }
 };
 

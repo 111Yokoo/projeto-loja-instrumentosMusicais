@@ -74,7 +74,7 @@ const Sidebar = ({ isOpen, toggleSidebar, logado }) => {
             // Renderiza as categorias dinamicamente
             categorias.map((categoria) => (
               <li key={categoria.id}>
-                <Link to={`/categoria/${categoria.id}`} className="sidebar-link" onClick={handleLinkClick}>
+                <Link to={`/produtos/${categoria.id}`} className="sidebar-link" onClick={handleLinkClick}>
                   {categoria.nome}
                 </Link>
               </li>
