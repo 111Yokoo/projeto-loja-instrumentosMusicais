@@ -1,6 +1,10 @@
 # 🎸 Loja de Instrumentos Musicais
+![image](https://github.com/user-attachments/assets/cc9f2f10-fa2a-439c-bf4b-ef39837423f2)
 
 Este é um projeto Open Source desenvolvido para um e-commerce de instrumentos musicais. O site permite visualizar, pesquisar e adquirir diversos instrumentos, proporcionando uma experiência intuitiva e moderna. Desenvolvido utilizando React no front-end e Node.js para a API.
+
+![image](https://github.com/user-attachments/assets/e2fe4260-8215-4987-b1a5-70932cdb6d9b)
+
 
 ## 🚀 Tecnologias
 
